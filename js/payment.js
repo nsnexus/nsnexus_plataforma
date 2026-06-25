@@ -106,7 +106,7 @@ function initMercadoPagoSDK() {
     }
     
     // Replace 'YOUR_PUBLIC_KEY' with your real Mercado Pago public key credential
-    const mp = new MercadoPago('TEST-732386e8-2856-4273-9032-47517c588e7d', {
+    const mp = new MercadoPago('APP_USR-cec0c83c-014b-427d-811e-cea808d6b761', {
       locale: 'pt-BR'
     });
     
