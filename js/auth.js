@@ -127,9 +127,14 @@ function handleGoogleCredentialResponse(response) {
   }
 }
 
-// Simulated mock Google login button trigger
+// Simulated mock Google login button trigger (Interactive prompt for local testing)
 function triggerMockGoogleLogin() {
-  loginWithGoogle("Lucas Souza (Google)", "lucas.google@email.com", "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop");
+  const name = prompt("Simulador Google: Digite seu Nome:", "Seu Nome");
+  if (!name) return;
+  const email = prompt("Simulador Google: Digite seu E-mail:", "seuemail@email.com");
+  if (!email) return;
+  
+  loginWithGoogle(name, email, "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop");
   window.location.href = "dashboard.html";
 }
 
