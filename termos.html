@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Termos de Uso & Políticas de Privacidade — NSNexus</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  
+  <style>
+    .docs-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+      margin-top: var(--space-12);
+    }
+    
+    @media (min-width: 992px) {
+      .docs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    .doc-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .doc-card h2 {
+      font-size: var(--font-2xl);
+      color: var(--accent-cyan);
+      margin-bottom: var(--space-6);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: var(--space-4);
+      font-family: var(--font-heading);
+    }
+    
+    .doc-card h3 {
+      font-size: var(--font-lg);
+      color: var(--text-primary);
+      margin-top: var(--space-6);
+      margin-bottom: var(--space-2);
+    }
+    
+    .doc-card p {
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+      margin-bottom: var(--space-4);
+      line-height: 1.6;
+    }
+    
+    .doc-card ul {
+      list-style-type: disc;
+      padding-left: var(--space-6);
+      margin-bottom: var(--space-4);
+      font-size: var(--font-sm);
+      color: var(--text-secondary);
+    }
+    
+    .doc-card li {
+      margin-bottom: var(--space-2);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="container" style="padding-top: calc(var(--header-height) + var(--space-12)); padding-bottom: var(--space-24);">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+      <span class="accent-gradient" style="font-weight: 700; text-transform: uppercase; font-size: var(--font-sm); letter-spacing: 0.05em;">Segurança & Transparência</span>
+      <h1 style="font-size: var(--font-4xl); margin-top: var(--space-2); margin-bottom: var(--space-4);">Termos de Uso & Privacidade</h1>
+      <p>Leia atentamente as diretrizes de utilização da plataforma e a forma como protegemos e gerenciamos suas informações estudantis.</p>
+    </div>
+    
+    <div class="docs-grid">
+      <!-- Terms of Use Column -->
+      <div class="doc-card">
+        <h2>Termos de Uso</h2>
+        
+        <h3>1. Aceitação dos Termos</h3>
+        <p>Ao se registrar ou adquirir qualquer curso ou consultoria da NSNexus, você concorda em cumprir e estar vinculado aos termos descritos aqui. Caso discorde de qualquer parte deles, orientamos que interrompa o uso.</p>
+        
+        <h3>2. Propriedade Intelectual</h3>
+        <p>Todos os conteúdos fornecidos na plataforma, incluindo vídeos, arquivos PDF, designs de código HTML/JS, modelos DAX e documentações são de propriedade exclusiva da NSNexus. É expressamente proibido:</p>
+        <ul>
+          <li>Compartilhar credenciais de login com terceiros.</li>
+          <li>Distribuir, piratear ou vender materiais baixados da plataforma.</li>
+          <li>Reproduzir a metodologia comercial de consultoria sem autorização.</li>
+        </ul>
+        
+        <h3>3. Uso de Licenças</h3>
+        <p>Ao comprar um curso, você recebe uma licença individual, não exclusiva e intransferível para estudar o material. Códigos e modelos fornecidos podem ser adaptados e aplicados para uso no ambiente profissional do aluno.</p>
+        
+        <h3>4. Garantia e Reembolso</h3>
+        <p>A NSNexus oferece uma garantia de reembolso de 7 dias a contar da data da compra. Se o aluno não estiver satisfeito, pode solicitar o reembolso integral enviando uma solicitação formal.</p>
+      </div>
+      
+      <!-- Privacy Policy Column -->
+      <div class="doc-card">
+        <h2>Políticas de Privacidade</h2>
+        
+        <h3>1. Coleta de Informações</h3>
+        <p>Coletamos dados essenciais fornecidos por você para o funcionamento da plataforma:</p>
+        <ul>
+          <li>Dados cadastrais (Nome, e-mail e foto de perfil).</li>
+          <li>Dados de progresso de estudo (aulas assistidas e materiais baixados).</li>
+          <li>Informações de autenticação de provedores parceiros (ex: Google).</li>
+        </ul>
+        
+        <h3>2. Utilização dos Dados</h3>
+        <p>Os dados coletados são utilizados unicamente para personalizar sua experiência na área de membros, rastrear o progresso do seu curso e enviar comunicados importantes relacionados ao seu treinamento.</p>
+        
+        <h3>3. Compartilhamento com Terceiros</h3>
+        <p>A NSNexus não vende ou transfere suas informações a terceiros. As integrações com APIs externas (como a autenticação do Google) seguem os protocolos de segurança de tais plataformas.</p>
+        
+        <h3>4. Armazenamento e Cookies</h3>
+        <p>Armazenamos informações de login e preferências localmente no navegador (LocalStorage) e por meio de cookies seguros para manter sua sessão iniciada de maneira conveniente.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- JS Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

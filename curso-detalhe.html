@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Curso — NSNexus</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  
+  <style>
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    
+    @media (min-width: 992px) {
+      .detail-grid {
+        grid-template-columns: 1.8fr 1.2fr;
+      }
+    }
+    
+    .checkout-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-6));
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .checkout-card__price {
+      font-size: var(--font-4xl);
+      font-weight: 800;
+      color: var(--accent-cyan);
+      font-family: var(--font-heading);
+      margin-bottom: var(--space-2);
+    }
+    
+    .checkout-card__features {
+      margin: var(--space-6) 0;
+      border-top: 1px solid var(--border-color);
+      padding-top: var(--space-6);
+    }
+    
+    .checkout-card__feature {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+      color: var(--text-secondary);
+      font-size: var(--font-sm);
+    }
+    
+    .checkout-card__feature span {
+      color: var(--accent-cyan);
+    }
+  </style>
+</head>
+<body>
+
+  <section class="container" style="padding-top: calc(var(--header-height) + var(--space-12));" id="course-detail-container">
+    <div class="detail-grid">
+      <!-- Left Column: Details -->
+      <div>
+        <div style="margin-bottom: var(--space-6);">
+          <span id="detail-badge" class="badge">Categoria</span>
+        </div>
+        <h1 id="detail-title" style="font-size: var(--font-4xl); margin-bottom: var(--space-6); font-family: var(--font-heading); font-weight: 800; line-height: 1.15;">
+          Carregando Título...
+        </h1>
+        
+        <div style="aspect-ratio: 16/9; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border-color); margin-bottom: var(--space-8);">
+          <img id="detail-banner" src="" alt="Course banner" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        
+        <h2 style="font-size: var(--font-2xl); margin-bottom: var(--space-4);">O que você irá aprender</h2>
+        <p id="detail-desc" style="font-size: var(--font-base); margin-bottom: var(--space-8); color: var(--text-secondary);">
+          Carregando descrição detalhada...
+        </p>
+        
+        <h2 style="font-size: var(--font-2xl); margin-bottom: var(--space-6);">Grade Curricular / Conteúdo</h2>
+        <div id="detail-syllabus">
+          <!-- Accordion syllabus list will be injected dynamically -->
+        </div>
+      </div>
+      
+      <!-- Right Column: Purchase Card -->
+      <div>
+        <div class="checkout-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:var(--space-2);">
+            <span style="font-size:var(--font-xs); color:var(--text-muted); text-transform:uppercase; font-weight:600;">Investimento Único</span>
+            <span id="detail-original-price" style="text-decoration:line-through; font-size:var(--font-sm); color:var(--text-muted);">R$ 0,00</span>
+          </div>
+          <div id="detail-price" class="checkout-card__price">R$ 0,00</div>
+          <div style="font-size: var(--font-xs); color: var(--text-muted); margin-bottom: var(--space-6);">Garantia incondicional de 7 dias de satisfação</div>
+          
+          <button id="enroll-btn" class="btn btn-primary btn-full btn-lg">Comprar Agora</button>
+          
+          <div class="checkout-card__features">
+            <h4 style="font-size: var(--font-sm); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: var(--space-4);">Este treinamento inclui:</h4>
+            <div class="checkout-card__feature">
+              <span class="material-symbols-outlined">schedule</span>
+              <span>Acesso vitalício ao conteúdo</span>
+            </div>
+            <div class="checkout-card__feature">
+              <span class="material-symbols-outlined">menu_book</span>
+              <span id="detail-lessons">Carregando aulas...</span>
+            </div>
+            <div class="checkout-card__feature">
+              <span class="material-symbols-outlined">workspace_premium</span>
+              <span>Certificado de Conclusão de Competência</span>
+            </div>
+            <div class="checkout-card__feature">
+              <span class="material-symbols-outlined">distance</span>
+              <span id="detail-duration">Carregando duração...</span>
+            </div>
+            <div class="checkout-card__feature">
+              <span class="material-symbols-outlined">star</span>
+              <span id="detail-level">Carregando nível...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JS Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

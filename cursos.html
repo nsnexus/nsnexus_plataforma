@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos de Tecnologia Business-First — NSNexus</title>
+  
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  
+  <style>
+    .catalog-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+    
+    .search-wrapper {
+      position: relative;
+      flex-grow: 1;
+      max-width: 400px;
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: var(--space-4);
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    
+    .search-control {
+      padding-left: calc(var(--space-8) + var(--space-2));
+    }
+  </style>
+</head>
+<body>
+
+  <section class="container" style="padding-top: calc(var(--header-height) + var(--space-12));">
+    <div style="margin-bottom: var(--space-12); text-align: center;">
+      <span class="accent-gradient" style="font-weight: 700; text-transform: uppercase; font-size: var(--font-sm); letter-spacing: 0.05em;">Treinamentos NSNexus</span>
+      <h1 style="font-size: var(--font-4xl); margin-top: var(--space-2); margin-bottom: var(--space-4);">Formações Completas & Materiais Técnicos</h1>
+      <p style="max-width: 600px; margin: 0 auto;">Cursos projetados para colocar você no controle de decisões. Escolha seu ponto de partida e domine Power BI, Power Apps, SharePoint, IA e Sistemas Web.</p>
+    </div>
+    
+    <!-- Controls (Search and filters) -->
+    <div style="display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; gap: var(--space-4); margin-bottom: var(--space-8); border-bottom: 1px solid var(--border-color); padding-bottom: var(--space-6);">
+      <div class="catalog-filters">
+        <button class="btn btn-sm btn-primary filter-btn" data-category="all">Todos</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-category="power-bi">Power BI</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-category="power-apps">Power Apps</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-category="sharepoint">SharePoint</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-category="ia">IA</button>
+        <button class="btn btn-sm btn-secondary filter-btn" data-category="sistemas">Sistemas</button>
+      </div>
+      
+      <div class="search-wrapper">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" class="form-control search-control" id="catalog-search" placeholder="Buscar treinamentos...">
+      </div>
+    </div>
+    
+    <!-- Cards grid -->
+    <div class="card-grid" id="catalog-grid">
+      <!-- Injected dynamically by app.js -->
+    </div>
+  </section>
+
+  <!-- JS Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
