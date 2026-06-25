@@ -2,181 +2,65 @@
 
 const COURSES_DATA = [
   {
-    id: "curso-teste-1-real",
-    title: "Curso de Teste - Pagamento NSNexus",
-    description: "Produto criado exclusivamente para testar a integração de checkout do Mercado Pago na plataforma. O valor de investimento é de R$ 1,00.",
+    id: "biblioteca-prompts-ia",
+    title: "Biblioteca de Prompts NSNexus: IA para Negócios",
+    description: "Acesse nosso acervo completo com prompts estruturados de alta performance para ChatGPT, Claude e Microsoft Copilot. Automatize relatórios, analise dados de forma preditiva e otimize a rotina operacional da sua área.",
     price: 1.00,
-    originalPrice: 10.00,
-    duration: "1h",
-    lessonsCount: 2,
-    type: "video",
-    category: "sistemas",
-    badgeClass: "badge-systems",
-    badgeLabel: "Teste",
-    level: "Iniciante",
-    rating: 5.0,
-    reviewsCount: 1,
-    banner: "https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=600&auto=format&fit=crop",
-    syllabus: [
-      {
-        moduleTitle: "Módulo Único: Teste Geral",
-        lessons: [
-          { id: "teste-1", title: "Introdução ao Teste", duration: "5 min", type: "video" },
-          { id: "teste-2", title: "Conclusão do Teste", duration: "5 min", type: "video" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "pbi-basico-avancado",
-    title: "Power BI Business-First: Do Zero ao Dashboard Executivo",
-    description: "Esqueça fórmulas difíceis de decorar. Aprenda a modelar dados sob a ótica de negócios e crie dashboards que diretores realmente usam para tomar decisões.",
-    price: 497.00,
-    originalPrice: 997.00,
-    duration: "45h",
-    lessonsCount: 120,
-    type: "video",
-    category: "power-bi",
-    badgeClass: "badge-pbi",
-    badgeLabel: "Power BI",
-    level: "Iniciante ao Avançado",
-    rating: 4.9,
-    reviewsCount: 342,
-    banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
-    syllabus: [
-      {
-        moduleTitle: "Módulo 1: Mentalidade Business-First",
-        lessons: [
-          { id: "pbi-1-1", title: "O que o seu Diretor realmente quer ver?", duration: "12 min", type: "video" },
-          { id: "pbi-1-2", title: "Definindo Indicadores de Sucesso (KPIs)", duration: "18 min", type: "video" },
-          { id: "pbi-1-3", title: "Mapeamento de Processos e Fontes de Dados", duration: "15 min", type: "video" }
-        ]
-      },
-      {
-        moduleTitle: "Módulo 2: ETL e Modelagem de Dados",
-        lessons: [
-          { id: "pbi-2-1", title: "Power Query: Limpeza sem estresse", duration: "25 min", type: "video" },
-          { id: "pbi-2-2", title: "Modelagem Star Schema vs. Snowflake", duration: "30 min", type: "video" },
-          { id: "pbi-2-3", title: "Relacionamentos e Cardinalidade na Prática", duration: "20 min", type: "video" }
-        ]
-      },
-      {
-        moduleTitle: "Módulo 3: DAX com Analogias do Dia-a-Dia",
-        lessons: [
-          { id: "pbi-3-1", title: "O Porteiro VIP da Balada: Entendendo a CALCULATE", duration: "22 min", type: "video" },
-          { id: "pbi-3-2", title: "Medidas vs. Colunas Calculadas", duration: "15 min", type: "video" },
-          { id: "pbi-3-3", title: "Inteligência de Tempo sem mistério", duration: "28 min", type: "video" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "power-apps-sistemas",
-    title: "Power Apps & SharePoint: Criando Sistemas Corporativos Modernos",
-    description: "Substitua planilhas compartilhadas e processos manuais por aplicativos canvas integrados ao SharePoint List. 100% focado em usabilidade e design corporativo.",
-    price: 397.00,
-    originalPrice: 797.00,
-    duration: "35h",
-    lessonsCount: 88,
-    type: "video",
-    category: "power-apps",
-    badgeClass: "badge-apps",
-    badgeLabel: "Power Apps",
-    level: "Intermediário",
-    rating: 4.8,
-    reviewsCount: 198,
-    banner: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop",
-    syllabus: [
-      {
-        moduleTitle: "Módulo 1: Planejando seu Primeiro App Canvas",
-        lessons: [
-          { id: "apps-1-1", title: "UX/UI para Aplicativos Internos", duration: "15 min", type: "video" },
-          { id: "apps-1-2", title: "SharePoint como Banco de Dados do App", duration: "20 min", type: "video" }
-        ]
-      },
-      {
-        moduleTitle: "Módulo 2: Fórmulas de Controle e Lógica",
-        lessons: [
-          { id: "apps-2-1", title: "Power Fx: Filter, LookUp e Search", duration: "25 min", type: "video" },
-          { id: "apps-2-2", title: "Criando Telas de Cadastro e Edição", duration: "30 min", type: "video" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "sharepoint-portais",
-    title: "Portais e Intranets Modernas com SharePoint",
-    description: "Aprenda a estruturar o SharePoint Online da sua empresa. Crie intranets engajadoras, gerencie permissões corretas e integre com o ecossistema Microsoft.",
-    price: 247.00,
-    originalPrice: 497.00,
+    originalPrice: 97.00,
     duration: "20h",
-    lessonsCount: 50,
+    lessonsCount: 45,
     type: "pdf",
-    category: "sharepoint",
-    badgeClass: "badge-sharepoint",
-    badgeLabel: "SharePoint",
-    level: "Iniciante",
-    rating: 4.7,
-    reviewsCount: 114,
-    banner: "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?q=80&w=600&auto=format&fit=crop",
-    syllabus: [
-      {
-        moduleTitle: "Módulo 1: Estruturando o SharePoint do Zero",
-        lessons: [
-          { id: "sp-1-1", title: "Guia PDF: Arquitetura de Informação", duration: "45 pág", type: "pdf" },
-          { id: "sp-1-2", title: "Guia PDF: Controle de Acesso e Permissões", duration: "32 pág", type: "pdf" }
-        ]
-      }
-    ]
-  },
-  {
-    id: "ia-business",
-    title: "Inteligência Artificial Aplicada a Negócios e Automação",
-    description: "Utilize Copilots, ChatGPT, Power Automate e IA Builder para automatizar a leitura de PDFs, responder e-mails automáticos e gerar relatórios executivos.",
-    price: 597.00,
-    originalPrice: 1197.00,
-    duration: "50h",
-    lessonsCount: 140,
-    type: "video",
     category: "ia",
     badgeClass: "badge-ia",
-    badgeLabel: "IA",
-    level: "Avançado",
-    rating: 4.9,
-    reviewsCount: 228,
+    badgeLabel: "IA & Prompts",
+    level: "Todos os Níveis",
+    rating: 4.95,
+    reviewsCount: 184,
     banner: "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=600&auto=format&fit=crop",
     syllabus: [
       {
         moduleTitle: "Módulo 1: Fundamentos de Engenharia de Prompt",
         lessons: [
-          { id: "ia-1-1", title: "Prompts estruturados para análise de dados", duration: "20 min", type: "video" },
-          { id: "ia-1-2", title: "Construindo relatórios analíticos automáticos", duration: "25 min", type: "video" }
+          { id: "prompt-1-1", title: "Como Estruturar Prompts para Negócios", duration: "15 min", type: "video" },
+          { id: "prompt-1-2", title: "Biblioteca Completa de Prompts de Finanças, RH e Logística", duration: "82 pág", type: "pdf" }
+        ]
+      },
+      {
+        moduleTitle: "Módulo 2: Automação Inteligente de PDFs e Relatórios",
+        lessons: [
+          { id: "prompt-2-1", title: "Configurando Automações com IA Builder e Flow", duration: "32 min", type: "video" }
         ]
       }
     ]
   },
   {
-    id: "sistemas-web-html",
-    title: "Sistemas Web Corporativos com HTML, CSS e JS Puro",
-    description: "Crie sistemas corporativos leves que funcionam no SharePoint sem precisar de licenças caras do Power Apps. Foco em Vale Design System e usabilidade.",
-    price: 347.00,
-    originalPrice: 697.00,
-    duration: "30h",
-    lessonsCount: 75,
+    id: "sistemas-sharepoint-moderno",
+    title: "Criação de Sistemas Web no SharePoint Moderno",
+    description: "Substitua o Power Apps e economize com licenças extras. Aprenda a desenvolver portais corporativos, cadastros e intranets leves com HTML, CSS e JavaScript puro rodando diretamente dentro da infraestrutura do seu SharePoint.",
+    price: 197.00,
+    originalPrice: 497.00,
+    duration: "40h",
+    lessonsCount: 95,
     type: "video",
     category: "sistemas",
     badgeClass: "badge-systems",
-    badgeLabel: "Sistemas",
+    badgeLabel: "Sistemas & SharePoint",
     level: "Iniciante ao Avançado",
-    rating: 4.85,
-    reviewsCount: 89,
+    rating: 4.9,
+    reviewsCount: 142,
     banner: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
     syllabus: [
       {
-        moduleTitle: "Módulo 1: Setup do Projeto e HTML5 Semântico",
+        moduleTitle: "Módulo 1: Portais Modernos no SharePoint",
         lessons: [
-          { id: "sys-1-1", title: "Diferença entre Power Apps e Apps Web", duration: "18 min", type: "video" },
-          { id: "sys-1-2", title: "Boas práticas de estrutura e Semântica HTML", duration: "22 min", type: "video" }
+          { id: "sys-sp-1-1", title: "Introdução à hospedagem de apps web no Modern Page", duration: "25 min", type: "video" },
+          { id: "sys-sp-1-2", title: "Conectando Formulários HTML ao SharePoint Lists", duration: "38 min", type: "video" }
+        ]
+      },
+      {
+        moduleTitle: "Módulo 2: Segurança e Controle de Acessos",
+        lessons: [
+          { id: "sys-sp-2-1", title: "Permissões nativas baseadas em grupos do Azure AD", duration: "30 min", type: "video" }
         ]
       }
     ]
