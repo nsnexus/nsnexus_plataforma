@@ -181,6 +181,19 @@
         window.location.href = "dashboard.html";
       }
     }
+
+    // Auto-detect and show real Google Sign-In button if client ID is configured
+    document.addEventListener("DOMContentLoaded", () => {
+      const gIdOnload = document.getElementById("g_id_onload");
+      if (gIdOnload) {
+        const clientId = gIdOnload.getAttribute("data-client_id");
+        if (clientId && !clientId.includes("YOUR_GOOGLE_CLIENT_ID")) {
+          document.getElementById("google-sdk-container").style.display = "flex";
+          const mockBtn = document.querySelector("button[onclick='triggerMockGoogleLogin()']");
+          if (mockBtn) mockBtn.style.display = "none";
+        }
+      }
+    });
   </script>
 </body>
 </html>
