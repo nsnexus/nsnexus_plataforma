@@ -182,14 +182,7 @@ function initDetailPage() {
         window.location.href = "login.html";
         return;
       }
-
-      if (!user.enrolledCourses.includes(courseId)) {
-        user.enrolledCourses.push(courseId);
-        user.progress[courseId] = { completedLessons: [], percentage: 0 };
-        localStorage.setItem("nsnexus_user", JSON.stringify(user));
-      }
-
-      window.location.href = "dashboard.html";
+      window.location.href = `checkout.html?id=${courseId}`;
     });
   }
 }
