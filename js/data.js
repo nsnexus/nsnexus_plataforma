@@ -5,8 +5,9 @@ const COURSES_DATA = [
     id: "biblioteca-prompts-ia",
     title: "Biblioteca de Prompts NSNexus: IA para Negócios",
     description: "Acesse nosso acervo completo com prompts estruturados de alta performance para ChatGPT, Claude e Microsoft Copilot. Automatize relatórios, analise dados de forma preditiva e otimize a rotina operacional da sua área.",
-    price: 1.00,
-    originalPrice: 97.00,
+    price: 99.00,
+    originalPrice: 197.00,
+    paymentLink: "https://link.mercadopago.com.br/nsnexusprompts", // Substitua pelo link de R$ 99,00 gerado no seu painel do Mercado Pago
     duration: "20h",
     lessonsCount: 45,
     type: "pdf",
@@ -39,6 +40,7 @@ const COURSES_DATA = [
     description: "Substitua o Power Apps e economize com licenças extras. Aprenda a desenvolver portais corporativos, cadastros e intranets leves com HTML, CSS e JavaScript puro rodando diretamente dentro da infraestrutura do seu SharePoint.",
     price: 197.00,
     originalPrice: 497.00,
+    paymentLink: "https://link.mercadopago.com.br/nsnexussharepoint", // Substitua pelo link de R$ 197,00 gerado no seu painel do Mercado Pago
     duration: "40h",
     lessonsCount: 95,
     type: "video",

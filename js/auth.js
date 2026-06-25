@@ -138,5 +138,33 @@ function triggerMockGoogleLogin() {
   window.location.href = "dashboard.html";
 }
 
+// Check for Mercado Pago return query strings to dynamically unlock courses/products
+function checkPaymentReturn() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get("status") || urlParams.get("payment_status");
+  const courseId = urlParams.get("course") || urlParams.get("courseId") || urlParams.get("id");
+  
+  if (status === "approved" && courseId) {
+    const userData = localStorage.getItem("nsnexus_user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (!user.enrolledCourses.includes(courseId)) {
+        user.enrolledCourses.push(courseId);
+        if (!user.progress) user.progress = {};
+        user.progress[courseId] = { completedLessons: [], percentage: 0 };
+        localStorage.setItem("nsnexus_user", JSON.stringify(user));
+        
+        // Clean URL parameters using history API to prevent popups on reload
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+        
+        alert("Seu pagamento foi confirmado com sucesso! O acesso ao produto foi liberado.");
+        window.location.reload();
+      }
+    }
+  }
+}
+
 // Check route permission immediately when auth.js is loaded
 checkRouteGuard();
+checkPaymentReturn();

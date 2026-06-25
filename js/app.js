@@ -182,7 +182,11 @@ function initDetailPage() {
         window.location.href = "login.html";
         return;
       }
-      window.location.href = `checkout.html?id=${courseId}`;
+      if (course && course.paymentLink) {
+        window.location.href = course.paymentLink;
+      } else {
+        window.location.href = `checkout.html?id=${courseId}`;
+      }
     });
   }
 }
@@ -245,8 +249,8 @@ function initDashboardPage() {
               </div>
               
               <div class="course-card__footer" style="border: none; padding: 0;">
-                <a href="player.html?course=${course.id}" class="btn btn-primary btn-full">
-                  ${progress > 0 ? "Continuar Estudando" : "Começar Curso"}
+                <a href="${course.id === 'biblioteca-prompts-ia' ? 'biblioteca-prompts.html' : 'player.html?course=' + course.id}" class="btn btn-primary btn-full">
+                  ${course.id === 'biblioteca-prompts-ia' ? 'Acessar Biblioteca' : (progress > 0 ? "Continuar Estudando" : "Começar Curso")}
                 </a>
               </div>
             </div>

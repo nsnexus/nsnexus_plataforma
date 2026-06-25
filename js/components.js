@@ -21,6 +21,7 @@ function renderNavbar() {
   const path = window.location.pathname;
   const isIndex = path.endsWith("/") || path.endsWith("index.html") || path === "";
   const isCursos = path.includes("cursos.html") || path.includes("curso-detalhe.html");
+  const isBiblioteca = path.includes("biblioteca-prompts.html");
   const isServicos = path.includes("servicos.html");
   const isSobre = path.includes("sobre.html");
 
@@ -34,6 +35,7 @@ function renderNavbar() {
         <ul class="nav__list">
           <li><a href="index.html" class="nav__link ${isIndex ? 'nav__link--active' : ''}">Início</a></li>
           <li><a href="cursos.html" class="nav__link ${isCursos ? 'nav__link--active' : ''}">Cursos</a></li>
+          <li><a href="biblioteca-prompts.html" class="nav__link ${isBiblioteca ? 'nav__link--active' : ''}">Prompts</a></li>
           <li><a href="servicos.html" class="nav__link ${isServicos ? 'nav__link--active' : ''}">Consultoria</a></li>
           <li><a href="sobre.html" class="nav__link ${isSobre ? 'nav__link--active' : ''}">Sobre</a></li>
         </ul>
@@ -66,6 +68,7 @@ function renderNavbar() {
     <ul class="mobile-nav__list">
       <li><a href="index.html" class="mobile-nav__link">Início</a></li>
       <li><a href="cursos.html" class="mobile-nav__link">Cursos</a></li>
+      <li><a href="biblioteca-prompts.html" class="mobile-nav__link">Prompts</a></li>
       <li><a href="servicos.html" class="mobile-nav__link">Consultoria</a></li>
       <li><a href="sobre.html" class="mobile-nav__link">Sobre</a></li>
     </ul>
@@ -138,6 +141,7 @@ function renderFooter() {
           <ul class="footer__links">
             <li><a href="index.html" class="footer__link">Início</a></li>
             <li><a href="cursos.html" class="footer__link">Cursos</a></li>
+            <li><a href="biblioteca-prompts.html" class="footer__link">Biblioteca de Prompts</a></li>
             <li><a href="servicos.html" class="footer__link">Consultoria</a></li>
             <li><a href="sobre.html" class="footer__link">Sobre</a></li>
           </ul>
