@@ -2,6 +2,32 @@
 
 const COURSES_DATA = [
   {
+    id: "curso-teste-1-real",
+    title: "Curso de Teste - Pagamento NSNexus",
+    description: "Produto criado exclusivamente para testar a integração de checkout do Mercado Pago na plataforma. O valor de investimento é de R$ 1,00.",
+    price: 1.00,
+    originalPrice: 10.00,
+    duration: "1h",
+    lessonsCount: 2,
+    type: "video",
+    category: "sistemas",
+    badgeClass: "badge-systems",
+    badgeLabel: "Teste",
+    level: "Iniciante",
+    rating: 5.0,
+    reviewsCount: 1,
+    banner: "https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=600&auto=format&fit=crop",
+    syllabus: [
+      {
+        moduleTitle: "Módulo Único: Teste Geral",
+        lessons: [
+          { id: "teste-1", title: "Introdução ao Teste", duration: "5 min", type: "video" },
+          { id: "teste-2", title: "Conclusão do Teste", duration: "5 min", type: "video" }
+        ]
+      }
+    ]
+  },
+  {
     id: "pbi-basico-avancado",
     title: "Power BI Business-First: Do Zero ao Dashboard Executivo",
     description: "Esqueça fórmulas difíceis de decorar. Aprenda a modelar dados sob a ótica de negócios e crie dashboards que diretores realmente usam para tomar decisões.",
