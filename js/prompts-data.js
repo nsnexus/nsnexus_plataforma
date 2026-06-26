@@ -1,4 +1,4 @@
-/* Database of 1100+ AI Prompts for NSNexus Platform */
+/* Database of 2700+ AI Prompts for NSNexus Platform */
 
 const PROMPT_CATEGORIES = {
   "imagens": { label: "Criação de Imagens", icon: "image" },
@@ -36,8 +36,24 @@ const PROMPT_NICHES = [
   { name: "Pet Shop Online", value: "clube de assinatura de rações e brinquedos biodegradáveis para pets" },
   { name: "Arquitetura & Design", value: "projetos de interiores sustentáveis e residenciais modernos" },
   { name: "Desenvolvimento de Software", value: "fábrica de softwares e integrações personalizadas de sistemas" },
-  { name: "Energia Solar", value: "instalação e assinatura de projetos de energia solar residencial" }
+  { name: "Energia Solar", value: "instalação e assinatura de projetos de energia solar residencial" },
+  { name: "Criador no Kwai (Dicas & Humor)", value: "criador de vídeos curtos no Kwai focado em humor do cotidiano e dicas rápidas" },
+  { name: "Tiktoker de Finanças (FinTok)", value: "tiktoker de finanças simplificadas e dicas de investimento para jovens" },
+  { name: "Youtuber de Tecnologia", value: "canal de tecnologia no YouTube com reviews e tutoriais passo-a-passo" },
+  { name: "Instagram de Estilo de Vida", value: "perfil do Instagram voltado para lifestyle, rotina produtiva e bem-estar" },
+  { name: "Criador Kwai (Receitas Rápidas)", value: "criador de conteúdo no Kwai focado em receitas práticas de 1 minuto" },
+  { name: "Tiktoker de Curiosidades", value: "canal de curiosidades científicas e fatos interessantes no TikTok" },
+  { name: "Youtuber de Desenvolvimento Pessoal", value: "canal do YouTube focado em resumos de livros e desenvolvimento pessoal" },
+  { name: "Instagram de Nutrição", value: "perfil profissional no Instagram de nutrição clínica e receitas saudáveis" },
+  { name: "Tiktoker de Maquiagem & Beleza", value: "criadora de conteúdo no TikTok focada em tutoriais de automaquiagem e beleza" },
+  { name: "Youtuber de Games & Streamer", value: "canal de games no YouTube focado em análises de jogos e cortes de lives" },
+  { name: "Instagram de Viagens", value: "perfil no Instagram com roteiros de viagens baratas e turismo de aventura" },
+  { name: "Criador Kwai (Cortes de Podcasts)", value: "canal no Kwai de cortes de podcasts lendários e momentos inspiradores" },
+  { name: "Tiktoker de Danças & Trends", value: "tiktoker focado em coreografias virais e trends musicais do momento" },
+  { name: "Youtuber de Marketing Digital", value: "canal do YouTube voltado para estratégias de vendas online e tráfego pago" },
+  { name: "Instagram de Organização & Home Office", value: "perfil no Instagram de organização pessoal, rotina de home office e decoração" }
 ];
+
 
 const BASE_TEMPLATES = {
   "imagens": [
@@ -87,7 +103,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Ideias de Vídeos de Bastidores de Alta Conversão para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Gere um plano com 3 ideias de roteiros baseados em 'bastidores' para [Value]. As ideias devem gerar credibilidade imediata e focar em como resolvemos os problemas críticos dos clientes na prática. Inclua diretrizes de gravação e sugestão de trilha sonora."
     },
@@ -99,7 +115,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Roteiro Panorâmico Explicativo B2B para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Escreva um roteiro técnico-explicativo voltado para tomadores de decisão em empresas tradicionais sobre a importância de implementar [Value]. O tom deve ser corporativo, seguro e pragmático, destacando o Retorno sobre o Investimento (ROI)."
     }
@@ -119,7 +135,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Estrutura de Podcast Educativo de 1 Episódio para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Desenvolva a pauta completa e roteiro de introdução para um episódio de podcast corporativo focado em debater as tendências de mercado para [Value]. Inclua perguntas abertas para os entrevistados e ganchos comerciais integrados no meio."
     },
@@ -145,7 +161,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Estratégia de 5 Shorts/Reels Rápidos para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Desenvolva uma grade de 5 ideias de conteúdos de 15 segundos para Reels/TikTok sobre [Value]. Cada vídeo deve cobrir uma dica rápida e visual que o usuário consiga testar imediatamente. Inclua hashtags e sugestões de áudios em alta."
     },
@@ -163,7 +179,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Gancho de Alto Engajamento e Script de Retenção para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie 10 variações de ganchos virais específicos para o nicho de [Value] baseados em gatilhos psicológicos como curiosidade, medo de perder a oportunidade (FOMO) e contraste ('Antes vs Depois'). Acompanhe cada gancho com a estrutura da primeira frase."
     }
@@ -177,7 +193,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Roteiro Completo para Vídeo Tutorial de 10 Minutos sobre [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva a estrutura detalhada de roteiro de 10 minutos para um vídeo explicativo passo-a-passo sobre [Value]. Inclua introdução, quebra de conteúdo em 4 partes lógicas, momentos para piadas ou quebras de padrão e Call to Action para inscrição na newsletter."
     },
@@ -189,7 +205,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Roteiro de Vídeo estilo 'Análise/Review' Técnico de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Escreva um roteiro neutro e detalhado analisando os pontos positivos, negativos e o custo-benefício de se investir em soluções de [Value]. Use linguagem técnica mas acessível, posicionando-se como especialista imparcial."
     },
@@ -215,13 +231,13 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Script para Sequência de 5 Stories Interativos de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Iniciante",
       prompt: "Planeje uma sequência lógica de 5 Stories para o Instagram focado em engajar o público sobre [Value]. Use enquetes, caixas de perguntas e barras de reação estratégica para qualificar leads no processo de compra."
     },
     {
       title: "Planejamento Mensal de Linha Editorial para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie uma matriz de conteúdo completa para 30 dias de Instagram para posicionamento de autoridade em [Value]. Divida os posts em 3 pilares principais: Educação, Conexão Humana e Prova Social de Resultados."
     },
@@ -235,7 +251,7 @@ const BASE_TEMPLATES = {
   "linkedin": [
     {
       title: "Artigo de Opinião Profissional (Thought Leadership) sobre [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva um post no LinkedIn focado em posicionamento executivo de autoridade discutindo os desafios antigos e novos enfrentados no mercado de [Value]. Use tom analítico, elegante, corporativo, e apresente dados fictícios realistas de mercado."
     },
@@ -247,7 +263,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Post de Celebração de Resultados e Case de Sucesso em [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Escreva um texto para o LinkedIn celebrando o encerramento bem-sucedido de um projeto focado em implantar [Value]. O tom deve ser de gratidão ao time, focando nas métricas alcançadas e lições aprendidas durante o processo."
     },
@@ -259,7 +275,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Mensagem Fria de Prospecção Comercial no LinkedIn (InMail) para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva um modelo de mensagem direta (InMail) curto e extremamente profissional para abordar Diretores ou Gerentes de Operações e propor soluções de [Value]. O foco deve ser em gerar um call de 15 minutos para diagnóstico."
     }
@@ -267,7 +283,7 @@ const BASE_TEMPLATES = {
   "copywriting": [
     {
       title: "Landing Page com Estrutura de Copy Completa para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva a estrutura de texto completa para uma landing page de vendas de alta conversão de [Value]. Inclua: Headline (título principal), Sub-headline, Apresentação da Dor, Nossa Solução, Seção de Benefícios detalhados, FAQ e Botões de CTA."
     },
@@ -285,7 +301,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Script para Remarketing Digital Segmentado para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Escreva uma copy para remarketing focada em quebrar as objeções de preço e tempo de potenciais clientes que visitaram a página de [Value] mas não compraram. Use depoimentos de sucesso como sustentação lógica."
     },
@@ -299,7 +315,7 @@ const BASE_TEMPLATES = {
   "email": [
     {
       title: "Sequência de Integração e Onboarding (Email) para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie uma sequência automatizada de 3 emails pós-cadastro para leads interessados em entender mais sobre [Value]. Email 1: Boas-vindas e entrega de material gratuito. Email 2: Estudo de caso real. Email 3: Chamada para demonstração."
     },
@@ -323,7 +339,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "E-mail Frio de Prospecção Industrial (Cold Mail) para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva um cold mail de alta conversão estruturado para CEOs ou CFOs de médias empresas tradicionais, demonstrando como nossa expertise em [Value] pode reduzir os custos de produção em pelo menos 15%. Seja curto e direto."
     }
@@ -331,7 +347,7 @@ const BASE_TEMPLATES = {
   "seo": [
     {
       title: "Briefing de Conteúdo Completo para Blogpost de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Crie um briefing completo de escrita para redatores focando em produzir um post de blog de 1500 palavras sobre as melhores práticas de [Value]. Defina a palavra-chave principal, secundárias, estrutura de H2/H3 e a intenção de busca (search intent)."
     },
@@ -343,7 +359,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Análise de Intenção de Busca e Cluster de Conteúdo para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Desenvolva uma tabela de clusters de conteúdo para mapear todas as palavras-chave que um cliente em potencial de [Value] busca no Google. Divida as colunas em: Palavra-chave, Volume de Busca (Intenção), Estágio do Funil (TOFU/MOFU/BOFU) e Ideia de Título."
     },
@@ -355,7 +371,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Análise Semântica de Concorrentes Organicos de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Explique como mapear as falhas de conteúdo (content gaps) de concorrentes diretos que escrevem artigos sobre [Value]. Crie uma lista de perguntas frequentes do público (People Also Ask) que os concorrentes deixaram de responder."
     }
@@ -369,13 +385,13 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Plano de Ação para Definição e Acompanhamento de OKRs de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Desenvolva o planejamento estratégico de OKRs (Objectives and Key Results) para o próximo trimestre corporativo de uma empresa de [Value]. Crie 2 objetivos principais e 3 resultados-chave operacionais mensuráveis por objetivo."
     },
     {
       title: "Roteiro de Pitch Deck para Apresentação a Investidores de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Estruture o roteiro e o conteúdo slide-a-slide de uma apresentação de Pitch Deck (10 slides) focando em captar investimentos de rodada Seed para expandir nossas soluções de [Value]. Enfatize o tamanho do mercado (TAM, SAM, SOM)."
     },
@@ -407,7 +423,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Otimização de Algoritmo de Performance e Busca para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Analise e melhore a complexidade de tempo de execução (Big O) de uma rotina escrita em Python focado em processar cadastros operacionais de [Value]. Otimize loops desnecessários e use estruturas de dados eficientes."
     },
@@ -419,7 +435,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Setup Completo de Pipeline CI/CD (GitHub Actions) de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie um arquivo YAML de configuração para o GitHub Actions que automatize o build, execução de testes unitários e deploy automático na nuvem de uma aplicação focada em gerenciar sistemas de [Value]."
     }
@@ -433,7 +449,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Estrutura de Modelagem Star Schema Otimizada para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Explique em detalhes como modelar as tabelas fato e dimensão no Power BI seguindo as melhores práticas de Star Schema de Ralph Kimball, para gerenciar métricas complexas de [Value]. Evite tabelas relacionais bidirecionais."
     },
@@ -451,7 +467,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Planejamento de RLS (Row-Level Security) de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie um guia estratégico de implementação de segurança a nível de linha (Row-Level Security - RLS) dinâmico no Power BI, garantindo que gestores regionais de [Value] enxerguem apenas os dados de suas respectivas filiais corporativas."
     }
@@ -465,7 +481,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Script para Editor Web Part Moderno (HTML/CSS/JS) no SharePoint para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva um código em HTML, CSS e JavaScript puro (Vanilla JS) que crie um componente interativo de controle de dados corporativos sobre [Value], projetado para rodar nativamente dentro de um Modern Script Editor no SharePoint Online."
     },
@@ -483,7 +499,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Customização Avançada de Formulários do SharePoint com JSON para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie um esquema de configuração JSON pronto para aplicar na visualização de formulário nativo (List Form Customization) do SharePoint, organizando as colunas de cadastro de [Value] em blocos visuais e seções modernas."
     }
@@ -497,7 +513,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Automação Completa de Emissão de Propostas com IA Builder e Flow de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie o blueprint de automação do Power Automate que: 1. Monitora uma pasta do SharePoint. 2. Lê dados de faturas brutos usando IA Builder. 3. Preenche um template Word corporativo de [Value]. 4. Salva em PDF e envia para o e-mail do cliente."
     },
@@ -515,7 +531,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Fluxo no Make.com para Monitoramento de Menções Sociais de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva a lógica para criar um cenário no Make.com que capture menções ou reclamações sobre marcas concorrentes de [Value] no Twitter/Instagram, analise o sentimento do texto com IA e adicione os leads qualificados em uma planilha."
     }
@@ -535,13 +551,13 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Estrutura de Roteiro e Slides para Curso de E-learning de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva a estrutura de tópicos de uma aula teórica em vídeo de 20 minutos sobre [Value]. Inclua os bullet points dos slides visuais, ganchos didáticos para reter o estudante e exemplos práticos baseados em analogias do cotidiano."
     },
     {
       title: "Simulação de Estudo de Caso Prático e Real para Exercício de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Desenvolva um problema de negócios fictício simulando uma empresa em crise e peça ao estudante para propor uma solução estruturada utilizando ferramentas de [Value]. Forneça as bases de dados iniciais sugeridas."
     },
@@ -555,13 +571,13 @@ const BASE_TEMPLATES = {
   "marketing": [
     {
       title: "Estratégia Completa de Lançamento de Infoproduto/Serviço em [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie a estratégia completa de marketing digital passo-a-passo de 3 fases (Pré-lançamento, Lançamento e Pós-venda) para comercializar e validar no mercado nacional uma solução premium focada em [Value]."
     },
     {
       title: "Planejamento Estratégico de Tráfego Pago e Distribuição para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Desenvolva a estrutura de distribuição de orçamento mensal entre campanhas de Google Ads, Meta Ads e LinkedIn Ads para obter leads qualificados interessados em contratar os serviços profissionais de [Value]."
     },
@@ -579,7 +595,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Script de Roteiro de Webinar ao Vivo de Vendas de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Escreva la pauta completa e estruturada de uma apresentação ao vivo de 45 minutos. O objetivo é engajar a audiência ensinando um conteúdo prático sobre [Value] e fechar com uma oferta irresistível no final."
     }
@@ -599,13 +615,13 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Planejamento Lógico de Programa de Onboarding de 30 dias para [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Desenvolva o plano estratégico detalhado de integração de 30 dias para novos colaboradores que trabalharão em áreas que lidam diretamente com o controle e manutenção de sistemas de [Value]. Defina metas semanais claras."
     },
     {
       title: "Guia de Avaliação de Desempenho e Metas Individuais (PDI) em [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Crie uma matriz estruturada para Planos de Desenvolvimento Individual (PDI) focada em acelerar as habilidades técnicas de funcionários que necessitam dominar ferramentas operacionais voltadas para [Value]."
     },
@@ -631,7 +647,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Checklist de Atendimento e Triagem de Incidentes Técnicos de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Crie um documento padrão de procedimentos operacionais (SOP) para que analistas de suporte façam a triagem rápida de erros e bugs reportados por usuários em sistemas corporativos que rodam soluções de [Value]."
     },
@@ -643,7 +659,7 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Guia de Treinamento e Empatia para Times de Helpdesk de [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Intermediário",
       prompt: "Escreva um guia com princípios de comunicação não-violenta e de escuta ativa adaptados para atendentes de suporte que lidam diariamente com usuários frustrados com erros operacionais em softwares de [Value]."
     }
@@ -651,13 +667,13 @@ const BASE_TEMPLATES = {
   "avancado": [
     {
       title: "Mega-Prompt de Persona Especialista Interativa para [Niche]",
-      aiModel: "ChatGPT / Claude",
+      aiModel: "ChatGPT / Gemini",
       difficulty: "Avançado",
       prompt: "Você atuará como um consultor sênior de altíssimo nível especializado em implantar e escalar soluções operacionais de [Value]. Seu objetivo é analisar minhas dores de negócio, me fazer perguntas de diagnóstico e estruturar o plano ideal. Só responda me fazendo a primeira pergunta técnica."
     },
     {
       title: "Prompt Baseado em Framework de Prompt Avançado 'CARE' para [Niche]",
-      aiModel: "ChatGPT / Claude",
+      aiModel: "ChatGPT / Gemini",
       difficulty: "Avançado",
       prompt: "Context: Estou desenvolvendo e implementando o modelo operacional de [Value] em uma empresa tradicional de 150 funcionários.\nAction: Desenhe o plano de migração lógica e mapeamento de dados.\nRules: Responda em tópicos claros, evite jargões teóricos e separe em 3 etapas de 15 dias.\nExample: Enfatize o ROI de pelo menos 18% ao ano."
     },
@@ -669,20 +685,20 @@ const BASE_TEMPLATES = {
     },
     {
       title: "Prompt de Cadeia de Pensamento (Chain-of-Thought) para Diagnóstico em [Niche]",
-      aiModel: "Claude 3.5 Sonnet",
+      aiModel: "Gemini 1.5 Pro",
       difficulty: "Avançado",
       prompt: "Resolva o desafio de otimização de faturamento de uma empresa de [Value] pensando passo-a-passo. Descreva seu raciocínio preliminar de custos fixos, análise a alocação de mão de obra direta, identifique gargalos operacionais ocultos e somente no final forneça o plano consolidado de ações."
     },
     {
       title: "Prompt de Refinamento Iterativo de Ideias de Negócio em [Niche]",
-      aiModel: "ChatGPT / Claude",
+      aiModel: "ChatGPT / Gemini",
       difficulty: "Intermediário",
       prompt: "Analise a minha proposta de valor inicial para [Value] e atue como o meu crítico mais severo. Encontre 5 vulnerabilidades lógicas no meu pitch de vendas, identifique objeções de preço e me force a justificar as margens de lucro propostas."
     }
   ]
 };
 
-// Generates exactly 1200 unique prompts by matching 20 categories * 5 templates * 12 niches
+// Generates exactly 2700 unique prompts by matching 20 categories * 5 templates * 27 niches
 function generatePromptsDatabase() {
   const database = [];
   const categoriesList = Object.keys(PROMPT_CATEGORIES);
@@ -726,7 +742,7 @@ function generatePromptsDatabase() {
   return database;
 }
 
-// Global variable containing the 1200 structured prompts
+// Global variable containing the 2700 structured prompts
 const PROMPTS_DATABASE = generatePromptsDatabase();
 
 console.log(`NSNexus database initialized with ${PROMPTS_DATABASE.length} prompts.`);

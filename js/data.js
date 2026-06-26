@@ -4,12 +4,13 @@ const COURSES_DATA = [
   {
     id: "biblioteca-prompts-ia",
     title: "Biblioteca de Prompts NSNexus: IA para Negócios",
-    description: "Acesse nosso acervo completo com prompts estruturados de alta performance para ChatGPT, Claude e Microsoft Copilot. Automatize relatórios, analise dados de forma preditiva e otimize a rotina operacional da sua área.",
+    description: "Acesse nosso acervo completo com prompts estruturados de alta performance para ChatGPT, Gemini e Microsoft Copilot. Automatize relatórios, analise dados de forma preditiva e otimize a rotina operacional da sua área.",
     price: 99.00,
     originalPrice: 197.00,
     paymentLink: "https://mpago.la/2aRktmV", // Link de pagamento real de R$ 99,00 do Mercado Pago
     duration: "23 Categorias",
-    lessonsCount: "+1.200 Prompts",
+    lessonsCount: "+2.500 Prompts",
+    instructor: "Criado por especialistas em IA",
     type: "pdf",
     category: "ia",
     badgeClass: "badge-ia",
@@ -33,17 +34,18 @@ const COURSES_DATA = [
   {
     id: "sistemas-sharepoint-moderno",
     title: "Criação de Sistemas Web no SharePoint Moderno",
-    description: "Substitua o Power Apps e economize com licenças extras. Aprenda a desenvolver portais corporativos, cadastros e intranets leves com HTML, CSS e JavaScript puro rodando diretamente dentro da infraestrutura do seu SharePoint.",
+    description: "Substitua o Power Apps e economize com licenças extras. Aprenda a configurar portais corporativos e cadastros no SharePoint sem precisar de programação! O curso é ensinado por profissional especializado através de um agente de IA exclusivo que será compartilhado e configurado passo-a-passo.",
     price: 249.00,
     originalPrice: 497.00,
     paymentLink: "https://mpago.la/2GNXFeY", // Link de pagamento real de R$ 249,00 do Mercado Pago
-    duration: "40h",
-    lessonsCount: 95,
-    type: "video",
+    duration: "Configuração Assistida",
+    lessonsCount: "Agente de IA",
+    instructor: "Ensinado por profissional via Agente (Sem Programação)",
+    type: "service",
     category: "sistemas",
     badgeClass: "badge-systems",
     badgeLabel: "Sistemas & SharePoint",
-    level: "Iniciante ao Avançado",
+    level: "Sem Programação",
     rating: 4.9,
     reviewsCount: 142,
     banner: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
@@ -60,8 +62,35 @@ const COURSES_DATA = [
         lessons: [
           { id: "sys-sp-2-1", title: "Permissões nativas baseadas em grupos do Azure AD", duration: "30 min", type: "video" }
         ]
+      },
+      {
+        moduleTitle: "Módulo 3: Configuração Assistida com Agente de IA",
+        lessons: [
+          { id: "sys-sp-3-1", title: "Ativação e compartilhamento do seu Agente de IA", duration: "15 min", type: "video" },
+          { id: "sys-sp-3-2", title: "Como configurar portais e cadastros de forma guiada (Sem Programação)", duration: "45 min", type: "video" }
+        ]
       }
     ]
+  },
+  {
+    id: "landing-page-whatsapp",
+    title: "Criação de Site Simples para WhatsApp",
+    description: "Criamos um site de alta conversão (landing page) sob medida para o seu negócio, focado em direcionar clientes direto para o seu WhatsApp. Perfeito para qualquer nicho ou empresa (lojas, mecânicas, clínicas, consultores, etc.). Desenvolvimento expresso e profissional sem complicação.",
+    price: 149.00,
+    originalPrice: 297.00,
+    paymentLink: "https://mpago.la/2ohH6w9", // Link de pagamento real do Mercado Pago
+    duration: "Entrega em até 3 dias",
+    lessonsCount: "Design Exclusivo",
+    instructor: "Desenvolvido por equipe especializada",
+    type: "service",
+    category: "sistemas",
+    badgeClass: "badge-systems",
+    badgeLabel: "Serviço de Criação",
+    level: "Qualquer Empresa ou Nicho",
+    rating: 4.95,
+    reviewsCount: 47,
+    banner: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop",
+    syllabus: []
   }
 ];
 
@@ -110,20 +139,20 @@ const SERVICES_DATA = [
 const TESTIMONIALS_DATA = [
   {
     name: "Carolina Mendes",
-    title: "Gerente de Operações, Vale",
-    quote: "A NSNexus transformou nossos relatórios mensais. O dashboard desenvolvido em Power BI reduziu nosso tempo de análise de 3 dias para 5 minutos.",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop"
+    title: "Influenciadora do YouTube & Instagram (Comprou a Biblioteca)",
+    quote: "A Biblioteca de Prompts da NSNexus mudou minha produção de conteúdo. Consigo estruturar roteiros inteiros para o YouTube e posts de alto impacto para o Instagram em minutos usando ChatGPT e Gemini. Economizo horas todos os dias!",
+    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop"
   },
   {
     name: "Rodrigo Silva",
-    title: "Diretor de TI, Logística Express",
-    quote: "Os treinamentos de Power Apps da plataforma ajudaram nosso time a desenvolver aplicativos internos rapidamente, economizando milhares de reais em licenças.",
+    title: "Diretor de TI, Logística Express (Comprou o Curso de Sistemas)",
+    quote: "O curso de SharePoint Moderno foi fantástico. Aprendemos a criar portais corporativos leves em HTML/JS direto na nossa própria estrutura, aposentando licenças caras do Power Apps na empresa.",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop"
   },
   {
-    name: "Mariana Costa",
-    title: "Analista de Processos, TechCorp",
-    quote: "Excelente didática! O método focado em negócio ajudou a entender DAX de uma forma muito mais simples. Recomendo muito o curso e as consultorias.",
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=100&auto=format&fit=crop"
+    name: "Marcos Oliveira",
+    title: "Proprietário, AutoCar Mecânica (Contratou Consultoria)",
+    quote: "Contratamos a consultoria da NSNexus para desenvolver um sistema personalizado de ordens de serviço e controle de estoque. A gestão da oficina melhorou 100%, reduzindo desperdícios e agilizando o atendimento.",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop"
   }
 ];

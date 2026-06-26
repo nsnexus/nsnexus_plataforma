@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
   renderNavbar();
   renderFooter();
 
+  // Initialize global promo countdown for cards, popup, and details page
+  initGlobalPromoCountdown();
+
   // 2. Page Specific Initializations
   const path = window.location.pathname;
 
@@ -193,7 +196,7 @@ function initPromoPopup() {
       <button class="promo-modal__close" id="promo-popup-close">&times;</button>
       <div class="promo-modal__badge">Oferta Especial de Lançamento</div>
       <h2 class="promo-modal__title">Acelere sua Produtividade com IA</h2>
-      <p class="promo-modal__desc">Desbloqueie o acesso vitalício à <strong>Biblioteca de Prompts Premium NSNexus</strong>. Mais de 1.200 comandos de alto impacto para <strong>ChatGPT, Claude e Copilot</strong>.</p>
+      <p class="promo-modal__desc">Desbloqueie o acesso vitalício à <strong>Biblioteca de Prompts Premium NSNexus</strong>. Mais de 2.500 comandos de alto impacto para <strong>ChatGPT, Gemini e Copilot</strong>.</p>
       
       <div class="promo-modal__timer-wrapper">
         <span class="promo-modal__timer-label">O desconto de R$ 99,00 expira em:</span>
@@ -224,7 +227,17 @@ function initPromoPopup() {
     }
   });
 
-  // 4. Timer Logic
+  // 4. Trigger Popup delay (only if not shown in current session)
+  if (!sessionStorage.getItem("promo_popup_shown")) {
+    setTimeout(() => {
+      modalDiv.classList.add("active");
+      sessionStorage.setItem("promo_popup_shown", "true");
+    }, 2500);
+  }
+}
+
+// Global Promo Scarcity Countdown Timer
+function initGlobalPromoCountdown() {
   let deadline = localStorage.getItem("promo_deadline");
   if (!deadline) {
     deadline = new Date().getTime() + 3 * 60 * 60 * 1000;
@@ -233,35 +246,41 @@ function initPromoPopup() {
     deadline = parseInt(deadline, 10);
   }
 
-  const clockEl = document.getElementById("promo-countdown-clock");
-  function updateClock() {
+  function updateClocks() {
     const now = new Date().getTime();
-    const distance = deadline - now;
+    let distance = deadline - now;
 
+    // Reset rolling window if elapsed
     if (distance < 0) {
       const newDeadline = new Date().getTime() + 3 * 60 * 60 * 1000;
       localStorage.setItem("promo_deadline", newDeadline);
       deadline = newDeadline;
-      return;
+      distance = newDeadline - now;
     }
 
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    clockEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    // Update popup clock
+    const popupClock = document.getElementById("promo-countdown-clock");
+    if (popupClock) popupClock.textContent = formattedTime;
+
+    // Update all card clocks (Home / Catalog pages)
+    const cardClocks = document.querySelectorAll("#card-promo-clock");
+    cardClocks.forEach(c => {
+      c.textContent = formattedTime;
+    });
+
+    // Update course details page clock
+    const detailClock = document.getElementById("detail-promo-clock");
+    if (detailClock) detailClock.textContent = formattedTime;
   }
 
-  updateClock();
-  setInterval(updateClock, 1000);
-
-  // 5. Trigger Popup delay
-  if (!sessionStorage.getItem("promo_popup_shown")) {
-    setTimeout(() => {
-      modalDiv.classList.add("active");
-      sessionStorage.setItem("promo_popup_shown", "true");
-    }, 2500);
-  }
+  updateClocks();
+  setInterval(updateClocks, 1000);
 }
 
 // Catalog Page Specific Setup
@@ -357,6 +376,12 @@ function initDetailPage() {
   document.getElementById("detail-original-price").textContent = "R$ " + course.originalPrice.toFixed(2);
   document.getElementById("detail-banner").src = course.banner;
 
+  // Bind instructor field dynamically
+  const instructorEl = document.getElementById("detail-instructor");
+  if (instructorEl) {
+    instructorEl.textContent = course.instructor || "Ensinado por profissional especializado";
+  }
+
   // Customize checkout features for Prompt Library
   if (isLibrary) {
     const featTxt1 = document.getElementById("feature-txt-1");
@@ -367,13 +392,100 @@ function initDetailPage() {
 
     const featTxt3 = document.getElementById("feature-txt-3");
     if (featTxt3) featTxt3.textContent = "Atualizações mensais inclusas";
+
+    // Inject countdown timer in the checkout card!
+    const priceDiv = document.getElementById("detail-price");
+    if (priceDiv) {
+      const countdownDiv = document.createElement("div");
+      countdownDiv.className = "course-card__promo-timer";
+      countdownDiv.style.marginTop = "var(--space-2)";
+      countdownDiv.style.marginBottom = "var(--space-4)";
+      countdownDiv.innerHTML = `<span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px;">alarm</span>Promoção acaba em: &nbsp;<span id="detail-promo-clock">00:00:00</span>`;
+      priceDiv.parentNode.insertBefore(countdownDiv, priceDiv.nextSibling);
+    }
+  }
+
+  // Customize checkout features for Services (e.g. Landing Page creation or SharePoint Moderno systems)
+  const isService = course.type === "service";
+  if (isService) {
+    // Change heading "O que você irá aprender" to "Sobre o Serviço"
+    const headings = document.querySelectorAll("#course-detail-container h2");
+    if (headings.length > 0) {
+      headings[0].textContent = "Sobre o Serviço";
+    }
+    // Hide curriculum headers and accordion
+    headings.forEach(h => {
+      if (h.textContent.includes("Grade Curricular") || h.textContent.includes("Conteúdo")) {
+        h.style.display = "none";
+      }
+    });
+    const syllabusAccordion = document.getElementById("detail-syllabus");
+    if (syllabusAccordion) {
+      syllabusAccordion.style.display = "none";
+    }
+
+    // Change sidebar title to "Este serviço inclui:"
+    const featTitle = document.getElementById("detail-features-title");
+    if (featTitle) featTitle.textContent = "Este serviço inclui:";
+
+    if (course.id === "landing-page-whatsapp") {
+      const featIcon1 = document.getElementById("feature-icon-1");
+      if (featIcon1) featIcon1.textContent = "public";
+      const featTxt1 = document.getElementById("feature-txt-1");
+      if (featTxt1) featTxt1.textContent = "Hospedagem inclusa no seu domínio/link";
+
+      const featIcon2 = document.getElementById("feature-icon-2");
+      if (featIcon2) featIcon2.textContent = "design_services";
+      const featTxt2 = document.getElementById("detail-lessons");
+      if (featTxt2) featTxt2.textContent = "Design Exclusivo & Responsivo";
+
+      const featIcon3 = document.getElementById("feature-icon-3");
+      if (featIcon3) featIcon3.textContent = "speed";
+      const featTxt3 = document.getElementById("feature-txt-3");
+      if (featTxt3) featTxt3.textContent = "Carregamento ultra-rápido no celular";
+
+      const featIcon4 = document.getElementById("feature-icon-4");
+      if (featIcon4) featIcon4.textContent = "schedule";
+      const featTxt4 = document.getElementById("detail-duration");
+      if (featTxt4) featTxt4.textContent = "Entrega expressa em até 3 dias";
+
+      const featIcon5 = document.getElementById("feature-icon-5");
+      if (featIcon5) featIcon5.textContent = "domain";
+      const featTxt5 = document.getElementById("detail-level");
+      if (featTxt5) featTxt5.textContent = "Qualquer Nicho ou Empresa";
+    } else if (course.id === "sistemas-sharepoint-moderno") {
+      const featIcon1 = document.getElementById("feature-icon-1");
+      if (featIcon1) featIcon1.textContent = "database";
+      const featTxt1 = document.getElementById("feature-txt-1");
+      if (featTxt1) featTxt1.textContent = "Listas nativas do SharePoint";
+
+      const featIcon2 = document.getElementById("feature-icon-2");
+      if (featIcon2) featIcon2.textContent = "money_off";
+      const featTxt2 = document.getElementById("detail-lessons");
+      if (featTxt2) featTxt2.textContent = "Sem custo extra de licenciamento";
+
+      const featIcon3 = document.getElementById("feature-icon-3");
+      if (featIcon3) featIcon3.textContent = "admin_panel_settings";
+      const featTxt3 = document.getElementById("feature-txt-3");
+      if (featTxt3) featTxt3.textContent = "Segurança nativa com Azure AD";
+
+      const featIcon4 = document.getElementById("feature-icon-4");
+      if (featIcon4) featIcon4.textContent = "psychology";
+      const featTxt4 = document.getElementById("detail-duration");
+      if (featTxt4) featTxt4.textContent = "Configuração com Agente de IA";
+
+      const featIcon5 = document.getElementById("feature-icon-5");
+      if (featIcon5) featIcon5.textContent = "dashboard_customize";
+      const featTxt5 = document.getElementById("detail-level");
+      if (featTxt5) featTxt5.textContent = "Portais e Cadastros sob medida";
+    }
   }
 
   // Syllabus Render
   const syllabusAccordion = document.getElementById("detail-syllabus");
   if (syllabusAccordion) {
     syllabusAccordion.innerHTML = course.syllabus.map(mod => {
-      const headerCount = isLibrary ? "+1.200 Prompts" : mod.lessons.length + " aulas";
+      const headerCount = isLibrary ? "+2.500 Prompts" : (isSystems ? "" : mod.lessons.length + " aulas");
       return `
         <div style="margin-bottom: var(--space-4); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow:hidden; background: var(--bg-secondary);">
           <div style="padding: var(--space-4); font-weight: 600; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
@@ -389,7 +501,7 @@ function initDetailPage() {
                   </span>
                   <span>${les.title}</span>
                 </div>
-                <span style="color: var(--text-muted);">${les.duration}</span>
+                <span style="color: var(--text-muted);">${isSystems ? '' : les.duration}</span>
               </div>
             `).join('')}
           </div>
@@ -451,6 +563,43 @@ function initDashboardPage() {
     } else {
       coursesGrid.innerHTML = enrolledList.map(course => {
         const progress = user.progress[course.id] ? user.progress[course.id].percentage : 0;
+        
+        let releaseId = "";
+        if (course.id === "landing-page-whatsapp" || course.id === "sistemas-sharepoint-moderno") {
+          if (!user.progress[course.id]) {
+            user.progress[course.id] = {};
+          }
+          if (!user.progress[course.id].releaseId) {
+            const prefix = course.id === "sistemas-sharepoint-moderno" ? "NSN-SYS" : "NSN-WA";
+            const randomNum = Math.floor(10000 + Math.random() * 90000);
+            user.progress[course.id].releaseId = `${prefix}-${randomNum}`;
+            localStorage.setItem("nsnexus_user", JSON.stringify(user));
+            
+            // Sync with Supabase (if loaded)
+            if (window.supabaseClient) {
+              supabaseClient.auth.getUser().then(({ data: { user: sbUser } }) => {
+                if (sbUser) {
+                  supabaseClient.from("profiles").update({ progress: user.progress }).eq("id", sbUser.id);
+                }
+              });
+            }
+          }
+          releaseId = user.progress[course.id].releaseId;
+        }
+
+        let buttonHtml = "";
+        if (course.id === 'biblioteca-prompts-ia') {
+          buttonHtml = `<a href="biblioteca-prompts.html" class="btn btn-primary btn-full">Acessar Biblioteca</a>`;
+        } else if (course.id === 'landing-page-whatsapp') {
+          const messageText = encodeURIComponent(`Olá! Acabei de adquirir o Serviço de Criação de Site para WhatsApp na NSNexus. Meu ID de Liberação é ${releaseId}. Gostaria de iniciar o projeto!`);
+          buttonHtml = `<a href="https://wa.me/5594991081351?text=${messageText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">Solicitar Site (ID: ${releaseId})</a>`;
+        } else if (course.id === 'sistemas-sharepoint-moderno') {
+          const messageText = encodeURIComponent(`Olá! Acabei de adquirir o Serviço de Sistemas no SharePoint Moderno na NSNexus. Meu ID de Liberação é ${releaseId}. Gostaria de iniciar a configuração com o Agente de IA!`);
+          buttonHtml = `<a href="https://wa.me/5594991081351?text=${messageText}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">Solicitar Configuração (ID: ${releaseId})</a>`;
+        } else {
+          buttonHtml = `<a href="player.html?course=${course.id}" class="btn btn-primary btn-full">${progress > 0 ? "Continuar Estudando" : "Começar Curso"}</a>`;
+        }
+
         return `
           <div class="course-card">
             <div class="course-card__thumb">
@@ -463,6 +612,7 @@ function initDashboardPage() {
               <h3 class="course-card__title" style="margin-top: var(--space-2);">${course.title}</h3>
               
               <!-- Progress Bar -->
+              ${course.type === 'service' ? '' : `
               <div style="margin: var(--space-4) 0;">
                 <div style="display: flex; justify-content: space-between; font-size: var(--font-xs); color: var(--text-secondary); margin-bottom: var(--space-1);">
                   <span>Progresso</span>
@@ -472,11 +622,10 @@ function initDashboardPage() {
                   <div style="width: ${progress}%; height: 100%; background: var(--grad-primary); border-radius: 3px;"></div>
                 </div>
               </div>
+              `}
               
               <div class="course-card__footer" style="border: none; padding: 0;">
-                <a href="${course.id === 'biblioteca-prompts-ia' ? 'biblioteca-prompts.html' : 'player.html?course=' + course.id}" class="btn btn-primary btn-full">
-                  ${course.id === 'biblioteca-prompts-ia' ? 'Acessar Biblioteca' : (progress > 0 ? "Continuar Estudando" : "Começar Curso")}
-                </a>
+                ${buttonHtml}
               </div>
             </div>
           </div>

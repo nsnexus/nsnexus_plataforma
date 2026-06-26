@@ -28,7 +28,8 @@ function renderNavbar() {
   header.innerHTML = `
     <div class="container header__container">
       <a href="index.html" class="logo">
-        NSNexus<span class="logo__dot"></span>
+        <img src="images/logo.png" alt="NSNexus" style="height: 32px; width: 32px; object-fit: contain; border-radius: 6px;">
+        <span>NSNexus</span>
       </a>
       
       <nav class="nav">
@@ -125,7 +126,8 @@ function renderFooter() {
       <div class="footer__grid">
         <div>
           <a href="index.html" class="logo" style="margin-bottom: var(--space-4)">
-            NSNexus<span class="logo__dot"></span>
+            <img src="images/logo.png" alt="NSNexus" style="height: 32px; width: 32px; object-fit: contain; border-radius: 6px;">
+            <span>NSNexus</span>
           </a>
           <p class="footer__about-text">
             NSNexus é a plataforma corporativa criada por especialistas para capacitar profissionais de negócio nas ferramentas que movem o mercado moderno.
@@ -167,6 +169,26 @@ function renderFooter() {
 
 // Render course card
 function generateCourseCard(course) {
+  let metaHtml = "";
+  if (course.id === 'biblioteca-prompts-ia') {
+    metaHtml = `
+      <span>${course.duration}</span>
+      <span>•</span>
+      <span>${course.lessonsCount}</span>
+      <span>•</span>
+      <span>${course.level}</span>
+    `;
+  } else {
+    const suffix = typeof course.lessonsCount === 'number' ? ' aulas' : '';
+    metaHtml = `
+      <span>${course.duration}</span>
+      <span>•</span>
+      <span>${course.lessonsCount}${suffix}</span>
+      <span>•</span>
+      <span>${course.level}</span>
+    `;
+  }
+
   return `
     <div class="course-card">
       <div class="course-card__thumb">
@@ -176,12 +198,9 @@ function generateCourseCard(course) {
         </div>
       </div>
       <div class="course-card__content">
+        ${course.id === 'biblioteca-prompts-ia' ? `<div class="course-card__promo-timer"><span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle; margin-right: 4px;">alarm</span>Promoção acaba em: &nbsp;<span id="card-promo-clock">00:00:00</span></div>` : ''}
         <div class="course-card__meta">
-          <span>${course.duration}</span>
-          <span>•</span>
-          <span>${course.id === 'biblioteca-prompts-ia' ? course.lessonsCount : course.lessonsCount + ' aulas'}</span>
-          <span>•</span>
-          <span>${course.level}</span>
+          ${metaHtml}
         </div>
         <h3 class="course-card__title">${course.title}</h3>
         <p class="course-card__desc">${course.description}</p>

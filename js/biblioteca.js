@@ -118,7 +118,7 @@ function applyFiltersAndRender(resetPagination = false) {
     if (currentFilters.aiModel !== "all") {
       const modelLower = p.aiModel.toLowerCase();
       if (currentFilters.aiModel === "chatgpt" && !modelLower.includes("chatgpt")) return false;
-      if (currentFilters.aiModel === "claude" && !modelLower.includes("claude")) return false;
+      if (currentFilters.aiModel === "gemini" && !modelLower.includes("gemini")) return false;
       if (currentFilters.aiModel === "midjourney" && !modelLower.includes("midjourney")) return false;
       if (currentFilters.aiModel === "dalle" && !modelLower.includes("dall")) return false;
       if (currentFilters.aiModel === "runway" && !modelLower.includes("runway") && !modelLower.includes("sora")) return false;
@@ -269,7 +269,7 @@ function handleViewPrompt(promptId) {
         <span class="material-symbols-outlined" style="font-size: 64px; color: #ef4444; margin-bottom: var(--space-4);">lock</span>
         <h2 style="font-size: var(--font-2xl); margin-bottom: var(--space-2);">Prompt Premium Bloqueado</h2>
         <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto var(--space-8) auto;">
-          Esta biblioteca de prompts de alta performance é exclusiva para alunos. Desbloqueie o acesso a todos os 1.200 prompts estruturados por R$ 99,00.
+          Esta biblioteca de prompts de alta performance é exclusiva para alunos. Desbloqueie o acesso a todos os 2.700 prompts estruturados por R$ 99,00.
         </p>
         <div style="display:flex; gap: var(--space-4); justify-content:center;">
           <a href="${link}" ${link.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="btn btn-primary">Adquirir Acesso (R$ 99,00)</a>
@@ -326,7 +326,7 @@ function showUnlockModal() {
       <span class="material-symbols-outlined" style="font-size: 64px; color: #ef4444; margin-bottom: var(--space-4);">lock</span>
       <h2 style="font-size: var(--font-2xl); margin-bottom: var(--space-2);">Conteúdo Exclusivo</h2>
       <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto var(--space-8) auto;">
-        Desbloqueie o acesso a mais de 1.200 prompts prontos de IA para negócios por R$ 99,00.
+        Desbloqueie o acesso a mais de 2.500 prompts prontos de IA para negócios por R$ 99,00.
       </p>
       <div style="display:flex; gap: var(--space-4); justify-content:center;">
         <a href="${link}" ${link.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="btn btn-primary">Adquirir Acesso (R$ 99,00)</a>

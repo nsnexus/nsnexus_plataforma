@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/logo.png">
   <title>NSNexus — Cursos & Consultoria de Impacto Corporativo</title>
   <meta name="description" content="Aprenda Power BI, Power Apps, SharePoint, Sistemas e IA sob a ótica de negócios. Domine as ferramentas que aceleram decisões e automatizam rotinas.">
   
@@ -111,84 +112,137 @@
 <body>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero" style="position: relative;">
     <div class="hero__bg-glow"></div>
     <canvas class="hero__bg-particles" id="hero-particles"></canvas>
     
+    <!-- Imagem do Robô AI fora do container para ir de ponta a ponta na esquerda -->
+    <div class="hero__visual">
+      <img src="images/hero.svg" alt="NSNexus Inteligência Artificial">
+    </div>
+
     <div class="container hero__container">
-      <div class="hero__content animate-fade-in-up">
+      <!-- Espaço reservado para o Robô no grid em Desktop -->
+      <div class="hero__visual-spacer" style="pointer-events: none; min-height: 100px;"></div>
+      
+      <!-- Coluna da Direita: Conteúdo Textual e Vídeo Player abaixo dos botões -->
+      <div class="hero__content animate-fade-in-up delay-200">
         <span class="hero__tag">
           <span style="font-family: 'Material Symbols Outlined', sans-serif; font-size: 14px; margin-right: 4px;">school</span>
           Método Business-First
         </span>
         <h1 class="hero__title">Use dados e sistemas para <br><span class="text-gradient">crescer seu negócio.</span></h1>
-        <p class="hero__description">
+        <p class="hero__description" style="margin-left: 0; margin-right: 0;">
           Aprenda Power BI, Power Apps, SharePoint, Criação de Portais Web e Inteligência Artificial sem jargões de programador. Cursos focados em gerar valor e acelerar decisões.
         </p>
-        <div class="hero__actions">
+        <div class="hero__actions" style="margin-bottom: var(--space-8); justify-content: flex-start;">
           <a href="cursos.html" class="btn btn-lg btn-primary">Conhecer Cursos</a>
           <a href="servicos.html" class="btn btn-lg btn-secondary">Consultoria Corporativa</a>
         </div>
+        
+        <!-- Video Player integrado à coluna de conteúdo -->
+        <div class="hero__video-wrapper" style="position: relative; margin-left: 0; margin-right: auto; max-width: 520px;">
+          <video id="hero-video" class="hero__video-element" playsinline>
+            <source src="videos/nsnexus.mp4" type="video/mp4">
+            Seu navegador não suporta a reprodução deste vídeo.
+          </video>
+          
+          <!-- Overlay de Chamada de Atenção -->
+          <div id="video-overlay" class="hero__video-overlay">
+            <div class="hero__video-overlay-content">
+              <span class="material-symbols-outlined glowing-play-icon">play_circle</span>
+              <h3>Temos um recado importante para você</h3>
+              <p>Clique para assistir a mensagem da Nexus</p>
+            </div>
+          </div>
+
+          <button id="video-mute-toggle" class="video-control-btn" style="display: none;">
+            <span class="material-symbols-outlined" style="font-size: 16px;">volume_off</span>
+            <span>Ativar Som</span>
+          </button>
+        </div>
       </div>
       
-      <div class="hero__visual animate-fade-in-up delay-200">
-        <!-- Overlay Widgets -->
-        <div class="hero__badge-overlay hero__badge-overlay--1">
-          <div class="hero__badge-overlay-icon">
-            <span class="material-symbols-outlined">trending_up</span>
-          </div>
-          <div class="hero__badge-overlay-txt">
-            <span class="hero__badge-overlay-title">+18% YoY</span>
-            <span class="hero__badge-overlay-desc">Crescimento de Receita</span>
-          </div>
-        </div>
+      <script>
+        const video = document.getElementById('hero-video');
+        const toggleBtn = document.getElementById('video-mute-toggle');
+        const overlay = document.getElementById('video-overlay');
         
-        <div class="hero__badge-overlay hero__badge-overlay--2">
-          <div class="hero__badge-overlay-icon" style="background:rgba(0,102,255,0.1); color:var(--accent-blue);">
-            <span class="material-symbols-outlined">query_stats</span>
-          </div>
-          <div class="hero__badge-overlay-txt">
-            <span class="hero__badge-overlay-title">Decisão Rápida</span>
-            <span class="hero__badge-overlay-desc">Mapeamento Dinâmico</span>
-          </div>
-        </div>
+        // Garantir que inicie com som e sem loop
+        video.muted = false;
         
-        <!-- Main Mockup Card -->
-        <div class="hero__mockup">
-          <div class="hero__mockup-header">
-            <span class="hero__mockup-dot"></span>
-            <span class="hero__mockup-dot"></span>
-            <span class="hero__mockup-dot"></span>
-          </div>
-          <div class="hero__mockup-content">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span class="hero__mockup-lbl">Receita Mensal</span>
-              <span style="color:var(--accent-cyan); font-weight:700;">+25.4%</span>
-            </div>
-            
-            <div class="hero__chart-grid">
-              <div class="hero__chart-bar"></div>
-              <div class="hero__chart-bar"></div>
-              <div class="hero__chart-bar"></div>
-              <div class="hero__chart-bar"></div>
-              <div class="hero__chart-bar"></div>
-              <div class="hero__chart-bar"></div>
-            </div>
-            
-            <div class="hero__mockup-stats">
-              <div>
-                <span class="hero__mockup-lbl">Previsão Q3</span>
-                <div class="hero__mockup-val">R$ 142.5K</div>
-              </div>
-              <div style="text-align: right;">
-                <span class="hero__mockup-lbl">Eficiência</span>
-                <div class="hero__mockup-val" style="color: var(--accent-blue);">94%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        // Clique no overlay para iniciar reprodução com áudio
+        overlay.addEventListener('click', function() {
+          // Esconder overlay
+          overlay.style.opacity = '0';
+          overlay.style.visibility = 'hidden';
+          
+          // Tocar vídeo com som
+          video.currentTime = 0;
+          video.muted = false;
+          video.play();
+          
+          // Configurar o botão lateral para Mutar
+          const icon = toggleBtn.querySelector('.material-symbols-outlined');
+          const label = toggleBtn.querySelector('span:not(.material-symbols-outlined)');
+          if (icon && label) {
+            icon.textContent = 'volume_up';
+            label.textContent = 'Mutar';
+          }
+          toggleBtn.style.display = 'flex';
+        });
+
+        // Habilitar som na primeira interação do usuário com a página (fase de captura garantida)
+        const unmuteOnInteraction = (e) => {
+          // Ignorar se a interação foi diretamente no botão de controle
+          if (e && e.target && (toggleBtn.contains(e.target) || e.target === toggleBtn)) {
+            return;
+          }
+          
+          if (video.muted && !video.ended) {
+            video.muted = false;
+            const icon = toggleBtn.querySelector('.material-symbols-outlined');
+            const label = toggleBtn.querySelector('span:not(.material-symbols-outlined)');
+            if (icon && label) {
+              icon.textContent = 'volume_up';
+              label.textContent = 'Mutar';
+            }
+          }
+        };
+
+        window.addEventListener('click', unmuteOnInteraction, { capture: true, once: true });
+        window.addEventListener('keydown', unmuteOnInteraction, { capture: true, once: true });
+        window.addEventListener('touchstart', unmuteOnInteraction, { capture: true, once: true });
+
+        toggleBtn.addEventListener('click', function(e) {
+          e.stopPropagation(); // Evitar bolha de eventos secundária
+          const icon = this.querySelector('.material-symbols-outlined');
+          const label = this.querySelector('span:not(.material-symbols-outlined)');
+          
+          // Alternar mute/unmute durante a reprodução
+          if (video.muted) {
+            video.muted = false;
+            icon.textContent = 'volume_up';
+            label.textContent = 'Mutar';
+          } else {
+            video.muted = true;
+            icon.textContent = 'volume_off';
+            label.textContent = 'Ativar Som';
+          }
+        });
+
+        // Quando o vídeo acabar, restaura o overlay para convidar a assistir novamente
+        video.addEventListener('ended', function() {
+          overlay.style.opacity = '1';
+          overlay.style.visibility = 'visible';
+          toggleBtn.style.display = 'none';
+          
+          const overlayTitle = overlay.querySelector('h3');
+          if (overlayTitle) {
+            overlayTitle.textContent = "Quer assistir novamente?";
+          }
+        });
+      </script>
   </section>
 
   <!-- Estatísticas -->
@@ -214,55 +268,70 @@
   </section>
 
   <!-- Nossas Expertises -->
-  <section class="container reveal">
-    <div style="text-align: center; max-width: 700px; margin: 0 auto var(--space-16) auto;">
-      <span class="accent-gradient" style="font-weight: 700; text-transform: uppercase; font-size: var(--font-sm); letter-spacing: 0.05em;">O que entregamos</span>
-      <h2 style="font-size: var(--font-4xl); margin-top: var(--space-2); margin-bottom: var(--space-4);">Tudo que você precisa para alavancar sua carreira técnica e gerencial</h2>
-      <p>Dominamos os pilares da tecnologia de negócios. Da estruturação de relatórios inteligentes no Power BI até portais web integrados com SharePoint.</p>
+  <section style="position: relative; padding-top: var(--space-24); padding-bottom: var(--space-24); overflow: hidden;">
+    <!-- Coluna da Direita: Imagem de Transição que surge no scroll (fora do container) -->
+    <div class="expertises__image-container">
+      <img src="images/transicao.svg" alt="Transição de Tecnologia NSNexus" class="expertises__image-img">
     </div>
-    
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-card__icon">
-          <span class="material-symbols-outlined">bar_chart</span>
+
+    <div class="container">
+      <div class="expertises__grid">
+        <!-- Coluna da Esquerda: Texto e Grade de Expertises -->
+        <div class="reveal-left">
+          <div style="text-align: left; max-width: 700px; margin-bottom: var(--space-12);">
+            <span class="accent-gradient" style="font-weight: 700; text-transform: uppercase; font-size: var(--font-sm); letter-spacing: 0.05em;">O que entregamos</span>
+            <h2 style="font-size: var(--font-4xl); margin-top: var(--space-2); margin-bottom: var(--space-4); line-height: 1.2;">Tudo que você precisa para alavancar sua carreira técnica e gerencial</h2>
+            <p style="color: var(--text-secondary);">Dominamos os pilares da tecnologia de negócios. Da estruturação de relatórios inteligentes no Power BI até portais web integrados com SharePoint.</p>
+          </div>
+          
+          <div class="features-grid">
+            <div class="feature-card">
+              <div class="feature-card__icon">
+                <span class="material-symbols-outlined">bar_chart</span>
+              </div>
+              <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Power BI</h3>
+              <p style="font-size: var(--font-sm);">Dashboards executivos, modelagem dimensional Star Schema, fórmulas DAX avançadas, e inteligência de tempo voltadas para decisões rápidas.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card__icon" style="background: rgba(112,0,255,0.08); color: #c084fc;">
+                <span class="material-symbols-outlined">widgets</span>
+              </div>
+              <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Power Apps</h3>
+              <p style="font-size: var(--font-sm);">Desenvolvimento de aplicativos canvas corporativos dinâmicos com Power Fx para simplificar cadastros e formulários internos.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card__icon" style="background: rgba(0,166,153,0.08); color: #2dd4bf;">
+                <span class="material-symbols-outlined">hub</span>
+              </div>
+              <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">SharePoint</h3>
+              <p style="font-size: var(--font-sm);">Modelagem de intranets e portais modernos com controle total de acessos e permissões para organizar dados e arquivos empresariais.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card__icon" style="background: rgba(0,245,212,0.08); color: #22d3ee;">
+                <span class="material-symbols-outlined">psychology</span>
+              </div>
+              <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Inteligência Artificial</h3>
+              <p style="font-size: var(--font-sm);">Automatizações completas com Copilot, análise preditiva, criação de prompts estruturados e leitura de PDFs com IA Builder.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card__icon" style="background: rgba(0,102,255,0.08); color: #60a5fa;">
+                <span class="material-symbols-outlined">code</span>
+              </div>
+              <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Criação de Sistemas</h3>
+              <p style="font-size: var(--font-sm);">Desenvolvimento de portais web leves com HTML, CSS e JavaScript puro para rodar dentro do SharePoint sem taxas extras de licenças.</p>
+            </div>
+            <div class="feature-card">
+              <div class="feature-card__icon">
+                <span class="material-symbols-outlined">desktop_windows</span>
+              </div>
+              <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Criação de Sites</h3>
+              <p style="font-size: var(--font-sm);">Criação de landing pages e plataformas otimizadas de alta conversão para atrair e qualificar clientes e leads.</p>
+            </div>
+          </div>
         </div>
-        <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Power BI</h3>
-        <p style="font-size: var(--font-sm);">Dashboards executivos, modelagem dimensional Star Schema, fórmulas DAX avançadas, e inteligência de tempo voltadas para decisões rápidas.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon" style="background: rgba(112,0,255,0.08); color: #c084fc;">
-          <span class="material-symbols-outlined">widgets</span>
-        </div>
-        <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Power Apps</h3>
-        <p style="font-size: var(--font-sm);">Desenvolvimento de aplicativos canvas corporativos dinâmicos com Power Fx para simplificar cadastros e formulários internos.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon" style="background: rgba(0,166,153,0.08); color: #2dd4bf;">
-          <span class="material-symbols-outlined">hub</span>
-        </div>
-        <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">SharePoint</h3>
-        <p style="font-size: var(--font-sm);">Modelagem de intranets e portais modernos com controle total de acessos e permissões para organizar dados e arquivos empresariais.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon" style="background: rgba(0,245,212,0.08); color: #22d3ee;">
-          <span class="material-symbols-outlined">psychology</span>
-        </div>
-        <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Inteligência Artificial</h3>
-        <p style="font-size: var(--font-sm);">Automatizações completas com Copilot, análise preditiva, criação de prompts estruturados e leitura de PDFs com IA Builder.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon" style="background: rgba(0,102,255,0.08); color: #60a5fa;">
-          <span class="material-symbols-outlined">code</span>
-        </div>
-        <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Criação de Sistemas</h3>
-        <p style="font-size: var(--font-sm);">Desenvolvimento de portais web leves com HTML, CSS e JavaScript puro para rodar dentro do SharePoint sem taxas extras de licenças.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">
-          <span class="material-symbols-outlined">desktop_windows</span>
-        </div>
-        <h3 style="font-size: var(--font-xl); margin-bottom: var(--space-2);">Criação de Sites</h3>
-        <p style="font-size: var(--font-sm);">Criação de landing pages e plataformas otimizadas de alta conversão para atrair e qualificar clientes e leads.</p>
+        
+        <!-- Espaço reservado para a Imagem de Transição no grid em Desktop -->
+        <div class="expertises__image-spacer" style="pointer-events: none; min-height: 100px;"></div>
       </div>
     </div>
   </section>
