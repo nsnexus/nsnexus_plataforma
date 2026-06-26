@@ -93,6 +93,12 @@
   gap: var(--space-4);
 }
 
+@media (max-width: 1023px) {
+  .header__actions .btn {
+    display: none;
+  }
+}
+
 /* Mobile Nav Toggle */
 .menu-toggle {
   display: flex;
