@@ -7,7 +7,7 @@ const COURSES_DATA = [
     description: "Acesse nosso acervo completo com prompts estruturados de alta performance para ChatGPT, Claude e Microsoft Copilot. Automatize relatórios, analise dados de forma preditiva e otimize a rotina operacional da sua área.",
     price: 99.00,
     originalPrice: 197.00,
-    paymentLink: "https://link.mercadopago.com.br/nsnexusprompts", // Substitua pelo link de R$ 99,00 gerado no seu painel do Mercado Pago
+    paymentLink: "https://mpago.la/2aRktmV", // Link de pagamento real de R$ 99,00 do Mercado Pago
     duration: "20h",
     lessonsCount: 45,
     type: "pdf",
