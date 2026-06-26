@@ -22,17 +22,68 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   padding: var(--space-6);
-  position: sticky;
-  top: calc(var(--header-height) + var(--space-4));
-  max-height: calc(100vh - var(--header-height) - var(--space-8));
-  overflow-y: auto;
-  z-index: 10;
+  position: relative;
+  z-index: 2;
 }
 
+/* Botão toggle filtros - somente mobile */
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: 0.75rem var(--space-4);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  font-family: var(--font-heading);
+  font-size: var(--font-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-bottom: var(--space-4);
+}
+
+.sidebar-toggle:hover {
+  border-color: var(--accent-cyan);
+}
+
+.sidebar-toggle .material-symbols-outlined {
+  font-size: 18px;
+  transition: transform var(--transition-fast);
+}
+
+.sidebar-toggle.active .material-symbols-outlined {
+  transform: rotate(180deg);
+}
+
+/* No mobile, esconde a sidebar por padrão e mostra o toggle */
+@media (max-width: 991px) {
+  .biblioteca-sidebar {
+    display: none;
+  }
+
+  .biblioteca-sidebar.sidebar-open {
+    display: block;
+  }
+}
+
+/* No desktop, esconde o toggle e mostra a sidebar normalmente */
 @media (min-width: 992px) {
+  .sidebar-toggle {
+    display: none;
+  }
+
   .biblioteca-sidebar {
     width: 320px;
     flex-shrink: 0;
+    position: sticky;
+    top: calc(var(--header-height) + var(--space-4));
+    max-height: calc(100vh - var(--header-height) - var(--space-8));
+    overflow-y: auto;
+    z-index: 10;
   }
 }
 

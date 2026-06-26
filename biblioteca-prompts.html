@@ -44,6 +44,13 @@
     <!-- Layout Grid: Sidebar + Grid -->
     <div class="biblioteca-layout">
       
+      <!-- Toggle Filtros (Mobile) -->
+      <button class="sidebar-toggle" id="sidebar-toggle" onclick="this.classList.toggle('active'); document.querySelector('.biblioteca-sidebar').classList.toggle('sidebar-open');">
+        <span class="material-symbols-outlined">filter_list</span>
+        Filtros
+        <span class="material-symbols-outlined">expand_more</span>
+      </button>
+
       <!-- Sidebar Panel: Filters -->
       <aside class="biblioteca-sidebar">
         
