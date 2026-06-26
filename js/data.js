@@ -8,8 +8,8 @@ const COURSES_DATA = [
     price: 99.00,
     originalPrice: 197.00,
     paymentLink: "https://mpago.la/2aRktmV", // Link de pagamento real de R$ 99,00 do Mercado Pago
-    duration: "20h",
-    lessonsCount: 45,
+    duration: "23 Categorias",
+    lessonsCount: "+1.200 Prompts",
     type: "pdf",
     category: "ia",
     badgeClass: "badge-ia",
@@ -20,16 +20,12 @@ const COURSES_DATA = [
     banner: "images/prompt-library-banner.png",
     syllabus: [
       {
-        moduleTitle: "Módulo 1: Fundamentos de Engenharia de Prompt",
+        moduleTitle: "Nossos Prompts Organizacionais por Área",
         lessons: [
-          { id: "prompt-1-1", title: "Como Estruturar Prompts para Negócios", duration: "15 min", type: "video" },
-          { id: "prompt-1-2", title: "Biblioteca Completa de Prompts de Finanças, RH e Logística", duration: "82 pág", type: "pdf" }
-        ]
-      },
-      {
-        moduleTitle: "Módulo 2: Automação Inteligente de PDFs e Relatórios",
-        lessons: [
-          { id: "prompt-2-1", title: "Configurando Automações com IA Builder e Flow", duration: "32 min", type: "video" }
+          { id: "cat-1", title: "Negócios, Planejamento Estratégico, RH e Vendas", duration: "250 prompts", type: "pdf" },
+          { id: "cat-2", title: "Automação, Make/Zapier, M365 e Engenharia de Prompt", duration: "300 prompts", type: "pdf" },
+          { id: "cat-3", title: "Design Visual, Imagens (Midjourney/DALL-E) e Vídeos (Runway/Sora)", duration: "350 prompts", type: "pdf" },
+          { id: "cat-4", title: "Copywriting, E-mail Marketing, LinkedIn, Instagram e SEO", duration: "300 prompts", type: "pdf" }
         ]
       }
     ]

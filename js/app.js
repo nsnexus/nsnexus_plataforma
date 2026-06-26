@@ -139,7 +139,9 @@ function initDetailPage() {
   document.getElementById("detail-title").textContent = course.title;
   document.getElementById("detail-desc").textContent = course.description;
   document.getElementById("detail-duration").textContent = course.duration;
-  document.getElementById("detail-lessons").textContent = course.lessonsCount + " aulas";
+  
+  const isLibrary = course.id === "biblioteca-prompts-ia";
+  document.getElementById("detail-lessons").textContent = isLibrary ? course.lessonsCount : course.lessonsCount + " aulas";
   document.getElementById("detail-level").textContent = course.level;
   document.getElementById("detail-badge").textContent = course.badgeLabel;
   document.getElementById("detail-badge").className = `badge ${course.badgeClass}`;
@@ -147,30 +149,45 @@ function initDetailPage() {
   document.getElementById("detail-original-price").textContent = "R$ " + course.originalPrice.toFixed(2);
   document.getElementById("detail-banner").src = course.banner;
 
+  // Customize checkout features for Prompt Library
+  if (isLibrary) {
+    const featTxt1 = document.getElementById("feature-txt-1");
+    if (featTxt1) featTxt1.textContent = "Acesso vitalício à Biblioteca";
+
+    const featIcon3 = document.getElementById("feature-icon-3");
+    if (featIcon3) featIcon3.textContent = "sync";
+
+    const featTxt3 = document.getElementById("feature-txt-3");
+    if (featTxt3) featTxt3.textContent = "Atualizações mensais inclusas";
+  }
+
   // Syllabus Render
   const syllabusAccordion = document.getElementById("detail-syllabus");
   if (syllabusAccordion) {
-    syllabusAccordion.innerHTML = course.syllabus.map(mod => `
-      <div style="margin-bottom: var(--space-4); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow:hidden; background: var(--bg-secondary);">
-        <div style="padding: var(--space-4); font-weight: 600; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
-          <span>${mod.moduleTitle}</span>
-          <span style="color: var(--text-muted); font-size: var(--font-sm);">${mod.lessons.length} aulas</span>
-        </div>
-        <div style="padding: var(--space-2) var(--space-4);">
-          ${mod.lessons.map(les => `
-            <div style="padding: var(--space-3) 0; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: space-between; font-size: var(--font-sm);">
-              <div style="display: flex; align-items: center; gap: var(--space-3);">
-                <span style="font-family: 'Material Symbols Outlined', sans-serif; font-size: 16px; color: var(--accent-cyan);">
-                  ${les.type === 'pdf' ? 'menu_book' : 'play_circle'}
-                </span>
-                <span>${les.title}</span>
+    syllabusAccordion.innerHTML = course.syllabus.map(mod => {
+      const headerCount = isLibrary ? "+1.200 Prompts" : mod.lessons.length + " aulas";
+      return `
+        <div style="margin-bottom: var(--space-4); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow:hidden; background: var(--bg-secondary);">
+          <div style="padding: var(--space-4); font-weight: 600; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
+            <span>${mod.moduleTitle}</span>
+            <span style="color: var(--text-muted); font-size: var(--font-sm);">${headerCount}</span>
+          </div>
+          <div style="padding: var(--space-2) var(--space-4);">
+            ${mod.lessons.map(les => `
+              <div style="padding: var(--space-3) 0; border-bottom: 1px solid rgba(255,255,255,0.03); display: flex; align-items: center; justify-content: space-between; font-size: var(--font-sm);">
+                <div style="display: flex; align-items: center; gap: var(--space-3);">
+                  <span style="font-family: 'Material Symbols Outlined', sans-serif; font-size: 16px; color: var(--accent-cyan);">
+                    ${isLibrary ? 'article' : (les.type === 'pdf' ? 'menu_book' : 'play_circle')}
+                  </span>
+                  <span>${les.title}</span>
+                </div>
+                <span style="color: var(--text-muted);">${les.duration}</span>
               </div>
-              <span style="color: var(--text-muted);">${les.duration}</span>
-            </div>
-          `).join('')}
+            `).join('')}
+          </div>
         </div>
-      </div>
-    `).join('');
+      `;
+    }).join('');
   }
 
   // Handle Enrollment simulation

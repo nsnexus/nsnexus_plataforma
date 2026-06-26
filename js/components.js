@@ -179,7 +179,7 @@ function generateCourseCard(course) {
         <div class="course-card__meta">
           <span>${course.duration}</span>
           <span>•</span>
-          <span>${course.lessonsCount} aulas</span>
+          <span>${course.id === 'biblioteca-prompts-ia' ? course.lessonsCount : course.lessonsCount + ' aulas'}</span>
           <span>•</span>
           <span>${course.level}</span>
         </div>
