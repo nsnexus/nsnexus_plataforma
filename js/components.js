@@ -50,6 +50,7 @@ function renderNavbar() {
       
       <div class="header__actions">
         ${user ? `
+          ${user.email === 'narcisofelizardo@gmail.com' ? `<a href="admin.html" class="btn btn-sm btn-primary" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)); border: none; color: white;">Admin</a>` : ''}
           <a href="dashboard.html" class="btn btn-sm btn-outline">Dashboard</a>
           <button onclick="logoutUser()" class="btn btn-sm btn-ghost">Sair</button>
         ` : `
@@ -81,6 +82,7 @@ function renderNavbar() {
     </ul>
     <div style="display: flex; flex-direction: column; gap: var(--space-4); margin-top: auto;">
       ${user ? `
+        ${user.email === 'narcisofelizardo@gmail.com' ? `<a href="admin.html" class="btn btn-primary btn-full" style="background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)); border: none; color: white;">Painel Admin</a>` : ''}
         <a href="dashboard.html" class="btn btn-outline btn-full">Dashboard</a>
         <button onclick="logoutUser()" class="btn btn-ghost btn-full">Sair</button>
       ` : `

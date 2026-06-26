@@ -73,6 +73,19 @@ async function syncSupabaseSession() {
       if (profile) {
         enrolled = profile.enrolled_courses || [];
         progress = profile.progress || {};
+        
+        // Sync email to profiles table for admin access
+        if (!profile.email || profile.email !== session.user.email) {
+          try {
+            await supabaseClient
+              .from('profiles')
+              .update({ email: session.user.email })
+              .eq('id', session.user.id);
+            profile.email = session.user.email;
+          } catch (e) {
+            console.warn("Could not sync email to profiles table (column might be missing):", e);
+          }
+        }
       }
 
       // Check for pending unlock from Mercado Pago redirect

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Administrativo — NSNexus</title>
+  <meta name="description" content="Painel administrativo da NSNexus: visualize usuários cadastrados e compras realizadas." />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="admin-sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">
+        <span class="brand-icon">⚡</span>
+        <div>
+          <div class="brand-name">NSNexus</div>
+          <div class="brand-label">Admin Panel</div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a href="#overview" class="nav-item active" id="nav-overview" onclick="showSection('overview', this)">
+        <span class="nav-icon">📊</span>
+        <span>Visão Geral</span>
+      </a>
+      <a href="#users" class="nav-item" id="nav-users" onclick="showSection('users', this)">
+        <span class="nav-icon">👥</span>
+        <span>Usuários</span>
+      </a>
+      <a href="#purchases" class="nav-item" id="nav-purchases" onclick="showSection('purchases', this)">
+        <span class="nav-icon">🛒</span>
+        <span>Compras</span>
+      </a>
+      <a href="#products" class="nav-item" id="nav-products" onclick="showSection('products', this)">
+        <span class="nav-icon">📦</span>
+        <span>Produtos</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-logout" onclick="adminLogout()">
+        <span>🚪</span> Sair
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="admin-main">
+
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button class="topbar-menu-btn" onclick="toggleSidebar()" id="menu-toggle">☰</button>
+        <div class="topbar-search">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="global-search" placeholder="Buscar usuário ou produto..." oninput="handleSearch(this.value)" />
+        </div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-refresh" onclick="loadAll()" title="Recarregar dados">
+          <span id="refresh-icon">🔄</span>
+        </button>
+        <div class="admin-badge">
+          <span class="admin-dot"></span>
+          Admin
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== SECTION: OVERVIEW ========== -->
+    <section class="admin-section active" id="section-overview">
+      <div class="section-header">
+        <h1 class="section-title">Visão Geral</h1>
+        <p class="section-subtitle">Resumo da plataforma em tempo real</p>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-icon">👥</div>
+          <div class="kpi-content">
+            <div class="kpi-value" id="kpi-total-users">—</div>
+            <div class="kpi-label">Usuários Cadastrados</div>
+          </div>
+          <div class="kpi-glow"></div>
+        </div>
+        <div class="kpi-card kpi-cyan">
+          <div class="kpi-icon">🛒</div>
+          <div class="kpi-content">
+            <div class="kpi-value" id="kpi-total-purchases">—</div>
+            <div class="kpi-label">Total de Compras</div>
+          </div>
+          <div class="kpi-glow"></div>
+        </div>
+        <div class="kpi-card kpi-purple">
+          <div class="kpi-icon">💰</div>
+          <div class="kpi-content">
+            <div class="kpi-value" id="kpi-total-revenue">—</div>
+            <div class="kpi-label">Receita Estimada</div>
+          </div>
+          <div class="kpi-glow"></div>
+        </div>
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon">📈</div>
+          <div class="kpi-content">
+            <div class="kpi-value" id="kpi-avg-per-user">—</div>
+            <div class="kpi-label">Média por Aluno</div>
+          </div>
+          <div class="kpi-glow"></div>
+        </div>
+      </div>
+
+      <!-- Top Products + Recent Users -->
+      <div class="overview-grid">
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🏆 Produtos Mais Vendidos</h2>
+          </div>
+          <div class="card-body" id="top-products-list">
+            <div class="skeleton-list">
+              <div class="skeleton-row"></div>
+              <div class="skeleton-row"></div>
+              <div class="skeleton-row"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">🆕 Últimos Cadastros</h2>
+          </div>
+          <div class="card-body" id="recent-users-list">
+            <div class="skeleton-list">
+              <div class="skeleton-row"></div>
+              <div class="skeleton-row"></div>
+              <div class="skeleton-row"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION: USERS ========== -->
+    <section class="admin-section" id="section-users">
+      <div class="section-header">
+        <h1 class="section-title">Usuários Cadastrados</h1>
+        <p class="section-subtitle">Todos os alunos registrados na plataforma</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="filter-bar">
+            <input type="text" id="user-search" class="filter-input" placeholder="🔍 Filtrar por nome ou e-mail..." oninput="filterUsers(this.value)" />
+            <select id="user-filter-course" class="filter-select" onchange="filterUsers(document.getElementById('user-search').value)">
+              <option value="">Todos os Produtos</option>
+            </select>
+          </div>
+          <div class="table-info" id="users-count">Carregando...</div>
+        </div>
+        <div class="card-body table-wrapper">
+          <table class="admin-table" id="users-table">
+            <thead>
+              <tr>
+                <th>Usuário</th>
+                <th>E-mail</th>
+                <th>Data de Cadastro</th>
+                <th>Produtos</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="users-tbody">
+              <tr><td colspan="5" class="loading-row"><div class="spinner"></div> Carregando usuários...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION: PURCHASES ========== -->
+    <section class="admin-section" id="section-purchases">
+      <div class="section-header">
+        <h1 class="section-title">Compras Realizadas</h1>
+        <p class="section-subtitle">Histórico completo de produtos adquiridos</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="filter-bar">
+            <input type="text" id="purchase-search" class="filter-input" placeholder="🔍 Filtrar por usuário ou produto..." oninput="filterPurchases(this.value)" />
+            <select id="purchase-filter" class="filter-select" onchange="filterPurchases(document.getElementById('purchase-search').value)">
+              <option value="">Todos os Produtos</option>
+            </select>
+          </div>
+          <div class="table-info" id="purchases-count">Carregando...</div>
+        </div>
+        <div class="card-body table-wrapper">
+          <table class="admin-table" id="purchases-table">
+            <thead>
+              <tr>
+                <th>Usuário</th>
+                <th>E-mail</th>
+                <th>Produto Adquirido</th>
+                <th>Preço</th>
+                <th>Progresso</th>
+              </tr>
+            </thead>
+            <tbody id="purchases-tbody">
+              <tr><td colspan="5" class="loading-row"><div class="spinner"></div> Carregando compras...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION: PRODUCTS ========== -->
+    <section class="admin-section" id="section-products">
+      <div class="section-header">
+        <h1 class="section-title">Catálogo de Produtos</h1>
+        <p class="section-subtitle">Todos os produtos disponíveis na plataforma</p>
+      </div>
+      <div class="products-grid" id="products-grid">
+        <!-- filled by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== USER DETAIL MODAL ===== -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal" id="user-modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-avatar" id="modal-avatar"></div>
+      <div>
+        <div class="modal-name" id="modal-name"></div>
+        <div class="modal-email" id="modal-email"></div>
+        <div class="modal-date" id="modal-date"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <h3 class="modal-section-title">📦 Produtos Adquiridos</h3>
+      <div id="modal-courses"></div>
+    </div>
+  </div>
+
+  <!-- Scripts (data.js must come before admin.js) -->
+  <script src="js/supabase-config.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
