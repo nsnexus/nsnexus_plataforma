@@ -34,9 +34,9 @@ const COURSES_DATA = [
     id: "sistemas-sharepoint-moderno",
     title: "Criação de Sistemas Web no SharePoint Moderno",
     description: "Substitua o Power Apps e economize com licenças extras. Aprenda a desenvolver portais corporativos, cadastros e intranets leves com HTML, CSS e JavaScript puro rodando diretamente dentro da infraestrutura do seu SharePoint.",
-    price: 197.00,
+    price: 249.00,
     originalPrice: 497.00,
-    paymentLink: "https://mpago.la/2GNXFeY", // Link de pagamento real de R$ 197,00 do Mercado Pago
+    paymentLink: "https://mpago.la/2GNXFeY", // Link de pagamento real de R$ 249,00 do Mercado Pago
     duration: "40h",
     lessonsCount: 95,
     type: "video",
