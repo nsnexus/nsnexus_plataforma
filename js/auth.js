@@ -51,13 +51,40 @@ async function syncSupabaseSession() {
         throw profileError;
       }
 
+      let enrolled = [];
+      let progress = {};
+
+      if (profile) {
+        enrolled = profile.enrolled_courses || [];
+        progress = profile.progress || {};
+      }
+
+      // Check for pending unlock from Mercado Pago redirect
+      const pendingUnlock = localStorage.getItem("pending_unlock");
+      if (pendingUnlock) {
+        if (!enrolled.includes(pendingUnlock)) {
+          enrolled.push(pendingUnlock);
+          progress[pendingUnlock] = { completedLessons: [], percentage: 0 };
+          
+          // Update profile in Supabase
+          if (profile) {
+            await supabaseClient
+              .from('profiles')
+              .update({ enrolled_courses: enrolled, progress: progress })
+              .eq('id', session.user.id);
+          }
+        }
+        localStorage.removeItem("pending_unlock");
+        alert("O acesso ao seu produto adquirido foi ativado na sua conta!");
+      }
+
       if (profile) {
         const localUser = {
           name: profile.name,
           email: session.user.email,
           avatar: profile.avatar_url || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop",
-          enrolledCourses: profile.enrolled_courses || [],
-          progress: profile.progress || {}
+          enrolledCourses: enrolled,
+          progress: progress
         };
         localStorage.setItem("nsnexus_user", JSON.stringify(localUser));
       }
@@ -109,6 +136,19 @@ async function signup(name, email, password) {
         }
       }
     };
+    
+    // Check for pending unlock
+    const pendingUnlock = localStorage.getItem("pending_unlock");
+    if (pendingUnlock) {
+      if (!newUser.enrolledCourses.includes(pendingUnlock)) {
+        newUser.enrolledCourses.push(pendingUnlock);
+        if (!newUser.progress) newUser.progress = {};
+        newUser.progress[pendingUnlock] = { completedLessons: [], percentage: 0 };
+      }
+      localStorage.removeItem("pending_unlock");
+      alert("Simulador: O acesso ao seu produto adquirido foi ativado na sua nova conta!");
+    }
+    
     localStorage.setItem("nsnexus_user", JSON.stringify(newUser));
     return true;
   }
@@ -136,6 +176,19 @@ async function login(email, password) {
   } else {
     // Local Simulation
     const user = { ...DEFAULT_STUDENT_DATA, email: email };
+    
+    // Check for pending unlock
+    const pendingUnlock = localStorage.getItem("pending_unlock");
+    if (pendingUnlock) {
+      if (!user.enrolledCourses.includes(pendingUnlock)) {
+        user.enrolledCourses.push(pendingUnlock);
+        if (!user.progress) user.progress = {};
+        user.progress[pendingUnlock] = { completedLessons: [], percentage: 0 };
+      }
+      localStorage.removeItem("pending_unlock");
+      alert("Simulador: O acesso ao seu produto adquirido foi ativado na sua conta!");
+    }
+    
     localStorage.setItem("nsnexus_user", JSON.stringify(user));
     return true;
   }
@@ -245,7 +298,21 @@ async function checkPaymentReturn() {
         
         alert("Seu pagamento foi confirmado com sucesso! O acesso ao produto foi liberado.");
         window.location.reload();
+      } else {
+        // Clean URL parameters
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
       }
+    } else {
+      // User is not logged in! Save pending unlock and redirect to login
+      localStorage.setItem("pending_unlock", courseId);
+      
+      // Clean URL parameters
+      const newUrl = window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+      
+      alert("Pagamento aprovado com sucesso! Por favor, faça login ou crie uma conta para liberar o acesso ao produto.");
+      window.location.href = "login.html";
     }
   }
 }
@@ -264,6 +331,19 @@ function loginWithGoogle(name, email, picture) {
       }
     }
   };
+
+  // Check for pending unlock
+  const pendingUnlock = localStorage.getItem("pending_unlock");
+  if (pendingUnlock) {
+    if (!googleUser.enrolledCourses.includes(pendingUnlock)) {
+      googleUser.enrolledCourses.push(pendingUnlock);
+      if (!googleUser.progress) googleUser.progress = {};
+      googleUser.progress[pendingUnlock] = { completedLessons: [], percentage: 0 };
+    }
+    localStorage.removeItem("pending_unlock");
+    alert("Simulador: O acesso ao seu produto adquirido foi ativado na sua conta Google!");
+  }
+
   localStorage.setItem("nsnexus_user", JSON.stringify(googleUser));
   return true;
 }
