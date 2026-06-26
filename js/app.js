@@ -376,6 +376,12 @@ function initDetailPage() {
   document.getElementById("detail-original-price").textContent = "R$ " + course.originalPrice.toFixed(2);
   document.getElementById("detail-banner").src = course.banner;
 
+  const enrollBtn = document.getElementById("enroll-btn");
+  if (enrollBtn) {
+    const dest = course.paymentLink || `checkout.html?id=${course.id}`;
+    enrollBtn.setAttribute("data-dest", dest);
+  }
+
   // Bind instructor field dynamically
   const instructorEl = document.getElementById("detail-instructor");
   if (instructorEl) {
@@ -511,13 +517,16 @@ function initDetailPage() {
   }
 
   // Handle Enrollment simulation
-  const enrollBtn = document.getElementById("enroll-btn");
   if (enrollBtn) {
-    enrollBtn.addEventListener("click", () => {
+    enrollBtn.addEventListener("click", (e) => {
       const user = getCurrentUser();
-      const dest = course && course.paymentLink ? course.paymentLink : `checkout.html?id=${courseId}`;
+      const dest = e.currentTarget.getAttribute("data-dest");
       if (!user) {
-        localStorage.setItem("post_login_redirect", dest);
+        try {
+          window.localStorage.setItem("post_login_redirect", dest);
+        } catch (err) {
+          console.error(err);
+        }
         window.location.href = "login.html";
         return;
       }

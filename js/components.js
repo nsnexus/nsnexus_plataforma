@@ -2,8 +2,14 @@
 
 // Get current user session
 function getCurrentUser() {
-  const user = localStorage.getItem("nsnexus_user");
-  return user ? JSON.parse(user) : null;
+  try {
+    const user = window.localStorage.getItem("nsnexus_user");
+    return user ? JSON.parse(user) : null;
+  } catch (e) {
+    console.error("Erro ao ler nsnexus_user do localStorage:", e);
+    try { window.localStorage.removeItem("nsnexus_user"); } catch (_) {}
+    return null;
+  }
 }
 
 // Log out user

@@ -20,7 +20,12 @@ const DEFAULT_STUDENT_DATA = {
 
 // Check route guards
 function checkRouteGuard() {
-  const user = localStorage.getItem("nsnexus_user");
+  let user = null;
+  try {
+    user = window.localStorage.getItem("nsnexus_user");
+  } catch (e) {
+    console.error(e);
+  }
   const path = window.location.pathname;
   
   if (!user && (path.includes("dashboard.html") || path.includes("player.html"))) {
@@ -220,10 +225,21 @@ async function logoutUser() {
 
 // 5. Complete lesson and update progress percentage
 async function completeLesson(courseId, lessonId) {
-  const userData = localStorage.getItem("nsnexus_user");
+  let userData = null;
+  try {
+    userData = window.localStorage.getItem("nsnexus_user");
+  } catch (e) {
+    console.error(e);
+  }
   if (!userData) return;
   
-  const user = JSON.parse(userData);
+  let user = null;
+  try {
+    user = JSON.parse(userData);
+  } catch (e) {
+    console.error(e);
+    return;
+  }
   if (!user.progress[courseId]) {
     user.progress[courseId] = { completedLessons: [], percentage: 0 };
   }
