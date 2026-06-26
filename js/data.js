@@ -17,7 +17,7 @@ const COURSES_DATA = [
     level: "Todos os Níveis",
     rating: 4.95,
     reviewsCount: 184,
-    banner: "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=600&auto=format&fit=crop",
+    banner: "images/prompt-library-banner.png",
     syllabus: [
       {
         moduleTitle: "Módulo 1: Fundamentos de Engenharia de Prompt",
