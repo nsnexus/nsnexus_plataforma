@@ -54,6 +54,214 @@ function initLandingPage() {
       </div>
     `).join("");
   }
+
+  // Initialize Promo Popup Highlight
+  initPromoPopup();
+}
+
+function initPromoPopup() {
+  // 1. Inject Styles
+  const style = document.createElement("style");
+  style.textContent = `
+    .promo-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(6, 7, 13, 0.85);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 16px;
+    }
+    .promo-modal.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .promo-modal__content {
+      background: linear-gradient(135deg, #0f1322 0%, #080a10 100%);
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 460px;
+      padding: 32px;
+      position: relative;
+      box-shadow: 0 0 50px rgba(0, 245, 212, 0.15);
+      text-align: center;
+      transform: scale(0.95);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .promo-modal.active .promo-modal__content {
+      transform: scale(1);
+    }
+    .promo-modal__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .promo-modal__close:hover {
+      color: #ffffff;
+    }
+    .promo-modal__badge {
+      display: inline-block;
+      background: rgba(0, 245, 212, 0.1);
+      color: #00f5d4;
+      border: 1px solid rgba(0, 245, 212, 0.25);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .promo-modal__title {
+      font-family: inherit;
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+    .promo-modal__desc {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+    .promo-modal__timer-wrapper {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .promo-modal__timer-label {
+      display: block;
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .promo-modal__timer {
+      font-family: monospace;
+      font-size: 28px;
+      font-weight: 700;
+      color: #ff5e62;
+      text-shadow: 0 0 10px rgba(255, 94, 98, 0.4);
+      letter-spacing: 1px;
+    }
+    .promo-modal__price-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .promo-modal__price-old {
+      text-decoration: line-through;
+      color: #64748b;
+      font-size: 14px;
+    }
+    .promo-modal__price-new {
+      font-size: 26px;
+      font-weight: 800;
+      color: #00f5d4;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // 2. Inject HTML
+  const modalDiv = document.createElement("div");
+  modalDiv.id = "promo-popup-modal";
+  modalDiv.className = "promo-modal";
+  modalDiv.innerHTML = `
+    <div class="promo-modal__content animate-fade-in-up">
+      <button class="promo-modal__close" id="promo-popup-close">&times;</button>
+      <div class="promo-modal__badge">Oferta Especial de Lançamento</div>
+      <h2 class="promo-modal__title">Acelere sua Produtividade com IA</h2>
+      <p class="promo-modal__desc">Desbloqueie o acesso vitalício à <strong>Biblioteca de Prompts Premium NSNexus</strong>. Mais de 1.200 comandos de alto impacto para <strong>ChatGPT, Claude e Copilot</strong>.</p>
+      
+      <div class="promo-modal__timer-wrapper">
+        <span class="promo-modal__timer-label">O desconto de R$ 99,00 expira em:</span>
+        <div class="promo-modal__timer" id="promo-countdown-clock">03:00:00</div>
+      </div>
+      
+      <div class="promo-modal__price-box">
+        <span class="promo-modal__price-old">De R$ 197,00</span>
+        <span class="promo-modal__price-new">Por R$ 99,00</span>
+      </div>
+      
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <a href="curso-detalhe.html?id=biblioteca-prompts-ia" class="btn btn-primary btn-full btn-lg">Aproveitar Desconto</a>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modalDiv);
+
+  // 3. Event Listeners
+  const closeBtn = document.getElementById("promo-popup-close");
+  closeBtn.addEventListener("click", () => {
+    modalDiv.classList.remove("active");
+  });
+  
+  modalDiv.addEventListener("click", (e) => {
+    if (e.target === modalDiv) {
+      modalDiv.classList.remove("active");
+    }
+  });
+
+  // 4. Timer Logic
+  let deadline = localStorage.getItem("promo_deadline");
+  if (!deadline) {
+    deadline = new Date().getTime() + 3 * 60 * 60 * 1000;
+    localStorage.setItem("promo_deadline", deadline);
+  } else {
+    deadline = parseInt(deadline, 10);
+  }
+
+  const clockEl = document.getElementById("promo-countdown-clock");
+  function updateClock() {
+    const now = new Date().getTime();
+    const distance = deadline - now;
+
+    if (distance < 0) {
+      const newDeadline = new Date().getTime() + 3 * 60 * 60 * 1000;
+      localStorage.setItem("promo_deadline", newDeadline);
+      deadline = newDeadline;
+      return;
+    }
+
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    clockEl.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  // 5. Trigger Popup delay
+  if (!sessionStorage.getItem("promo_popup_shown")) {
+    setTimeout(() => {
+      modalDiv.classList.add("active");
+      sessionStorage.setItem("promo_popup_shown", "true");
+    }, 2500);
+  }
 }
 
 // Catalog Page Specific Setup
