@@ -368,6 +368,7 @@ function initDetailPage() {
   document.getElementById("detail-duration").textContent = course.duration;
   
   const isLibrary = course.id === "biblioteca-prompts-ia";
+  const isService = course.type === "service";
   document.getElementById("detail-lessons").textContent = isLibrary ? course.lessonsCount : course.lessonsCount + " aulas";
   document.getElementById("detail-level").textContent = course.level;
   document.getElementById("detail-badge").textContent = course.badgeLabel;
@@ -412,7 +413,6 @@ function initDetailPage() {
   }
 
   // Customize checkout features for Services (e.g. Landing Page creation or SharePoint Moderno systems)
-  const isService = course.type === "service";
   if (isService) {
     // Change heading "O que você irá aprender" to "Sobre o Serviço"
     const headings = document.querySelectorAll("#course-detail-container h2");
@@ -491,7 +491,7 @@ function initDetailPage() {
   const syllabusAccordion = document.getElementById("detail-syllabus");
   if (syllabusAccordion) {
     syllabusAccordion.innerHTML = course.syllabus.map(mod => {
-      const headerCount = isLibrary ? "+2.500 Prompts" : (isSystems ? "" : mod.lessons.length + " aulas");
+      const headerCount = isLibrary ? "+2.500 Prompts" : (isService ? "" : mod.lessons.length + " aulas");
       return `
         <div style="margin-bottom: var(--space-4); border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow:hidden; background: var(--bg-secondary);">
           <div style="padding: var(--space-4); font-weight: 600; background: rgba(255,255,255,0.02); display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-color);">
@@ -507,7 +507,7 @@ function initDetailPage() {
                   </span>
                   <span>${les.title}</span>
                 </div>
-                <span style="color: var(--text-muted);">${isSystems ? '' : les.duration}</span>
+                <span style="color: var(--text-muted);">${isService ? '' : les.duration}</span>
               </div>
             `).join('')}
           </div>

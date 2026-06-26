@@ -504,6 +504,14 @@
 }
 
 @media (max-width: 1023px) {
+  html {
+    overflow-x: hidden;
+  }
+
+  .hero__video-wrapper {
+    perspective: none;
+  }
+
   .hero__video-element,
   .hero__video-overlay {
     transform: none !important;
