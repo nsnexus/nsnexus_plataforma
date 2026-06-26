@@ -123,6 +123,57 @@ function initLandingPage() {
 
   // Initialize Promo Popup Highlight
   initPromoPopup();
+
+  // Initialize Showcase Video Modals
+  initVideoModal();
+}
+
+function initVideoModal() {
+  const modal = document.getElementById("video-modal");
+  const modalClose = document.getElementById("video-modal-close");
+  const modalBody = document.getElementById("video-modal-body");
+  
+  if (!modal || !modalClose || !modalBody) return;
+
+  const videoCards = document.querySelectorAll(".showcase-card--video");
+  
+  videoCards.forEach(card => {
+    card.addEventListener("click", () => {
+      const videoUrl = card.getAttribute("data-video-url");
+      if (videoUrl) {
+        if (videoUrl.includes("embed") || videoUrl.includes("canva.com") || videoUrl.includes("youtube.com")) {
+          modalBody.innerHTML = `<iframe src="${videoUrl}" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+        } else {
+          modalBody.innerHTML = `<video src="${videoUrl}" controls autoplay playsinline></video>`;
+        }
+        
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+    });
+  });
+
+  const closeModal = () => {
+    modal.classList.remove("active");
+    document.body.style.overflow = "";
+    setTimeout(() => {
+      modalBody.innerHTML = "";
+    }, 300);
+  };
+
+  modalClose.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("active")) {
+      closeModal();
+    }
+  });
 }
 
 function initPromoPopup() {
