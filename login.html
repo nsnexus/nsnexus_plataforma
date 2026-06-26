@@ -157,17 +157,30 @@
 
   <!-- JS Scripts -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
   <script src="js/data.js"></script>
   <script src="js/components.js"></script>
   <script src="js/auth.js"></script>
   
   <script>
-    function handleLoginSubmit(event) {
+    async function handleLoginSubmit(event) {
       event.preventDefault();
+      const submitBtn = event.target.querySelector("button[type='submit']");
+      const originalText = submitBtn.textContent;
+      
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Acessando...";
+
       const email = document.getElementById("login-email").value;
       const pass = document.getElementById("login-pass").value;
       
-      if (login(email, pass)) {
+      const success = await login(email, pass);
+      
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalText;
+
+      if (success) {
         window.location.href = "dashboard.html";
       }
     }

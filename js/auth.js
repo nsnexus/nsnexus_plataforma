@@ -1,6 +1,6 @@
-/* Simulating User Authentication & Progress Tracking */
+/* Simulating User Authentication & Progress Tracking + Supabase Real Integration */
 
-// Default mock student data for first-time login
+// Default mock student data for first-time login (used in local simulation mode)
 const DEFAULT_STUDENT_DATA = {
   name: "Lucas Souza",
   email: "lucas@email.com",
@@ -9,40 +9,14 @@ const DEFAULT_STUDENT_DATA = {
   progress: {
     "pbi-basico-avancado": {
       completedLessons: ["pbi-1-1", "pbi-1-2"],
-      percentage: 16 // 2 completed of 120 (simulated/custom for showcase)
+      percentage: 16
     },
     "power-apps-sistemas": {
       completedLessons: ["apps-1-1"],
-      percentage: 25 // 1 completed of 4 lessons
+      percentage: 25
     }
   }
 };
-
-// Simulate sign up
-function signup(name, email, password) {
-  const newUser = {
-    name: name,
-    email: email,
-    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop",
-    enrolledCourses: ["pbi-basico-avancado"],
-    progress: {
-      "pbi-basico-avancado": {
-        completedLessons: [],
-        percentage: 0
-      }
-    }
-  };
-  localStorage.setItem("nsnexus_user", JSON.stringify(newUser));
-  return true;
-}
-
-// Simulate login
-function login(email, password) {
-  // Simple validation bypass for showcase
-  const user = { ...DEFAULT_STUDENT_DATA, email: email };
-  localStorage.setItem("nsnexus_user", JSON.stringify(user));
-  return true;
-}
 
 // Check route guards
 function checkRouteGuard() {
@@ -54,8 +28,134 @@ function checkRouteGuard() {
   }
 }
 
-// Complete lesson and update progress percentage
-function completeLesson(courseId, lessonId) {
+// 1. Sync Supabase Session on load
+async function syncSupabaseSession() {
+  if (!supabaseClient) {
+    checkRouteGuard();
+    return;
+  }
+
+  try {
+    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+    if (sessionError) throw sessionError;
+
+    if (session && session.user) {
+      // Fetch user profile
+      const { data: profile, error: profileError } = await supabaseClient
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single();
+
+      if (profileError && profileError.code !== 'PGRST116') {
+        throw profileError;
+      }
+
+      if (profile) {
+        const localUser = {
+          name: profile.name,
+          email: session.user.email,
+          avatar: profile.avatar_url || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop",
+          enrolledCourses: profile.enrolled_courses || [],
+          progress: profile.progress || {}
+        };
+        localStorage.setItem("nsnexus_user", JSON.stringify(localUser));
+      }
+    } else {
+      // If logged out from Supabase, clean localStorage
+      localStorage.removeItem("nsnexus_user");
+    }
+  } catch (err) {
+    console.error("Erro ao sincronizar sessão do Supabase:", err);
+  } finally {
+    checkRouteGuard();
+  }
+}
+
+// 2. SignUp logic
+async function signup(name, email, password) {
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            name: name
+          }
+        }
+      });
+      if (error) throw error;
+      
+      if (data && data.user) {
+        alert("Conta criada com sucesso! Verifique seu e-mail de confirmação ou faça login.");
+        return true;
+      }
+    } catch (err) {
+      alert("Erro ao registrar: " + err.message);
+      return false;
+    }
+  } else {
+    // Local Simulation
+    const newUser = {
+      name: name,
+      email: email,
+      avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop",
+      enrolledCourses: ["pbi-basico-avancado"],
+      progress: {
+        "pbi-basico-avancado": {
+          completedLessons: [],
+          percentage: 0
+        }
+      }
+    };
+    localStorage.setItem("nsnexus_user", JSON.stringify(newUser));
+    return true;
+  }
+}
+
+// 3. Login logic
+async function login(email, password) {
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+      if (error) throw error;
+
+      if (data && data.user) {
+        // Force session sync
+        await syncSupabaseSession();
+        return true;
+      }
+    } catch (err) {
+      alert("Erro ao autenticar: " + err.message);
+      return false;
+    }
+  } else {
+    // Local Simulation
+    const user = { ...DEFAULT_STUDENT_DATA, email: email };
+    localStorage.setItem("nsnexus_user", JSON.stringify(user));
+    return true;
+  }
+}
+
+// 4. Logout logic
+async function logoutUser() {
+  if (supabaseClient) {
+    try {
+      await supabaseClient.auth.signOut();
+    } catch (err) {
+      console.error("Erro no logout do Supabase:", err);
+    }
+  }
+  localStorage.removeItem("nsnexus_user");
+  window.location.href = "index.html";
+}
+
+// 5. Complete lesson and update progress percentage
+async function completeLesson(courseId, lessonId) {
   const userData = localStorage.getItem("nsnexus_user");
   if (!userData) return;
   
@@ -69,10 +169,9 @@ function completeLesson(courseId, lessonId) {
     progressObj.completedLessons.push(lessonId);
   }
   
-  // Calculate percentage (mock lookup in COURSES_DATA)
+  // Calculate percentage
   const course = COURSES_DATA.find(c => c.id === courseId);
   if (course) {
-    // Flatten lessons to get total
     let totalLessons = 0;
     course.syllabus.forEach(mod => totalLessons += mod.lessons.length);
     
@@ -81,11 +180,77 @@ function completeLesson(courseId, lessonId) {
     }
   }
   
+  // Save local
   localStorage.setItem("nsnexus_user", JSON.stringify(user));
+
+  // Save to Supabase (if connected)
+  if (supabaseClient) {
+    try {
+      const { data: { user: sbUser } } = await supabaseClient.auth.getUser();
+      if (sbUser) {
+        const { error } = await supabaseClient
+          .from('profiles')
+          .update({ progress: user.progress })
+          .eq('id', sbUser.id);
+        if (error) throw error;
+      }
+    } catch (err) {
+      console.error("Erro ao sincronizar progresso no Supabase:", err);
+    }
+  }
+  
   return user;
 }
 
-// Google Authentication handler
+// 6. Check for Mercado Pago return query strings to dynamically unlock courses/products
+async function checkPaymentReturn() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const status = urlParams.get("status") || urlParams.get("payment_status");
+  const courseId = urlParams.get("course") || urlParams.get("courseId") || urlParams.get("id");
+  
+  if (status === "approved" && courseId) {
+    const userData = localStorage.getItem("nsnexus_user");
+    if (userData) {
+      const user = JSON.parse(userData);
+      if (!user.enrolledCourses.includes(courseId)) {
+        user.enrolledCourses.push(courseId);
+        if (!user.progress) user.progress = {};
+        user.progress[courseId] = { completedLessons: [], percentage: 0 };
+        
+        // Save local
+        localStorage.setItem("nsnexus_user", JSON.stringify(user));
+
+        // Save to Supabase (if connected)
+        if (supabaseClient) {
+          try {
+            const { data: { user: sbUser } } = await supabaseClient.auth.getUser();
+            if (sbUser) {
+              const { error } = await supabaseClient
+                .from('profiles')
+                .update({ 
+                  enrolled_courses: user.enrolledCourses,
+                  progress: user.progress 
+                })
+                .eq('id', sbUser.id);
+              if (error) throw error;
+            }
+          } catch (err) {
+            console.error("Erro ao sincronizar compra no Supabase:", err);
+          }
+        }
+        
+        // Clean URL parameters using history API to prevent popups on reload
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+        
+        alert("Seu pagamento foi confirmado com sucesso! O acesso ao produto foi liberado.");
+        window.location.reload();
+      }
+    }
+  }
+}
+
+// 7. Google Authentication handler (Keep simulated for convenience or link to Supabase OAuth in future)
 function loginWithGoogle(name, email, picture) {
   const googleUser = {
     name: name,
@@ -127,7 +292,7 @@ function handleGoogleCredentialResponse(response) {
   }
 }
 
-// Simulated mock Google login button trigger (Interactive prompt for local testing)
+// Simulated mock Google login button trigger
 function triggerMockGoogleLogin() {
   const name = prompt("Simulador Google: Digite seu Nome:", "Seu Nome");
   if (!name) return;
@@ -138,33 +303,7 @@ function triggerMockGoogleLogin() {
   window.location.href = "dashboard.html";
 }
 
-// Check for Mercado Pago return query strings to dynamically unlock courses/products
-function checkPaymentReturn() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const status = urlParams.get("status") || urlParams.get("payment_status");
-  const courseId = urlParams.get("course") || urlParams.get("courseId") || urlParams.get("id");
-  
-  if (status === "approved" && courseId) {
-    const userData = localStorage.getItem("nsnexus_user");
-    if (userData) {
-      const user = JSON.parse(userData);
-      if (!user.enrolledCourses.includes(courseId)) {
-        user.enrolledCourses.push(courseId);
-        if (!user.progress) user.progress = {};
-        user.progress[courseId] = { completedLessons: [], percentage: 0 };
-        localStorage.setItem("nsnexus_user", JSON.stringify(user));
-        
-        // Clean URL parameters using history API to prevent popups on reload
-        const newUrl = window.location.pathname;
-        window.history.replaceState({}, document.title, newUrl);
-        
-        alert("Seu pagamento foi confirmado com sucesso! O acesso ao produto foi liberado.");
-        window.location.reload();
-      }
-    }
-  }
-}
-
-// Check route permission immediately when auth.js is loaded
-checkRouteGuard();
-checkPaymentReturn();
+// Initialize Supabase Sync on load (calls guards internally)
+syncSupabaseSession().then(() => {
+  checkPaymentReturn();
+});
