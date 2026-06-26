@@ -195,6 +195,18 @@ function generateCourseCard(course) {
     `;
   }
 
+  const isClosed = course.isClosed;
+  const priceHtml = isClosed 
+    ? `<span class="course-card__price">Sob Consulta</span>`
+    : `
+      <span class="course-card__price-original">R$ ${course.originalPrice.toFixed(2)}</span>
+      <span class="course-card__price">R$ ${course.price.toFixed(2)}</span>
+    `;
+
+  const btnHtml = isClosed
+    ? `<a href="curso-detalhe.html?id=${course.id}" class="btn btn-sm btn-secondary">Encomendar</a>`
+    : `<a href="curso-detalhe.html?id=${course.id}" class="btn btn-sm btn-outline">Saber Mais</a>`;
+
   return `
     <div class="course-card">
       <div class="course-card__thumb">
@@ -212,10 +224,9 @@ function generateCourseCard(course) {
         <p class="course-card__desc">${course.description}</p>
         <div class="course-card__footer">
           <div>
-            <span class="course-card__price-original">R$ ${course.originalPrice.toFixed(2)}</span>
-            <span class="course-card__price">R$ ${course.price.toFixed(2)}</span>
+            ${priceHtml}
           </div>
-          <a href="curso-detalhe.html?id=${course.id}" class="btn btn-sm btn-outline">Saber Mais</a>
+          ${btnHtml}
         </div>
       </div>
     </div>

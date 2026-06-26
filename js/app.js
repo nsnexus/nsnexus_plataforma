@@ -40,22 +40,85 @@ function initLandingPage() {
   }
 
   // Render Testimonials
-  const testimonialsContainer = document.getElementById("testimonials-grid");
+  const testimonialsContainer = document.getElementById("testimonials-swiper-wrapper");
   if (testimonialsContainer) {
     testimonialsContainer.innerHTML = TESTIMONIALS_DATA.map(test => `
-      <div class="testimonial-card">
-        <p class="testimonial-card__quote">"${test.quote}"</p>
-        <div class="testimonial-card__author">
-          <div class="testimonial-card__avatar">
-            <img src="${test.avatar}" alt="${test.name}">
-          </div>
-          <div>
-            <h4 class="testimonial-card__name">${test.name}</h4>
-            <span class="testimonial-card__title">${test.title}</span>
+      <div class="swiper-slide" style="height: auto;">
+        <div class="testimonial-card" style="width: 100%; max-width: 380px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+          <p class="testimonial-card__quote" style="flex-grow: 1;">"${test.quote}"</p>
+          <div class="testimonial-card__author" style="margin-top: auto;">
+            <div class="testimonial-card__avatar">
+              <img src="${test.avatar}" alt="${test.name}">
+            </div>
+            <div>
+              <h4 class="testimonial-card__name">${test.name}</h4>
+              <span class="testimonial-card__title">${test.title}</span>
+            </div>
           </div>
         </div>
       </div>
     `).join("");
+  }
+
+  // Initialize Swiper.js
+  if (typeof Swiper !== "undefined") {
+    // 1. Showcase Swiper
+    new Swiper(".showcase-swiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      grabCursor: true,
+      autoplay: {
+        delay: 3500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".showcase-swiper .swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+      },
+      navigation: {
+        nextEl: ".showcase-swiper .swiper-button-next",
+        prevEl: ".showcase-swiper .swiper-button-prev",
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
+
+    // 2. Testimonials Swiper
+    new Swiper(".testimonials-swiper", {
+      slidesPerView: 1,
+      spaceBetween: 20,
+      loop: true,
+      grabCursor: true,
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".testimonials-swiper .swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 2,
+          spaceBetween: 20,
+        },
+        1024: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+      },
+    });
   }
 
   // Initialize Promo Popup Highlight
@@ -373,14 +436,35 @@ function initDetailPage() {
   document.getElementById("detail-level").textContent = course.level;
   document.getElementById("detail-badge").textContent = course.badgeLabel;
   document.getElementById("detail-badge").className = `badge ${course.badgeClass}`;
-  document.getElementById("detail-price").textContent = "R$ " + course.price.toFixed(2);
-  document.getElementById("detail-original-price").textContent = "R$ " + course.originalPrice.toFixed(2);
+  if (course.isClosed) {
+    document.getElementById("detail-price").textContent = "Sob Consulta";
+    const origPriceEl = document.getElementById("detail-original-price");
+    if (origPriceEl) {
+      origPriceEl.style.display = "none";
+      const labelEl = origPriceEl.previousElementSibling;
+      if (labelEl) labelEl.textContent = "Sob Encomenda";
+    }
+  } else {
+    document.getElementById("detail-price").textContent = "R$ " + course.price.toFixed(2);
+    const origPriceEl = document.getElementById("detail-original-price");
+    if (origPriceEl) {
+      origPriceEl.style.display = "inline";
+      origPriceEl.textContent = "R$ " + course.originalPrice.toFixed(2);
+      const labelEl = origPriceEl.previousElementSibling;
+      if (labelEl) labelEl.textContent = "Investimento Único";
+    }
+  }
   document.getElementById("detail-banner").src = course.banner;
 
   const enrollBtn = document.getElementById("enroll-btn");
   if (enrollBtn) {
     const dest = course.paymentLink || `checkout.html?id=${course.id}`;
     enrollBtn.setAttribute("data-dest", dest);
+    if (course.isClosed) {
+      enrollBtn.textContent = "Solicitar por Encomenda";
+    } else {
+      enrollBtn.textContent = "Comprar Agora";
+    }
   }
 
   // Bind instructor field dynamically
@@ -519,8 +603,12 @@ function initDetailPage() {
   // Handle Enrollment simulation
   if (enrollBtn) {
     enrollBtn.addEventListener("click", (e) => {
-      const user = getCurrentUser();
       const dest = e.currentTarget.getAttribute("data-dest");
+      if (course.isClosed) {
+        window.open(dest, "_blank", "noopener,noreferrer");
+        return;
+      }
+      const user = getCurrentUser();
       if (!user) {
         try {
           window.localStorage.setItem("post_login_redirect", dest);

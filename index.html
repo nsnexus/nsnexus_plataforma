@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/hero.css">
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   
   <style>
     /* Section specific styles for index.html */
@@ -397,7 +398,106 @@
       <!-- Injected dynamically by app.js -->
     </div>
   </section>
+  <!-- Cases de Sucesso / Showcase de Projetos -->
+  <section class="container reveal" style="padding-top: var(--space-12); padding-bottom: var(--space-12);">
+    <div style="text-align: center; max-width: 700px; margin: 0 auto var(--space-12) auto;">
+      <span class="accent-gradient" style="font-weight: 700; text-transform: uppercase; font-size: var(--font-sm); letter-spacing: 0.05em;">Projetos Entregues</span>
+      <h2 style="font-size: var(--font-4xl); margin-top: var(--space-2); margin-bottom: var(--space-4);">Sistemas & Sites já Criados</h2>
+      <p>Conheça algumas soluções corporativas desenvolvidas sob medida pela NSNexus para otimizar processos reais.</p>
+    </div>
 
+    <!-- Swiper container -->
+    <div class="swiper showcase-swiper" style="position: relative;">
+      <div class="swiper-wrapper">
+        
+        <!-- Project 1 -->
+        <div class="swiper-slide">
+          <div class="showcase-card">
+            <div class="showcase-card__img-wrapper">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=500&auto=format&fit=crop" alt="ANS Digital">
+            </div>
+            <span class="showcase-card__badge showcase-card__badge--sharepoint">SharePoint & HTML/JS</span>
+            <h3 class="showcase-card__title">Portal ANS Digital</h3>
+            <p class="showcase-card__desc">Substituição completa do Power Apps. Portal de controle operacional leve integrado nativamente no SharePoint Online.</p>
+            <div class="showcase-card__metric">
+              <span class="material-symbols-outlined" style="font-size: 16px;">savings</span>
+              <span>Economia de R$ 75.000/ano em licenças</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="swiper-slide">
+          <div class="showcase-card">
+            <div class="showcase-card__img-wrapper">
+              <img src="https://images.unsplash.com/photo-1508873535684-277a3cbcc4e8?q=80&w=500&auto=format&fit=crop" alt="Gestão AutoCar">
+            </div>
+            <span class="showcase-card__badge showcase-card__badge--web">Sistemas Web</span>
+            <h3 class="showcase-card__title">Gestão AutoCar</h3>
+            <p class="showcase-card__desc">Plataforma web de alta performance para controle de ordens de serviço, clientes e estoque com banco de dados rápido.</p>
+            <div class="showcase-card__metric">
+              <span class="material-symbols-outlined" style="font-size: 16px;">speed</span>
+              <span>Tempo de atendimento reduzido em 50%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="swiper-slide">
+          <div class="showcase-card">
+            <div class="showcase-card__img-wrapper">
+              <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=500&auto=format&fit=crop" alt="Dashboard Financeiro">
+            </div>
+            <span class="showcase-card__badge showcase-card__badge--pbi">Power BI</span>
+            <h3 class="showcase-card__title">Dashboard Financeiro YoY</h3>
+            <p class="showcase-card__desc">Dashboard executivo de análises anuais interativas seguindo rigorosamente diretrizes e UX corporativo de ponta.</p>
+            <div class="showcase-card__metric">
+              <span class="material-symbols-outlined" style="font-size: 16px;">bolt</span>
+              <span>Carregamento de relatórios 10x mais rápido</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="swiper-slide">
+          <div class="showcase-card">
+            <div class="showcase-card__img-wrapper">
+              <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=500&auto=format&fit=crop" alt="Landing Page">
+            </div>
+            <span class="showcase-card__badge showcase-card__badge--web">Criação de Sites</span>
+            <h3 class="showcase-card__title">Landing Page Alpha</h3>
+            <p class="showcase-card__desc">Landing page responsiva de alta conversão integrada diretamente para direcionar leads qualificados ao WhatsApp comercial.</p>
+            <div class="showcase-card__metric">
+              <span class="material-symbols-outlined" style="font-size: 16px;">trending_up</span>
+              <span>Aumento de 40% em contatos qualificados</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="swiper-slide">
+          <div class="showcase-card">
+            <div class="showcase-card__img-wrapper">
+              <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=500&auto=format&fit=crop" alt="Copilot Hub">
+            </div>
+            <span class="showcase-card__badge showcase-card__badge--pbi">IA & Automação</span>
+            <h3 class="showcase-card__title">Copilot Hub Interno</h3>
+            <p class="showcase-card__desc">Interface corporativa de inteligência artificial para equipe de vendas para geração padronizada de emails e propostas.</p>
+            <div class="showcase-card__metric">
+              <span class="material-symbols-outlined" style="font-size: 16px;">psychology</span>
+              <span>Aumento de 3x na velocidade de prospecção</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      <!-- Swiper Controls -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </section>
   <!-- Depoimentos -->
   <section style="background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);">
     <div class="container reveal">
@@ -406,8 +506,14 @@
         <h2 style="font-size: var(--font-3xl); margin-top: var(--space-2);">O que dizem os nossos clientes e alunos</h2>
       </div>
       
-      <div class="card-grid" id="testimonials-grid">
-        <!-- Injected dynamically by app.js -->
+      <!-- Swiper Testimonials container -->
+      <div class="swiper testimonials-swiper" style="position: relative;">
+        <div class="swiper-wrapper" id="testimonials-swiper-wrapper">
+          <!-- Injected dynamically by app.js -->
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next" style="display: none !important;"></div>
+        <div class="swiper-button-prev" style="display: none !important;"></div>
       </div>
     </div>
   </section>
@@ -435,6 +541,7 @@
   <script src="js/components.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

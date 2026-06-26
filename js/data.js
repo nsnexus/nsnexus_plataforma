@@ -91,6 +91,122 @@ const COURSES_DATA = [
     reviewsCount: 47,
     banner: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop",
     syllabus: []
+  },
+  {
+    id: "power-bi-particular",
+    title: "Power BI Avançado & UX Particular (VIP)",
+    description: "Treinamento particular sob encomenda. Aprenda a modelar dados complexos (DAX, Star Schema) e a criar dashboards profissionais seguindo as melhores práticas de design e usabilidade corporativa.",
+    price: 0,
+    originalPrice: 0,
+    isClosed: true,
+    paymentLink: "https://wa.me/5594991081351?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20treinamento%20particular%20sob%20encomenda%20de%20Power%20BI.",
+    duration: "Horários Flexíveis",
+    lessonsCount: "Conteúdo Sob Medida",
+    instructor: "Aulas VIP individuais ou corporativas",
+    type: "custom",
+    category: "sistemas",
+    badgeClass: "badge-closed",
+    badgeLabel: "Matrículas Encerradas",
+    level: "Personalizado",
+    rating: 5.0,
+    reviewsCount: 38,
+    banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
+    syllabus: [
+      {
+        moduleTitle: "Treinamento Particular Customizado",
+        lessons: [
+          { id: "pbi-vip-1", title: "Definição do escopo do seu projeto ou necessidade", duration: "VIP", type: "pdf" },
+          { id: "pbi-vip-2", title: "Aulas ao vivo focadas em resolver suas dúvidas reais", duration: "VIP", type: "video" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "power-apps-particular",
+    title: "Power Apps & Portais Corporativos Particular (VIP)",
+    description: "Treinamento particular sob encomenda. Domine a criação de aplicativos corporativos de alta fidelidade integrados no Microsoft 365, substituindo processos manuais por tecnologia digital moderna.",
+    price: 0,
+    originalPrice: 0,
+    isClosed: true,
+    paymentLink: "https://wa.me/5594991081351?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20treinamento%20particular%20sob%20encomenda%20de%20Power%20Apps.",
+    duration: "Horários Flexíveis",
+    lessonsCount: "Conteúdo Sob Medida",
+    instructor: "Aulas VIP individuais ou corporativas",
+    type: "custom",
+    category: "sistemas",
+    badgeClass: "badge-closed",
+    badgeLabel: "Matrículas Encerradas",
+    level: "Personalizado",
+    rating: 5.0,
+    reviewsCount: 29,
+    banner: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop",
+    syllabus: [
+      {
+        moduleTitle: "Treinamento Particular Customizado",
+        lessons: [
+          { id: "apps-vip-1", title: "Estudo de caso e regras de negócio da sua empresa", duration: "VIP", type: "pdf" },
+          { id: "apps-vip-2", title: "Construção conjunta do aplicativo passo-a-passo", duration: "VIP", type: "video" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "power-automate-particular",
+    title: "Automação de Processos com Power Automate (VIP)",
+    description: "Treinamento particular sob encomenda. Automatize fluxos de trabalho repetitivos, envio de e-mails, integrações de sistemas, leituras de arquivos e alertas de forma totalmente integrada ao ecossistema Microsoft.",
+    price: 0,
+    originalPrice: 0,
+    isClosed: true,
+    paymentLink: "https://wa.me/5594991081351?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20treinamento%20particular%20sob%20encomenda%20de%20Power%20Automate.",
+    duration: "Horários Flexíveis",
+    lessonsCount: "Conteúdo Sob Medida",
+    instructor: "Aulas VIP individuais ou corporativas",
+    type: "custom",
+    category: "sistemas",
+    badgeClass: "badge-closed",
+    badgeLabel: "Matrículas Encerradas",
+    level: "Personalizado",
+    rating: 5.0,
+    reviewsCount: 21,
+    banner: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+    syllabus: [
+      {
+        moduleTitle: "Treinamento Particular Customizado",
+        lessons: [
+          { id: "flow-vip-1", title: "Mapeamento dos processos manuais e fluxos repetitivos", duration: "VIP", type: "pdf" },
+          { id: "flow-vip-2", title: "Criação de automações e triggers de sucesso na prática", duration: "VIP", type: "video" }
+        ]
+      }
+    ]
+  },
+  {
+    id: "ia-corporativa-particular",
+    title: "Inteligência Artificial & Copilot para Negócios (VIP)",
+    description: "Treinamento particular sob encomenda. Domine Engenharia de Prompt avançada, configure GPTs personalizados e implemente o Microsoft Copilot no fluxo de trabalho de sua área para ganho exponencial de eficiência.",
+    price: 0,
+    originalPrice: 0,
+    isClosed: true,
+    paymentLink: "https://wa.me/5594991081351?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20treinamento%20particular%20sob%20encomenda%20de%20Inteligencia%20Artificial.",
+    duration: "Horários Flexíveis",
+    lessonsCount: "Conteúdo Sob Medida",
+    instructor: "Aulas VIP individuais ou corporativas",
+    type: "custom",
+    category: "ia",
+    badgeClass: "badge-closed",
+    badgeLabel: "Matrículas Encerradas",
+    level: "Personalizado",
+    rating: 5.0,
+    reviewsCount: 34,
+    banner: "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=600&auto=format&fit=crop",
+    syllabus: [
+      {
+        moduleTitle: "Treinamento Particular Customizado",
+        lessons: [
+          { id: "ai-vip-1", title: "Entendendo os cenários de aplicação de IA no seu setor", duration: "VIP", type: "pdf" },
+          { id: "ai-vip-2", title: "Construindo assistentes e prompts sob medida para sua rotina", duration: "VIP", type: "video" }
+        ]
+      }
+    ]
   }
 ];
 
@@ -150,9 +266,33 @@ const TESTIMONIALS_DATA = [
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop"
   },
   {
+    name: "Juliana Ramos",
+    title: "Gerente de Operações, Vale S.A. (Treinamento Corporativo)",
+    quote: "O treinamento particular de Power Automate e Power Apps para nossa equipe superou as expectativas. Automatizamos o fluxo de aprovação de contratos e economizamos mais de 15 horas semanais de digitação manual.",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=100&auto=format&fit=crop"
+  },
+  {
+    name: "Ricardo Souza",
+    title: "Analista de Planejamento Financeiro (Curso Power BI)",
+    quote: "Fiz o treinamento de Power BI Avançado sob encomenda e o resultado foi imediato. Consegui estruturar um modelo Star Schema robusto que agora atende todo o reporte financeiro da diretoria, com carregamento instantâneo.",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=100&auto=format&fit=crop"
+  },
+  {
     name: "Marcos Oliveira",
     title: "Proprietário, AutoCar Mecânica (Contratou Consultoria)",
     quote: "Contratamos a consultoria da NSNexus para desenvolver um sistema personalizado de ordens de serviço e controle de estoque. A gestão da oficina melhorou 100%, reduzindo desperdícios e agilizando o atendimento.",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop"
+  },
+  {
+    name: "Fernanda Lima",
+    title: "Coordenadora de RH, TechFlow (Biblioteca de Prompts)",
+    quote: "Utilizo os prompts de IA para recrutamento e seleção. Consigo montar descrições de cargo perfeitas, roteiros de entrevista personalizados por competência e feedbacks estruturados em segundos. Indispensável!",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&auto=format&fit=crop"
+  },
+  {
+    name: "Gabriel Santos",
+    title: "Diretor Comercial, Alpha Group (Serviço Site WhatsApp)",
+    quote: "A equipe da NSNexus desenvolveu a nossa landing page comercial integrada ao WhatsApp. O design é maravilhoso e as vendas aumentaram significativamente devido à facilidade de contato imediato dos clientes.",
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=100&auto=format&fit=crop"
   }
 ];
