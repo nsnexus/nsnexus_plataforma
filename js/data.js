@@ -36,7 +36,7 @@ const COURSES_DATA = [
     description: "Substitua o Power Apps e economize com licenças extras. Aprenda a desenvolver portais corporativos, cadastros e intranets leves com HTML, CSS e JavaScript puro rodando diretamente dentro da infraestrutura do seu SharePoint.",
     price: 197.00,
     originalPrice: 497.00,
-    paymentLink: "https://link.mercadopago.com.br/nsnexussharepoint", // Substitua pelo link de R$ 197,00 gerado no seu painel do Mercado Pago
+    paymentLink: "https://mpago.la/2GNXFeY", // Link de pagamento real de R$ 197,00 do Mercado Pago
     duration: "40h",
     lessonsCount: 95,
     type: "video",
