@@ -354,11 +354,19 @@
   max-width: 700px;
   max-height: 85vh;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: var(--space-8);
   position: relative;
   box-shadow: var(--shadow-lg), 0 0 50px rgba(0, 245, 212, 0.05);
   transform: scale(0.95);
   transition: transform var(--transition-normal);
+}
+
+@media (max-width: 480px) {
+  .prompt-modal__box {
+    padding: var(--space-4);
+    max-height: 90vh;
+  }
 }
 
 .prompt-modal.active .prompt-modal__box {

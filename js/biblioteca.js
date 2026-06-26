@@ -271,9 +271,9 @@ function handleViewPrompt(promptId) {
         <p style="color: var(--text-secondary); max-width: 500px; margin: 0 auto var(--space-8) auto;">
           Esta biblioteca de prompts de alta performance é exclusiva para alunos. Desbloqueie o acesso a todos os 2.700 prompts estruturados por R$ 99,00.
         </p>
-        <div style="display:flex; gap: var(--space-4); justify-content:center;">
-          <a href="${link}" ${link.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="btn btn-primary">Adquirir Acesso (R$ 99,00)</a>
-          <button onclick="closeModal()" class="btn btn-secondary">Voltar</button>
+        <div style="display:flex; gap: var(--space-4); justify-content:center; flex-wrap:wrap;">
+          <a href="${link}" ${link.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="btn btn-primary" style="white-space:nowrap; min-width:0; flex:1 1 auto; text-align:center;">Adquirir Acesso (R$ 99,00)</a>
+          <button onclick="closeModal()" class="btn btn-secondary" style="flex:1 1 auto; text-align:center;">Voltar</button>
         </div>
       </div>
     `;
