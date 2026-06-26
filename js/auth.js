@@ -292,8 +292,27 @@ function handleGoogleCredentialResponse(response) {
   }
 }
 
-// Simulated mock Google login button trigger
-function triggerMockGoogleLogin() {
+// Simulated mock Google login button trigger (with Supabase OAuth fallback)
+async function triggerMockGoogleLogin() {
+  if (typeof supabaseClient !== "undefined" && supabaseClient) {
+    if (window.location.protocol.startsWith("http")) {
+      try {
+        const { error } = await supabaseClient.auth.signInWithOAuth({
+          provider: 'google',
+          options: {
+            redirectTo: window.location.origin + window.location.pathname.replace("login.html", "dashboard.html").replace("registro.html", "dashboard.html")
+          }
+        });
+        if (error) throw error;
+      } catch (err) {
+        alert("Erro no Login do Google via Supabase: " + err.message + "\n\nVerifique se o provider Google está ativo no console do seu Supabase.");
+      }
+      return;
+    } else {
+      alert("Aviso: Login real com Google (OAuth) não funciona abrindo arquivos diretamente pelo navegador (protocolo file://).\n\nPara usar login real, rode o projeto usando um servidor local (como Live Server do VS Code) ou hospede o site em algum serviço (Vercel, Netlify, etc).\n\nIniciando o simulador local para testes...");
+    }
+  }
+
   const name = prompt("Simulador Google: Digite seu Nome:", "Seu Nome");
   if (!name) return;
   const email = prompt("Simulador Google: Digite seu E-mail:", "seuemail@email.com");
