@@ -259,7 +259,7 @@ async function completeLesson(courseId, lessonId) {
 async function checkPaymentReturn() {
   const urlParams = new URLSearchParams(window.location.search);
   const status = urlParams.get("status") || urlParams.get("payment_status");
-  const courseId = urlParams.get("course") || urlParams.get("courseId") || urlParams.get("id");
+  const courseId = urlParams.get("course") || urlParams.get("courseId") || urlParams.get("id") || urlParams.get("external_reference");
   
   if (status === "approved" && courseId) {
     const userData = localStorage.getItem("nsnexus_user");
