@@ -18,7 +18,7 @@ const COURSES_DATA = [
     level: "Todos os Níveis",
     rating: 4.95,
     reviewsCount: 184,
-    banner: "images/prompt-library-banner.png",
+    banner: "images/biblioteca.jpeg",
     syllabus: [
       {
         moduleTitle: "Nossos Prompts Organizacionais por Área",
@@ -48,7 +48,7 @@ const COURSES_DATA = [
     level: "Sem Programação",
     rating: 4.9,
     reviewsCount: 142,
-    banner: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?q=80&w=600&auto=format&fit=crop",
+    banner: "images/sharepoint.jpeg",
     syllabus: [
       {
         moduleTitle: "Módulo 1: Portais Modernos no SharePoint",
@@ -89,7 +89,7 @@ const COURSES_DATA = [
     level: "Qualquer Empresa ou Nicho",
     rating: 4.95,
     reviewsCount: 47,
-    banner: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=600&auto=format&fit=crop",
+    banner: "images/whatsapp.jpeg",
     syllabus: []
   },
   {
@@ -110,7 +110,7 @@ const COURSES_DATA = [
     level: "Personalizado",
     rating: 5.0,
     reviewsCount: 38,
-    banner: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop",
+    banner: "images/powerbi.jpeg",
     syllabus: [
       {
         moduleTitle: "Treinamento Particular Customizado",
@@ -139,7 +139,7 @@ const COURSES_DATA = [
     level: "Personalizado",
     rating: 5.0,
     reviewsCount: 29,
-    banner: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop",
+    banner: "images/powerapps.jpeg",
     syllabus: [
       {
         moduleTitle: "Treinamento Particular Customizado",
@@ -168,7 +168,7 @@ const COURSES_DATA = [
     level: "Personalizado",
     rating: 5.0,
     reviewsCount: 21,
-    banner: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+    banner: "images/powerautomate.jpeg",
     syllabus: [
       {
         moduleTitle: "Treinamento Particular Customizado",
@@ -197,7 +197,7 @@ const COURSES_DATA = [
     level: "Personalizado",
     rating: 5.0,
     reviewsCount: 34,
-    banner: "https://images.unsplash.com/photo-1677442136019-21780efad99a?q=80&w=600&auto=format&fit=crop",
+    banner: "images/ia.jpeg",
     syllabus: [
       {
         moduleTitle: "Treinamento Particular Customizado",
