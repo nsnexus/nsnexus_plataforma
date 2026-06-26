@@ -272,7 +272,7 @@ function handleViewPrompt(promptId) {
           Esta biblioteca de prompts de alta performance é exclusiva para alunos. Desbloqueie o acesso a todos os 1.200 prompts estruturados por R$ 99,00.
         </p>
         <div style="display:flex; gap: var(--space-4); justify-content:center;">
-          <a href="${link}" class="btn btn-primary">Adquirir Acesso (R$ 99,00)</a>
+          <a href="${link}" ${link.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="btn btn-primary">Adquirir Acesso (R$ 99,00)</a>
           <button onclick="closeModal()" class="btn btn-secondary">Voltar</button>
         </div>
       </div>
@@ -329,7 +329,7 @@ function showUnlockModal() {
         Desbloqueie o acesso a mais de 1.200 prompts prontos de IA para negócios por R$ 99,00.
       </p>
       <div style="display:flex; gap: var(--space-4); justify-content:center;">
-        <a href="${link}" class="btn btn-primary">Adquirir Acesso (R$ 99,00)</a>
+        <a href="${link}" ${link.startsWith('http') ? 'target="_blank" rel="noopener noreferrer"' : ''} class="btn btn-primary">Adquirir Acesso (R$ 99,00)</a>
         <button onclick="closeModal()" class="btn btn-secondary">Cancelar</button>
       </div>
     </div>

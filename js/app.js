@@ -200,7 +200,7 @@ function initDetailPage() {
         return;
       }
       if (course && course.paymentLink) {
-        window.location.href = course.paymentLink;
+        window.open(course.paymentLink, "_blank");
       } else {
         window.location.href = `checkout.html?id=${courseId}`;
       }
