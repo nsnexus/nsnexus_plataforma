@@ -28,6 +28,17 @@ function checkRouteGuard() {
   }
 }
 
+// Helper to redirect user to their intended page after successful login
+function navigatePostLogin() {
+  const redirectUrl = localStorage.getItem("post_login_redirect");
+  if (redirectUrl) {
+    localStorage.removeItem("post_login_redirect");
+    window.location.href = redirectUrl;
+  } else {
+    window.location.href = "dashboard.html";
+  }
+}
+
 // 1. Sync Supabase Session on load
 async function syncSupabaseSession() {
   if (!supabaseClient) {
@@ -375,7 +386,7 @@ async function handleGoogleCredentialResponse(response) {
       
       // Sync session
       await syncSupabaseSession();
-      window.location.href = "dashboard.html";
+      navigatePostLogin();
     } catch (err) {
       alert("Erro ao autenticar com o Google no Supabase: " + err.message);
     }
@@ -384,7 +395,7 @@ async function handleGoogleCredentialResponse(response) {
     const responsePayload = decodeJwtResponse(response.credential);
     if (responsePayload) {
       loginWithGoogle(responsePayload.name, responsePayload.email, responsePayload.picture);
-      window.location.href = "dashboard.html";
+      navigatePostLogin();
     }
   }
 }
@@ -416,7 +427,7 @@ async function triggerMockGoogleLogin() {
   if (!email) return;
   
   loginWithGoogle(name, email, "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop");
-  window.location.href = "dashboard.html";
+  navigatePostLogin();
 }
 
 // Initialize dynamic display controls & Supabase Sync on load

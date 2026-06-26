@@ -515,15 +515,13 @@ function initDetailPage() {
   if (enrollBtn) {
     enrollBtn.addEventListener("click", () => {
       const user = getCurrentUser();
+      const dest = course && course.paymentLink ? course.paymentLink : `checkout.html?id=${courseId}`;
       if (!user) {
+        localStorage.setItem("post_login_redirect", dest);
         window.location.href = "login.html";
         return;
       }
-      if (course && course.paymentLink) {
-        window.open(course.paymentLink, "_blank");
-      } else {
-        window.location.href = `checkout.html?id=${courseId}`;
-      }
+      window.location.href = dest;
     });
   }
 }
