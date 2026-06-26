@@ -1,8 +1,8 @@
 /* Supabase Client Configuration & Initialization for NSNexus */
 
-// 1. Substitua os placeholders abaixo pelas credenciais do seu projeto Supabase:
-const SUPABASE_URL = "https://seu-projeto.supabase.co"; // URL do seu projeto
-const SUPABASE_ANON_KEY = "sua-chave-anon-publica-aqui"; // Chave Anon pública
+// Configurado com as credenciais reais do seu projeto
+const SUPABASE_URL = "https://xdejjgeigrbsbkqakari.supabase.co"; // URL reconstruída a partir da chave do seu projeto
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhkZWpqZ2VpZ3Jic2JrcWFrYXJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI0MjY5NzEsImV4cCI6MjA5ODAwMjk3MX0.cy8kAaSWPQtu_tws8-vh4-yadd2Dvaxht0yWTjjNqtA"; // Sua chave Anon pública
 
 let supabaseClient = null;
 
