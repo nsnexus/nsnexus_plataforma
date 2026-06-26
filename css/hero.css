@@ -502,3 +502,15 @@
     object-position: center top;
   }
 }
+
+@media (max-width: 1023px) {
+  .hero__video-element,
+  .hero__video-overlay {
+    transform: none !important;
+  }
+  
+  .hero__video-wrapper:hover .hero__video-element,
+  .hero__video-wrapper:hover .hero__video-overlay {
+    transform: none !important;
+  }
+}
