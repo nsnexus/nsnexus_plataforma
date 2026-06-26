@@ -364,11 +364,28 @@ function decodeJwtResponse(token) {
 }
 
 // Google SDK Callback Handler
-function handleGoogleCredentialResponse(response) {
-  const responsePayload = decodeJwtResponse(response.credential);
-  if (responsePayload) {
-    loginWithGoogle(responsePayload.name, responsePayload.email, responsePayload.picture);
-    window.location.href = "dashboard.html";
+async function handleGoogleCredentialResponse(response) {
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithIdToken({
+        provider: 'google',
+        token: response.credential,
+      });
+      if (error) throw error;
+      
+      // Sync session
+      await syncSupabaseSession();
+      window.location.href = "dashboard.html";
+    } catch (err) {
+      alert("Erro ao autenticar com o Google no Supabase: " + err.message);
+    }
+  } else {
+    // Local Simulation
+    const responsePayload = decodeJwtResponse(response.credential);
+    if (responsePayload) {
+      loginWithGoogle(responsePayload.name, responsePayload.email, responsePayload.picture);
+      window.location.href = "dashboard.html";
+    }
   }
 }
 
@@ -402,7 +419,17 @@ async function triggerMockGoogleLogin() {
   window.location.href = "dashboard.html";
 }
 
-// Initialize Supabase Sync on load (calls guards internally)
+// Initialize dynamic display controls & Supabase Sync on load
+document.addEventListener("DOMContentLoaded", () => {
+  const mockBtn = document.getElementById("mock-google-btn");
+  const realContainer = document.getElementById("google-sdk-container");
+  
+  if (mockBtn && realContainer && window.location.protocol.startsWith("http")) {
+    mockBtn.style.display = "none";
+    realContainer.style.display = "flex";
+  }
+});
+
 syncSupabaseSession().then(() => {
   checkPaymentReturn();
 });
