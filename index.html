@@ -127,41 +127,14 @@
 
     <div class="container hero__container">
       
-      <!-- Coluna da Direita: Conteúdo Textual e Vídeo Player abaixo dos botões -->
       <div class="hero__content animate-fade-in-up delay-200">
-        <span class="hero__tag">
-          <span style="font-family: 'Material Symbols Outlined', sans-serif; font-size: 14px; margin-right: 4px;">school</span>
-          Método Business-First
-        </span>
         <h1 class="hero__title">Use dados e sistemas para <br><span class="text-gradient">crescer seu negócio.</span></h1>
         <p class="hero__description" style="margin-left: auto; margin-right: auto;">
           Aprenda Power BI, Power Apps, SharePoint, Criação de Portais Web e Inteligência Artificial sem jargões de programador. Cursos focados em gerar valor e acelerar decisões.
         </p>
         <div class="hero__actions" style="margin-bottom: var(--space-8); justify-content: center;">
-          <a href="cursos.html" class="btn btn-lg btn-primary">Conhecer Cursos</a>
+          <a href="cursos.html" class="btn btn-lg btn-primary">Conhecer Produtos</a>
           <a href="servicos.html" class="btn btn-lg btn-secondary">Consultoria Corporativa</a>
-        </div>
-        
-        <!-- Video Player integrado à coluna de conteúdo -->
-        <div class="hero__video-wrapper" style="position: relative; margin-left: auto; margin-right: auto; max-width: 520px;">
-          <video id="hero-video" class="hero__video-element" playsinline>
-            <source src="videos/nsnexus.mp4" type="video/mp4">
-            Seu navegador não suporta a reprodução deste vídeo.
-          </video>
-          
-          <!-- Overlay de Chamada de Atenção -->
-          <div id="video-overlay" class="hero__video-overlay">
-            <div class="hero__video-overlay-content">
-              <span class="material-symbols-outlined glowing-play-icon">play_circle</span>
-              <h3>Temos um recado importante para você</h3>
-              <p>Clique para assistir a mensagem da Nexus</p>
-            </div>
-          </div>
-
-          <button id="video-mute-toggle" class="video-control-btn" style="display: none;">
-            <span class="material-symbols-outlined" style="font-size: 16px;">volume_off</span>
-            <span>Ativar Som</span>
-          </button>
         </div>
       </div>
       
@@ -188,85 +161,6 @@
             }
           }, 100);
         }
-
-        const video = document.getElementById('hero-video');
-        const toggleBtn = document.getElementById('video-mute-toggle');
-        const overlay = document.getElementById('video-overlay');
-        
-        // Garantir que inicie com som e sem loop
-        video.muted = false;
-        
-        // Clique no overlay para iniciar reprodução com áudio
-        overlay.addEventListener('click', function() {
-          // Esconder overlay
-          overlay.style.opacity = '0';
-          overlay.style.visibility = 'hidden';
-          
-          // Tocar vídeo com som
-          video.currentTime = 0;
-          video.muted = false;
-          video.play();
-          
-          // Configurar o botão lateral para Mutar
-          const icon = toggleBtn.querySelector('.material-symbols-outlined');
-          const label = toggleBtn.querySelector('span:not(.material-symbols-outlined)');
-          if (icon && label) {
-            icon.textContent = 'volume_up';
-            label.textContent = 'Mutar';
-          }
-          toggleBtn.style.display = 'flex';
-        });
-
-        // Habilitar som na primeira interação do usuário com a página (fase de captura garantida)
-        const unmuteOnInteraction = (e) => {
-          // Ignorar se a interação foi diretamente no botão de controle
-          if (e && e.target && (toggleBtn.contains(e.target) || e.target === toggleBtn)) {
-            return;
-          }
-          
-          if (video.muted && !video.ended) {
-            video.muted = false;
-            const icon = toggleBtn.querySelector('.material-symbols-outlined');
-            const label = toggleBtn.querySelector('span:not(.material-symbols-outlined)');
-            if (icon && label) {
-              icon.textContent = 'volume_up';
-              label.textContent = 'Mutar';
-            }
-          }
-        };
-
-        window.addEventListener('click', unmuteOnInteraction, { capture: true, once: true });
-        window.addEventListener('keydown', unmuteOnInteraction, { capture: true, once: true });
-        window.addEventListener('touchstart', unmuteOnInteraction, { capture: true, once: true });
-
-        toggleBtn.addEventListener('click', function(e) {
-          e.stopPropagation(); // Evitar bolha de eventos secundária
-          const icon = this.querySelector('.material-symbols-outlined');
-          const label = this.querySelector('span:not(.material-symbols-outlined)');
-          
-          // Alternar mute/unmute durante a reprodução
-          if (video.muted) {
-            video.muted = false;
-            icon.textContent = 'volume_up';
-            label.textContent = 'Mutar';
-          } else {
-            video.muted = true;
-            icon.textContent = 'volume_off';
-            label.textContent = 'Ativar Som';
-          }
-        });
-
-        // Quando o vídeo acabar, restaura o overlay para convidar a assistir novamente
-        video.addEventListener('ended', function() {
-          overlay.style.opacity = '1';
-          overlay.style.visibility = 'visible';
-          toggleBtn.style.display = 'none';
-          
-          const overlayTitle = overlay.querySelector('h3');
-          if (overlayTitle) {
-            overlayTitle.textContent = "Quer assistir novamente?";
-          }
-        });
       </script>
   </section>
 
