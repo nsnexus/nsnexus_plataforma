@@ -121,8 +121,8 @@
     <canvas class="hero__bg-particles" id="hero-particles"></canvas>
     
     <!-- Elemento 3D da Spline (Robô interativo) no fundo -->
-    <div class="hero__spline-container">
-      <spline-viewer url="https://prod.spline.design/jw6O8S1ec1vIprQq/scene.splinecode"></spline-viewer>
+    <div class="hero__spline-container" style="display: block !important; position: absolute !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; width: 100% !important; height: 100% !important; z-index: 3 !important; pointer-events: auto !important;">
+      <spline-viewer url="https://prod.spline.design/jw6O8S1ec1vIprQq/scene.splinecode" style="display: block !important; width: 100% !important; height: 100% !important;"></spline-viewer>
     </div>
 
     <div class="container hero__container">
@@ -154,17 +154,18 @@
 
         // Evitar que o Spline capture o scroll do mouse (roda do mouse) e impeça a rolagem da página
         const disableSplineScrollHijack = () => {
-          const viewers = document.querySelectorAll('spline-viewer');
-          viewers.forEach((viewer) => {
-            if (viewer && !viewer.dataset.scrollFixed) {
-              // Intercepta o evento 'wheel' na fase de captura e impede a propagação até o canvas interno
-              viewer.addEventListener('wheel', (e) => {
+          if (!window.splineScrollFixed) {
+            // Escuta o evento wheel no window durante a fase de captura para interceptar antes do Spline
+            window.addEventListener('wheel', (e) => {
+              const isSpline = e.target.closest && (e.target.closest('spline-viewer') || e.target.tagName === 'SPLINE-VIEWER');
+              if (isSpline) {
+                // Impede que o evento chegue aos event listeners internos do Spline no window/document
                 e.stopPropagation();
-              }, { capture: true, passive: true });
-              
-              viewer.dataset.scrollFixed = 'true';
-            }
-          });
+              }
+            }, { capture: true, passive: true });
+            
+            window.splineScrollFixed = true;
+          }
         };
 
         let attempts = 0;
@@ -204,8 +205,8 @@
   <!-- Nossas Expertises -->
   <section style="position: relative; padding-top: var(--space-24); padding-bottom: var(--space-24); overflow: hidden;">
     <!-- Coluna da Direita: Elemento 3D da Spline (que surge no scroll) -->
-    <div class="expertises__image-container">
-      <spline-viewer url="https://prod.spline.design/Oefg-yEy7gBpBzc8/scene.splinecode"></spline-viewer>
+    <div class="expertises__image-container" style="display: block !important; position: absolute !important; left: 0 !important; right: 0 !important; top: 0 !important; bottom: 0 !important; width: 100% !important; height: 100% !important; z-index: 1 !important; opacity: 1 !important; pointer-events: auto !important;">
+      <spline-viewer url="https://prod.spline.design/Oefg-yEy7gBpBzc8/scene.splinecode" style="display: block !important; width: 100% !important; height: 100% !important;"></spline-viewer>
     </div>
 
     <div class="container">
