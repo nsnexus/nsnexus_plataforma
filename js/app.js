@@ -39,25 +39,132 @@ function initLandingPage() {
     servicesContainer.innerHTML = SERVICES_DATA.map(service => generateServiceCard(service)).join("");
   }
 
-  // Render Testimonials
-  const testimonialsContainer = document.getElementById("testimonials-swiper-wrapper");
-  if (testimonialsContainer) {
-    testimonialsContainer.innerHTML = TESTIMONIALS_DATA.map(test => `
-      <div class="swiper-slide" style="height: auto;">
-        <div class="testimonial-card" style="width: 100%; max-width: 380px; height: 100%; display: flex; flex-direction: column; justify-content: space-between;">
-          <p class="testimonial-card__quote" style="flex-grow: 1;">"${test.quote}"</p>
-          <div class="testimonial-card__author" style="margin-top: auto;">
-            <div class="testimonial-card__avatar">
-              <img src="${test.avatar}" alt="${test.name}">
-            </div>
-            <div>
-              <h4 class="testimonial-card__name">${test.name}</h4>
-              <span class="testimonial-card__title">${test.title}</span>
-            </div>
-          </div>
+  // Render Testimonials Stack
+  const stackContainer = document.getElementById("testimonial-stack");
+  if (stackContainer) {
+    stackContainer.innerHTML = TESTIMONIALS_DATA.map((test, index) => {
+      let posClass = "pos-hidden";
+      if (index === 0) posClass = "pos-front";
+      else if (index === 1) posClass = "pos-middle";
+      else if (index === 2) posClass = "pos-back";
+
+      return `
+        <div class="testimonial-card-stack-item ${posClass}" data-index="${index}">
+          <img src="${test.avatar}" alt="Avatar of ${test.name}" class="testimonial-card-stack-item__avatar">
+          <span class="testimonial-card-stack-item__quote">"${test.quote}"</span>
+          <span class="testimonial-card-stack-item__author">${test.name}</span>
+          <span style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">${test.title}</span>
         </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
+
+    let positions = TESTIMONIALS_DATA.map((_, index) => {
+      if (index === 0) return "pos-front";
+      if (index === 1) return "pos-middle";
+      if (index === 2) return "pos-back";
+      return "pos-hidden";
+    });
+
+    const updateCardPositions = () => {
+      const cards = stackContainer.querySelectorAll(".testimonial-card-stack-item");
+      cards.forEach((card, index) => {
+        card.classList.remove("pos-front", "pos-middle", "pos-back", "pos-hidden");
+        card.classList.add(positions[index]);
+        card.style.transform = "";
+        card.style.transition = "";
+        card.style.opacity = "";
+      });
+    };
+
+    const shuffle = () => {
+      positions.unshift(positions.pop()); // Rotaciona as posições (o último vai pra frente)
+      updateCardPositions();
+      setupDragHandler();
+    };
+
+    const setupDragHandler = () => {
+      const frontCard = stackContainer.querySelector(".pos-front");
+      if (!frontCard) return;
+
+      let startX = 0;
+      let currentX = 0;
+      let isDragging = false;
+
+      const onDragStart = (x) => {
+        startX = x;
+        currentX = x;
+        isDragging = true;
+        frontCard.style.transition = "none";
+      };
+
+      const onDragMove = (x) => {
+        if (!isDragging) return;
+        currentX = x;
+        const deltaX = currentX - startX;
+        
+        if (deltaX < 50) {
+          const rotation = -6 + (deltaX / 10);
+          frontCard.style.transform = `translate3d(${deltaX}px, 0, 0) rotate(${rotation}deg)`;
+        }
+      };
+
+      const onDragEnd = () => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        const deltaX = currentX - startX;
+        frontCard.style.transition = "transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease";
+        
+        if (deltaX < -120) {
+          // Animação de swipe para a esquerda
+          frontCard.style.transform = `translate3d(-400px, 0, 0) rotate(-15deg)`;
+          frontCard.style.opacity = "0";
+          
+          setTimeout(() => {
+            shuffle();
+          }, 200);
+        } else {
+          // Retorna à posição original
+          frontCard.style.transform = "";
+          setTimeout(() => {
+            frontCard.style.transition = "";
+          }, 350);
+        }
+      };
+
+      // Eventos de Mouse
+      frontCard.onmousedown = (e) => {
+        e.preventDefault();
+        onDragStart(e.clientX);
+        
+        document.onmousemove = (e) => {
+          onDragMove(e.clientX);
+        };
+        
+        document.onmouseup = () => {
+          onDragEnd();
+          document.onmousemove = null;
+          document.onmouseup = null;
+        };
+      };
+
+      // Eventos de Touch
+      frontCard.addEventListener('touchstart', (e) => {
+        onDragStart(e.touches[0].clientX);
+      }, { passive: true });
+
+      frontCard.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          onDragMove(e.touches[0].clientX);
+        }
+      }, { passive: true });
+
+      frontCard.addEventListener('touchend', () => {
+        onDragEnd();
+      });
+    };
+
+    setupDragHandler();
   }
 
   // Initialize Swiper.js
@@ -80,33 +187,6 @@ function initLandingPage() {
       navigation: {
         nextEl: ".showcase-swiper .swiper-button-next",
         prevEl: ".showcase-swiper .swiper-button-prev",
-      },
-      breakpoints: {
-        768: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 30,
-        },
-      },
-    });
-
-    // 2. Testimonials Swiper
-    new Swiper(".testimonials-swiper", {
-      slidesPerView: 1,
-      spaceBetween: 20,
-      loop: true,
-      grabCursor: true,
-      autoplay: {
-        delay: 4500,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".testimonials-swiper .swiper-pagination",
-        clickable: true,
-        dynamicBullets: true,
       },
       breakpoints: {
         768: {
