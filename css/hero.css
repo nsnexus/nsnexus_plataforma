@@ -447,56 +447,7 @@ spline-viewer {
     0 0 50px rgba(0, 245, 212, 0.25);
 }
 
-/* Expertises Section Layout (Desktop Grid & Transition Image) */
-.expertises__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-12);
-  align-items: center;
-  position: relative;
-  z-index: 10;
-  pointer-events: none; /* Permite cliques passarem para o Spline nas áreas vazias */
-}
-
-.expertises__grid > * {
-  pointer-events: auto; /* Mantém os cards e textos clicáveis/interativos */
-}
-
-.expertises__image-container {
-  display: block !important;
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-  z-index: 1 !important; /* Fica no fundo */
-}
-
-.expertises__image-container spline-viewer {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-@media (min-width: 1024px) {
-  .expertises__grid {
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: var(--space-16);
-  }
-  
-  .expertises__image-container {
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    z-index: 1 !important;
-  }
-}
+/* Expertises Section Layout (Full Width Grid) */
 
 @media (max-width: 1023px) {
   html {
