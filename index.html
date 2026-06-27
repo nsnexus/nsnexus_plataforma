@@ -108,7 +108,9 @@
       color: var(--accent-cyan);
       border: 1px solid rgba(0, 245, 212, 0.2);
     }
-  </style>
+  
+  <!-- Spline 3D Viewer -->
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js"></script>
 </head>
 <body>
 
@@ -117,14 +119,12 @@
     <div class="hero__bg-glow"></div>
     <canvas class="hero__bg-particles" id="hero-particles"></canvas>
     
-    <!-- Imagem do Robô AI fora do container para ir de ponta a ponta na esquerda -->
-    <div class="hero__visual">
-      <img src="images/hero.svg" alt="NSNexus Inteligência Artificial">
+    <!-- Elemento 3D da Spline (Robô interativo) no fundo -->
+    <div class="hero__spline-container">
+      <spline-viewer url="https://prod.spline.design/jw6O8S1ec1vIprQq/scene.splinecode"></spline-viewer>
     </div>
 
     <div class="container hero__container">
-      <!-- Espaço reservado para o Robô no grid em Desktop -->
-      <div class="hero__visual-spacer" style="pointer-events: none; min-height: 100px;"></div>
       
       <!-- Coluna da Direita: Conteúdo Textual e Vídeo Player abaixo dos botões -->
       <div class="hero__content animate-fade-in-up delay-200">
@@ -133,16 +133,16 @@
           Método Business-First
         </span>
         <h1 class="hero__title">Use dados e sistemas para <br><span class="text-gradient">crescer seu negócio.</span></h1>
-        <p class="hero__description" style="margin-left: 0; margin-right: 0;">
+        <p class="hero__description" style="margin-left: auto; margin-right: auto;">
           Aprenda Power BI, Power Apps, SharePoint, Criação de Portais Web e Inteligência Artificial sem jargões de programador. Cursos focados em gerar valor e acelerar decisões.
         </p>
-        <div class="hero__actions" style="margin-bottom: var(--space-8); justify-content: flex-start;">
+        <div class="hero__actions" style="margin-bottom: var(--space-8); justify-content: center;">
           <a href="cursos.html" class="btn btn-lg btn-primary">Conhecer Cursos</a>
           <a href="servicos.html" class="btn btn-lg btn-secondary">Consultoria Corporativa</a>
         </div>
         
         <!-- Video Player integrado à coluna de conteúdo -->
-        <div class="hero__video-wrapper" style="position: relative; margin-left: 0; margin-right: auto; max-width: 520px;">
+        <div class="hero__video-wrapper" style="position: relative; margin-left: auto; margin-right: auto; max-width: 520px;">
           <video id="hero-video" class="hero__video-element" playsinline>
             <source src="videos/nsnexus.mp4" type="video/mp4">
             Seu navegador não suporta a reprodução deste vídeo.
