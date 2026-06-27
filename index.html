@@ -166,6 +166,29 @@
       </div>
       
       <script>
+        // Remover marca d'água "Built with Spline" do Shadow DOM
+        const removeSplineLogo = () => {
+          const viewer = document.querySelector('spline-viewer');
+          if (viewer && viewer.shadowRoot) {
+            const logo = viewer.shadowRoot.querySelector('#logo');
+            if (logo) {
+              logo.remove();
+              return true;
+            }
+          }
+          return false;
+        };
+
+        if (!removeSplineLogo()) {
+          let attempts = 0;
+          const interval = setInterval(() => {
+            attempts++;
+            if (removeSplineLogo() || attempts > 100) {
+              clearInterval(interval);
+            }
+          }, 100);
+        }
+
         const video = document.getElementById('hero-video');
         const toggleBtn = document.getElementById('video-mute-toggle');
         const overlay = document.getElementById('video-overlay');
