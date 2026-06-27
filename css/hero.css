@@ -462,13 +462,9 @@
   z-index: 1;
 }
 
-.expertises__image-img {
+.expertises__image-container spline-viewer {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: left center;
-  filter: drop-shadow(0 0 45px rgba(0, 102, 255, 0.08));
-  transition: all var(--transition-slow);
 }
 
 @media (min-width: 1024px) {
@@ -483,9 +479,6 @@
     opacity: 1;
     pointer-events: auto;
     z-index: 5;
-  }
-  .expertises__image-img {
-    object-position: center top;
   }
 }
 
