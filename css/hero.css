@@ -55,7 +55,7 @@
 
 .hero__content {
   text-align: center;
-  pointer-events: auto; /* Captura cliques para botões, vídeo e texto */
+  pointer-events: none; /* Permite que o mouse passe através do texto para interagir com o Spline */
 }
 
 @media (min-width: 1024px) {
@@ -116,6 +116,7 @@
   flex-direction: column;
   gap: var(--space-4);
   justify-content: center;
+  pointer-events: auto; /* Permite cliques nos botões */
 }
 
 @media (min-width: 576px) {
