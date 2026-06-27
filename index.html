@@ -152,10 +152,26 @@
           });
         };
 
+        // Evitar que o Spline capture o scroll do mouse (roda do mouse) e impeça a rolagem da página
+        const disableSplineScrollHijack = () => {
+          const viewers = document.querySelectorAll('spline-viewer');
+          viewers.forEach((viewer) => {
+            if (viewer && !viewer.dataset.scrollFixed) {
+              // Intercepta o evento 'wheel' na fase de captura e impede a propagação até o canvas interno
+              viewer.addEventListener('wheel', (e) => {
+                e.stopPropagation();
+              }, { capture: true, passive: true });
+              
+              viewer.dataset.scrollFixed = 'true';
+            }
+          });
+        };
+
         let attempts = 0;
         const interval = setInterval(() => {
           attempts++;
           removeSplineLogos();
+          disableSplineScrollHijack();
           if (attempts > 100) {
             clearInterval(interval);
           }
