@@ -757,3 +757,79 @@
   border: none;
 }
 
+
+/* 15. Logo Ticker Styles */
+.logo-ticker-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: var(--space-8) 0;
+  background: rgba(6, 7, 13, 0.4);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Efeito de fade/sombreamento nas bordas esquerda e direita */
+.logo-ticker-container::before,
+.logo-ticker-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.logo-ticker-container::before {
+  left: 0;
+  background: linear-gradient(to right, #06070d 0%, rgba(6, 7, 13, 0) 100%);
+}
+
+.logo-ticker-container::after {
+  right: 0;
+  background: linear-gradient(to left, #06070d 0%, rgba(6, 7, 13, 0) 100%);
+}
+
+.logo-ticker-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: ticker-slide 30s linear infinite;
+}
+
+.logo-ticker-track:hover {
+  animation-play-state: paused; /* Pausa o movimento ao passar o mouse */
+}
+
+.logo-ticker-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-8);
+  width: 180px; /* Largura fixa para manter o ritmo de rolagem equilibrado */
+  height: 40px;
+}
+
+.logo-ticker-item svg {
+  height: 26px;
+  width: auto;
+  opacity: 0.35;
+  transition: opacity var(--transition-normal), filter var(--transition-normal);
+  filter: grayscale(100%) brightness(1.8);
+}
+
+.logo-ticker-item:hover svg {
+  opacity: 0.95;
+  filter: grayscale(0%) brightness(1);
+}
+
+@keyframes ticker-slide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
