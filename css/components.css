@@ -758,100 +758,39 @@
 }
 
 
-/* 15. Logo Ticker Styles */
-.logo-ticker-container {
+/* 15. Hero Glow Divider (Luz sob o Hero) */
+.hero-glow-divider {
   position: relative;
   width: 100%;
-  overflow: hidden;
-  padding: var(--space-12) 0;
+  height: 40px;
   background: transparent;
-  border: none;
-}
-
-/* Efeito de luz neon refletida na base do carrossel */
-.logo-ticker-glow {
-  position: absolute;
-  bottom: 0;
-  left: 10%;
-  width: 80%;
-  height: 60px;
-  background: radial-gradient(ellipse at bottom, rgba(0, 245, 212, 0.12) 0%, rgba(0, 102, 255, 0.04) 50%, rgba(6, 7, 13, 0) 70%);
+  overflow: visible; /* Permite que o glow se espalhe para fora do container */
+  margin-top: -20px;
+  margin-bottom: var(--space-8);
+  z-index: 5;
   pointer-events: none;
-  z-index: 1;
 }
 
-.logo-ticker-glow::after {
-  content: "";
+/* Linha brilhante ciano/azul que corta a tela toda */
+.hero-glow-divider__line {
   position: absolute;
-  bottom: 0;
+  top: 50%;
   left: 0;
   width: 100%;
-  height: 1px;
-  background: linear-gradient(to right, rgba(0, 245, 212, 0) 0%, rgba(0, 245, 212, 0.8) 20%, rgba(0, 102, 255, 0.8) 80%, rgba(0, 102, 255, 0) 100%);
-  box-shadow: 0 -1px 12px 2px rgba(0, 245, 212, 0.4), 0 -1px 20px 4px rgba(0, 102, 255, 0.2);
+  height: 2px;
+  background: linear-gradient(to right, rgba(0, 245, 212, 0) 0%, rgba(0, 245, 212, 0.9) 25%, rgba(0, 102, 255, 0.9) 75%, rgba(0, 102, 255, 0) 100%);
+  box-shadow: 0 0 18px 3px rgba(0, 245, 212, 0.7), 0 0 30px 6px rgba(0, 102, 255, 0.5);
 }
 
-/* Efeito de fade/sombreamento nas bordas esquerda e direita */
-.logo-ticker-container::before,
-.logo-ticker-container::after {
-  content: "";
+/* Ambient glow suave que sobe iluminando o robô do Hero */
+.hero-glow-divider__ambient {
   position: absolute;
-  top: 0;
-  width: 150px;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.logo-ticker-container::before {
-  left: 0;
-  background: linear-gradient(to right, #06070d 0%, rgba(6, 7, 13, 0) 100%);
-}
-
-.logo-ticker-container::after {
-  right: 0;
-  background: linear-gradient(to left, #06070d 0%, rgba(6, 7, 13, 0) 100%);
-}
-
-.logo-ticker-track {
-  display: flex;
-  width: max-content;
-  align-items: center;
-  animation: ticker-slide 30s linear infinite;
-}
-
-.logo-ticker-track:hover {
-  animation-play-state: paused; /* Pausa o movimento ao passar o mouse */
-}
-
-.logo-ticker-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 var(--space-8);
-  width: 180px; /* Largura fixa para manter o ritmo de rolagem equilibrado */
-  height: 40px;
-}
-
-.logo-ticker-item svg {
-  height: 26px;
-  width: auto;
-  opacity: 0.35;
-  transition: opacity var(--transition-normal), filter var(--transition-normal);
-  filter: grayscale(100%) brightness(1.8);
-}
-
-.logo-ticker-item:hover svg {
-  opacity: 0.95;
-  filter: grayscale(0%) brightness(1);
-}
-
-@keyframes ticker-slide {
-  0% {
-    transform: translate3d(0, 0, 0);
-  }
-  100% {
-    transform: translate3d(-50%, 0, 0);
-  }
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 240px; /* Bem alto para iluminar a parte do robô */
+  background: radial-gradient(ellipse at center, rgba(0, 245, 212, 0.16) 0%, rgba(0, 102, 255, 0.08) 50%, rgba(6, 7, 13, 0) 75%);
+  filter: blur(20px);
 }
 
