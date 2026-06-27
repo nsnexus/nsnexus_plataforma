@@ -262,6 +262,9 @@
   transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .service-card::before {
@@ -306,6 +309,7 @@
 
 .service-card__features {
   margin: var(--space-6) 0;
+  flex-grow: 1;
 }
 
 .service-card__features li {

@@ -239,7 +239,7 @@ const SERVICES_DATA = [
   },
   {
     id: "consultoria-ia",
-    title: "Implementação de Soluções de IA & Copilot",
+    title: "Implementação de Soluções de IA",
     icon: "psychology",
     description: "Auxiliamos sua empresa a adotar ferramentas de Inteligência Artificial para produtividade, automação de tarefas e análise inteligente de dados.",
     features: [
