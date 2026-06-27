@@ -447,19 +447,28 @@
   grid-template-columns: 1fr;
   gap: var(--space-12);
   align-items: center;
+  position: relative;
+  z-index: 10;
+  pointer-events: none; /* Permite cliques passarem para o Spline nas áreas vazias */
+}
+
+.expertises__grid > * {
+  pointer-events: auto; /* Mantém os cards e textos clicáveis/interativos */
 }
 
 .expertises__image-container {
   display: block;
   position: absolute;
-  right: -20%;
+  left: 0;
+  right: 0;
   top: 0;
   bottom: 0;
-  width: 60%;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  opacity: 0.15;
-  pointer-events: none;
-  z-index: 1;
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 1; /* Fica no fundo */
 }
 
 .expertises__image-container spline-viewer {
@@ -474,11 +483,12 @@
   }
   
   .expertises__image-container {
+    left: 0;
     right: 0;
-    width: 42%;
+    width: 100%;
     opacity: 1;
     pointer-events: auto;
-    z-index: 5;
+    z-index: 1;
   }
 }
 
