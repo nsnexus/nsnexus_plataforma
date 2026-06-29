@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { COURSES_DATA, SERVICES_DATA, TESTIMONIALS_DATA } from '../data/platformData';
 import { CourseCard } from '../components/CourseCard';
@@ -118,6 +118,198 @@ export const Home = () => {
   
   const frontCardRef = useRef(null);
 
+  useEffect(() => {
+    // 1. Load Spline script dynamically if not present
+    const scriptId = 'spline-viewer-script';
+    let script = document.getElementById(scriptId);
+    if (!script) {
+      script = document.createElement('script');
+      script.id = scriptId;
+      script.type = 'module';
+      script.src = 'https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js';
+      document.head.appendChild(script);
+    }
+
+    // 2. Set up interactive Canvas particles background
+    const canvas = document.getElementById("hero-particles");
+    let animationFrameId;
+    let resizeHandler;
+    let mouseMoveHandler;
+    let mouseLeaveHandler;
+
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      let particlesArray = [];
+      
+      const resizeCanvas = () => {
+        if (canvas && canvas.parentElement) {
+          canvas.width = canvas.parentElement.offsetWidth;
+          canvas.height = canvas.parentElement.offsetHeight;
+        }
+      };
+      
+      resizeCanvas();
+      resizeHandler = () => {
+        resizeCanvas();
+        init();
+      };
+      window.addEventListener("resize", resizeHandler);
+
+      let mouse = {
+        x: null,
+        y: null,
+        radius: 120
+      };
+
+      mouseMoveHandler = (event) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = event.clientX - rect.left;
+        mouse.y = event.clientY - rect.top;
+      };
+      window.addEventListener("mousemove", mouseMoveHandler);
+
+      mouseLeaveHandler = () => {
+        mouse.x = null;
+        mouse.y = null;
+      };
+      window.addEventListener("mouseleave", mouseLeaveHandler);
+
+      class Particle {
+        constructor(x, y, directionX, directionY, size, color) {
+          this.x = x;
+          this.y = y;
+          this.directionX = directionX;
+          this.directionY = directionY;
+          this.size = size;
+          this.color = color;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+        
+        update() {
+          if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+          }
+          if (this.y > canvas.height || this.y < 0) {
+            this.directionY = -this.directionY;
+          }
+
+          if (mouse.x !== null && mouse.y !== null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < mouse.radius + this.size) {
+              if (mouse.x < this.x && this.x < canvas.width - this.size * 10) {
+                this.x += 3;
+              }
+              if (mouse.x > this.x && this.x > this.size * 10) {
+                this.x -= 3;
+              }
+              if (mouse.y < this.y && this.y < canvas.height - this.size * 10) {
+                this.y += 3;
+              }
+              if (mouse.y > this.y && this.y > this.size * 10) {
+                this.y -= 3;
+              }
+            }
+          }
+
+          this.x += this.directionX;
+          this.y += this.directionY;
+          this.draw();
+        }
+      }
+
+      const init = () => {
+        particlesArray = [];
+        let numberOfParticles = (canvas.width * canvas.height) / 12000;
+        numberOfParticles = Math.min(numberOfParticles, 80);
+        
+        for (let i = 0; i < numberOfParticles; i++) {
+          let size = (Math.random() * 2) + 1;
+          let x = (Math.random() * ((canvas.width - size * 2) - (size * 2)) + size * 2);
+          let y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
+          let directionX = (Math.random() * 0.4) - 0.2;
+          let directionY = (Math.random() * 0.4) - 0.2;
+          let color = i % 2 === 0 ? 'rgba(0, 245, 212, 0.2)' : 'rgba(0, 102, 255, 0.25)';
+          particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
+        }
+      };
+
+      const connect = () => {
+        let opacityValue = 1;
+        for (let a = 0; a < particlesArray.length; a++) {
+          for (let b = a; b < particlesArray.length; b++) {
+            let dx = particlesArray[a].x - particlesArray[b].x;
+            let dy = particlesArray[a].y - particlesArray[b].y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 120) {
+              opacityValue = 1 - (distance / 120);
+              ctx.strokeStyle = `rgba(0, 102, 255, ${opacityValue * 0.08})`;
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+              ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+              ctx.stroke();
+            }
+          }
+        }
+      };
+
+      const animate = () => {
+        animationFrameId = requestAnimationFrame(animate);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particlesArray.length; i++) {
+          particlesArray[i].update();
+        }
+        connect();
+      };
+
+      init();
+      animate();
+    }
+
+    // 3. Remove watermark "Built with Spline" and mousewheel zoom hijack
+    const cleanSpline = () => {
+      const viewers = document.querySelectorAll('spline-viewer');
+      viewers.forEach((viewer) => {
+        if (viewer && viewer.shadowRoot) {
+          const logo = viewer.shadowRoot.querySelector('#logo');
+          if (logo) {
+            logo.remove();
+          }
+        }
+      });
+    };
+
+    const interval = setInterval(cleanSpline, 500);
+
+    const handleWheel = (e) => {
+      const isSpline = e.target.closest && (e.target.closest('spline-viewer') || e.target.tagName === 'SPLINE-VIEWER');
+      if (isSpline) {
+        e.stopPropagation();
+      }
+    };
+    window.addEventListener('wheel', handleWheel, { capture: true, passive: true });
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('wheel', handleWheel, { capture: true });
+      if (resizeHandler) window.removeEventListener("resize", resizeHandler);
+      if (mouseMoveHandler) window.removeEventListener("mousemove", mouseMoveHandler);
+      if (mouseLeaveHandler) window.removeEventListener("mouseleave", mouseLeaveHandler);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   // Featured lists
   const featuredCourses = COURSES_DATA.slice(0, 3);
   const featuredServices = SERVICES_DATA;
@@ -200,10 +392,13 @@ export const Home = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="hero">
-        <div className="hero__background">
-          <div className="hero__glow hero__glow--cyan"></div>
-          <div className="hero__glow hero__glow--violet"></div>
+      <section className="hero" style={{ position: 'relative' }}>
+        <div className="hero__bg-glow"></div>
+        <canvas className="hero__bg-particles" id="hero-particles"></canvas>
+        
+        {/* Elemento 3D da Spline (Robô interativo) no fundo */}
+        <div className="hero__spline-container" style={{ display: 'block', position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, width: '100%', height: '100%', zIndex: 3, pointerEvents: 'auto' }}>
+          <spline-viewer url="https://prod.spline.design/jw6O8S1ec1vIprQq/scene.splinecode" style={{ display: 'block', width: '100%', height: '100%' }}></spline-viewer>
         </div>
 
         <div className="container hero__container">
@@ -214,31 +409,31 @@ export const Home = () => {
             </span>
             
             <h1 className="hero__title">
-              Desenvolva Tecnologias sob a <span className="accent-gradient">Ótica de Negócios</span>
+              O futuro dos negócios é <br/>
+              <span className="text-gradient">guiado por inteligência.</span>
             </h1>
             
-            <p className="hero__subtitle">
-              Aprenda Power BI, Power Apps, SharePoint, Sistemas e IA sob a ótica de negócios. Domine as ferramentas que aceleram decisões e automatizam rotinas.
+            <p className="hero__description" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+              Conectamos Power BI, SharePoint e IA para criar portais de alto impacto e automatizar fluxos de trabalho. Cursos práticos e consultoria estratégica sem complicação.
             </p>
             
-            <div className="hero__actions">
+            <div className="hero__actions" style={{ marginBottom: 'var(--space-8)', justifyContent: 'center' }}>
               <Link to="/cursos" className="btn btn-lg btn-primary">
-                Ver Catálogo de Cursos
+                Conhecer Produtos
               </Link>
-              <Link to="/servicos" className="btn btn-lg btn-outline">
-                Solicitar Consultoria
+              <Link to="/servicos" className="btn btn-lg btn-secondary">
+                Agendar Consultoria
               </Link>
-            </div>
-          </div>
-
-          <div className="hero__media reveal active">
-            <div className="hero__media-wrapper">
-              <img src="/images/hero.svg" alt="Ilustração de Tecnologia" className="hero__media-img" />
-              <div className="hero__media-glow"></div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Divisor Luminoso (Horizon Glow) entre Hero e Expertises */}
+      <div className="hero-glow-divider">
+        <div className="hero-glow-divider__line"></div>
+        <div className="hero-glow-divider__ambient"></div>
+      </div>
 
       {/* Tech Cards Section */}
       <section className="container" style={{ paddingBottom: 'var(--space-12)' }}>
