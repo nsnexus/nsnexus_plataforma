@@ -5,6 +5,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import { VirtualAssistant } from './components/VirtualAssistant';
 
 // Pages
 import Home from './pages/Home';
@@ -97,6 +98,7 @@ const AppLayout = () => {
         <Route path="*" element={<Home />} />
       </Routes>
       {showHeaderFooter && <Footer />}
+      <VirtualAssistant />
     </>
   );
 };

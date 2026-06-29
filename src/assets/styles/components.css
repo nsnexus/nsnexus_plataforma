@@ -763,6 +763,76 @@
 }
 
 
+/* ---------- Virtual Assistant (Luzia) ---------- */
+.assistant-bubble:hover {
+  transform: scale(1.08);
+}
+.assistant-bubble span {
+  transition: transform var(--transition-normal);
+}
+.assistant-bubble:hover span {
+  transform: rotate(15deg);
+}
+
+/* Typing indicator dots animation */
+@keyframes typingPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.assistant-window .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-secondary);
+  border-radius: 50%;
+  animation: typingPulse 1s infinite ease-in-out;
+}
+
+.assistant-window .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.assistant-window .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+/* Scrollbar styling for chat messages */
+.assistant-window > div::-webkit-scrollbar {
+  width: 5px;
+}
+.assistant-window > div::-webkit-scrollbar-track {
+  background: transparent;
+}
+.assistant-window > div::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+.assistant-window > div::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* Media Query for mobile chat window height */
+@media (max-width: 480px) {
+  .assistant-window {
+    right: 12px !important;
+    bottom: 80px !important;
+    width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 100px) !important;
+  }
+  .assistant-bubble {
+    right: 12px !important;
+    bottom: 12px !important;
+  }
+}
+
+
 /* 15. Hero Glow Divider (Luz sob o Hero) */
 .hero-glow-divider {
   position: relative;
