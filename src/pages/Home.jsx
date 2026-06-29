@@ -722,7 +722,7 @@ export const Home = () => {
 
       {/* Video Modal */}
       {modalVideo && (
-        <div id="video-modal" className="video-modal video-modal--active" onClick={closeVideo}>
+        <div id="video-modal" className="video-modal active" onClick={closeVideo}>
           <div className="video-modal__content animate-fade-in-up" onClick={(e) => e.stopPropagation()}>
             <button id="video-modal-close" className="video-modal__close" onClick={closeVideo}>
               &times;

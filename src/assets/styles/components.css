@@ -719,7 +719,8 @@
   visibility: hidden;
   transition: all 0.3s ease;
 }
-.video-modal.active {
+.video-modal.active,
+.video-modal--active {
   opacity: 1;
   visibility: visible;
 }
