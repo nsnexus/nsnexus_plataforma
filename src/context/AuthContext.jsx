@@ -18,9 +18,30 @@ export const AuthProvider = ({ children }) => {
         .single();
 
       if (profileError && profileError.code === 'PGRST116') {
-        // Profile doesn't exist yet, try syncing email or let trigger create it
-        console.log("Profile not found in database. Retrying profile load shortly...");
-        return null;
+        console.log("Profile not found in database. Creating default profile...");
+        const fallbackName = userEmail ? userEmail.split('@')[0] : 'Estudante';
+        const defaultAvatar = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=100&auto=format&fit=crop";
+        
+        const newProfile = {
+          id: userId,
+          email: userEmail,
+          name: fallbackName,
+          avatar_url: defaultAvatar,
+          role: userEmail === 'narcisofelizardo@gmail.com' ? 'admin' : 'student',
+          progress: {}
+        };
+
+        try {
+          // Attempt client-side insertion (safe fallback)
+          await supabase.from('profiles').insert(newProfile);
+        } catch (insertErr) {
+          console.error("Client-side profile insert skipped or failed:", insertErr);
+        }
+
+        return {
+          ...newProfile,
+          enrolledCourses: []
+        };
       }
 
       // 2. Fetch approved purchases for enrolledCourses

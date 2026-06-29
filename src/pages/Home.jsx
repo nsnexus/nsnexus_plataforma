@@ -119,18 +119,7 @@ export const Home = () => {
   const frontCardRef = useRef(null);
 
   useEffect(() => {
-    // 1. Load Spline script dynamically if not present
-    const scriptId = 'spline-viewer-script';
-    let script = document.getElementById(scriptId);
-    if (!script) {
-      script = document.createElement('script');
-      script.id = scriptId;
-      script.type = 'module';
-      script.src = 'https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js';
-      document.head.appendChild(script);
-    }
-
-    // 2. Set up interactive Canvas particles background
+    // Set up interactive Canvas particles background
     const canvas = document.getElementById("hero-particles");
     let animationFrameId;
     let resizeHandler;
@@ -277,32 +266,7 @@ export const Home = () => {
       animate();
     }
 
-    // 3. Remove watermark "Built with Spline" and mousewheel zoom hijack
-    const cleanSpline = () => {
-      const viewers = document.querySelectorAll('spline-viewer');
-      viewers.forEach((viewer) => {
-        if (viewer && viewer.shadowRoot) {
-          const logo = viewer.shadowRoot.querySelector('#logo');
-          if (logo) {
-            logo.remove();
-          }
-        }
-      });
-    };
-
-    const interval = setInterval(cleanSpline, 500);
-
-    const handleWheel = (e) => {
-      const isSpline = e.target.closest && (e.target.closest('spline-viewer') || e.target.tagName === 'SPLINE-VIEWER');
-      if (isSpline) {
-        e.stopPropagation();
-      }
-    };
-    window.addEventListener('wheel', handleWheel, { capture: true, passive: true });
-
     return () => {
-      clearInterval(interval);
-      window.removeEventListener('wheel', handleWheel, { capture: true });
       if (resizeHandler) window.removeEventListener("resize", resizeHandler);
       if (mouseMoveHandler) window.removeEventListener("mousemove", mouseMoveHandler);
       if (mouseLeaveHandler) window.removeEventListener("mouseleave", mouseLeaveHandler);
@@ -396,10 +360,7 @@ export const Home = () => {
         <div className="hero__bg-glow"></div>
         <canvas className="hero__bg-particles" id="hero-particles"></canvas>
         
-        {/* Elemento 3D da Spline (Robô interativo) no fundo */}
-        <div className="hero__spline-container" style={{ display: 'block', position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, width: '100%', height: '100%', zIndex: 3, pointerEvents: 'auto' }}>
-          <spline-viewer url="https://prod.spline.design/jw6O8S1ec1vIprQq/scene.splinecode" style={{ display: 'block', width: '100%', height: '100%' }}></spline-viewer>
-        </div>
+
 
         <div className="container hero__container">
           <div className="hero__content animate-fade-in-up delay-200">
