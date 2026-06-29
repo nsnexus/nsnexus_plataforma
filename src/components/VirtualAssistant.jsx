@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 const SYSTEM_INSTRUCTION = `
-Você é a "Luzia", a Assistente Virtual inteligente da NSNexus (plataforma de cursos e consultoria corporativa de impacto).
+Você é a "Fabi", a Assistente Virtual inteligente da NSNexus (plataforma de cursos e consultoria corporativa de impacto).
 Seu objetivo principal é ajudar os visitantes do site, tirar dúvidas sobre os cursos e guiar leads interessados a fechar negócios ou solicitar orçamentos.
 
 Aqui está o seu catálogo de produtos e serviços para consulta:
@@ -62,7 +62,7 @@ export const VirtualAssistant = () => {
     {
       id: 'welcome',
       sender: 'assistant',
-      text: 'Olá! Sou a **Luzia**, a inteligência artificial da **NSNexus**. ⚡\nComo posso te ajudar hoje? Selecione uma das opções rápidas abaixo ou digite sua pergunta livremente!',
+      text: 'Olá! Sou a **Fabi**, a inteligência artificial da **NSNexus**. 🤖\nComo posso te ajudar hoje? Selecione uma das opções rápidas abaixo ou digite sua pergunta livremente!',
       timestamp: new Date()
     }
   ]);
@@ -112,10 +112,10 @@ export const VirtualAssistant = () => {
 
       // Build chat history for Gemini context (simplifying past messages format)
       const chatHistoryText = messages
-        .map(m => `${m.sender === 'user' ? 'Usuário' : 'Luzia (Assistente)'}: ${m.text}`)
+        .map(m => `${m.sender === 'user' ? 'Usuário' : 'Fabi (Assistente)'}: ${m.text}`)
         .join('\n');
 
-      const fullPrompt = `${SYSTEM_INSTRUCTION}\n\nHistórico da Conversa:\n${chatHistoryText}\n\nUsuário: ${textToSend}\nLuzia:`;
+      const fullPrompt = `${SYSTEM_INSTRUCTION}\n\nHistórico da Conversa:\n${chatHistoryText}\n\nUsuário: ${textToSend}\nFabi:`;
 
       const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiApiKey}`, {
         method: 'POST',
@@ -237,7 +237,7 @@ export const VirtualAssistant = () => {
       <button 
         onClick={() => setIsOpen(!isOpen)}
         className="assistant-bubble"
-        title="Falar com a assistente Luzia"
+        title="Falar com a assistente Fabi"
         style={{
           position: 'fixed',
           bottom: '24px',
@@ -315,22 +315,20 @@ export const VirtualAssistant = () => {
           borderTopRightRadius: 'var(--radius-lg)'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{
-              width: '32px',
-              height: '32px',
-              borderRadius: '50%',
-              background: 'rgba(0, 245, 212, 0.1)',
-              border: '1px solid var(--accent-cyan)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '18px'
-            }}>
-              ⚡
-            </div>
+            <img 
+              src="/images/fabi_avatar.png" 
+              alt="Fabi Avatar" 
+              style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                border: '1px solid var(--accent-cyan)',
+                objectFit: 'cover'
+              }} 
+            />
             <div>
               <div style={{ fontWeight: 'bold', fontSize: 'var(--font-sm)', display: 'flex', alignItems: 'center', gap: '5px' }}>
-                Luzia
+                Fabi
                 <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-cyan)', display: 'inline-block' }}></span>
               </div>
               <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Assistente Virtual NSNexus</div>
