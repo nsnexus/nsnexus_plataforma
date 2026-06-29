@@ -134,7 +134,14 @@ export const VirtualAssistant = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Falha ao conectar com o servidor do Gemini');
+        let errorDetails = '';
+        try {
+          const errorData = await response.json();
+          errorDetails = errorData.error?.message || response.statusText;
+        } catch (_) {
+          errorDetails = response.statusText;
+        }
+        throw new Error(`Erro na API do Gemini (${response.status}): ${errorDetails}`);
       }
 
       const data = await response.json();
