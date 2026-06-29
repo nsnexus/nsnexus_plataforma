@@ -117,9 +117,59 @@ export const Home = () => {
   const [isDragging, setIsDragging] = useState(false);
   
   const frontCardRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Set up interactive Canvas particles background
+    // Detect mobile device
+    const checkDevice = () => {
+      const isMobileDevice = window.innerWidth <= 1024 || /Mobi|Android|iPhone/i.test(navigator.userAgent);
+      setIsMobile(isMobileDevice);
+      return isMobileDevice;
+    };
+    
+    const wasMobile = checkDevice();
+    const handleResize = () => {
+      checkDevice();
+    };
+    window.addEventListener("resize", handleResize);
+
+    // 1. Load Spline script dynamically ONLY on PC (desktop)
+    let splineInterval;
+    let handleWheel;
+    if (!wasMobile) {
+      const scriptId = 'spline-viewer-script';
+      let script = document.getElementById(scriptId);
+      if (!script) {
+        script = document.createElement('script');
+        script.id = scriptId;
+        script.type = 'module';
+        script.src = 'https://unpkg.com/@splinetool/viewer@1.9.0/build/spline-viewer.js';
+        document.head.appendChild(script);
+      }
+
+      const cleanSpline = () => {
+        const viewers = document.querySelectorAll('spline-viewer');
+        viewers.forEach((viewer) => {
+          if (viewer && viewer.shadowRoot) {
+            const logo = viewer.shadowRoot.querySelector('#logo');
+            if (logo) {
+              logo.remove();
+            }
+          }
+        });
+      };
+      splineInterval = setInterval(cleanSpline, 500);
+
+      handleWheel = (e) => {
+        const isSpline = e.target.closest && (e.target.closest('spline-viewer') || e.target.tagName === 'SPLINE-VIEWER');
+        if (isSpline) {
+          e.stopPropagation();
+        }
+      };
+      window.addEventListener('wheel', handleWheel, { capture: true, passive: true });
+    }
+
+    // 2. Set up interactive Canvas particles background
     const canvas = document.getElementById("hero-particles");
     let animationFrameId;
     let resizeHandler;
@@ -267,6 +317,9 @@ export const Home = () => {
     }
 
     return () => {
+      window.removeEventListener("resize", handleResize);
+      if (splineInterval) clearInterval(splineInterval);
+      if (handleWheel) window.removeEventListener('wheel', handleWheel, { capture: true });
       if (resizeHandler) window.removeEventListener("resize", resizeHandler);
       if (mouseMoveHandler) window.removeEventListener("mousemove", mouseMoveHandler);
       if (mouseLeaveHandler) window.removeEventListener("mouseleave", mouseLeaveHandler);
@@ -360,7 +413,11 @@ export const Home = () => {
         <div className="hero__bg-glow"></div>
         <canvas className="hero__bg-particles" id="hero-particles"></canvas>
         
-
+        {!isMobile && (
+          <div className="hero__spline-container" style={{ display: 'block', position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, width: '100%', height: '100%', zIndex: 3, pointerEvents: 'auto' }}>
+            <spline-viewer url="https://prod.spline.design/jw6O8S1ec1vIprQq/scene.splinecode" style={{ display: 'block', width: '100%', height: '100%' }}></spline-viewer>
+          </div>
+        )}
 
         <div className="container hero__container">
           <div className="hero__content animate-fade-in-up delay-200">
