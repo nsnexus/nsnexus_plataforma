@@ -402,7 +402,7 @@ export const Home = () => {
         </div>
 
         <div className="container hero__container">
-          <div className="hero__content reveal active">
+          <div className="hero__content animate-fade-in-up delay-200">
             <span className="hero__badge">
               <span className="hero__badge-dot"></span>
               Plataforma Corporativa & Consultoria
