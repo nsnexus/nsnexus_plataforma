@@ -106,6 +106,18 @@ export const AuthProvider = ({ children }) => {
     return data.user;
   };
 
+  // Sign In with Google OAuth
+  const signInWithGoogle = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin + '/dashboard'
+      }
+    });
+    if (error) throw error;
+    return data;
+  };
+
   // Sign Up function
   const signUp = async (email, password, name) => {
     const { data, error } = await supabase.auth.signUp({
@@ -168,7 +180,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signUp, signOut, updateProgress, reloadUser: async () => {
+    <AuthContext.Provider value={{ user, loading, signIn, signInWithGoogle, signUp, signOut, updateProgress, reloadUser: async () => {
       if (user) {
         const profileData = await fetchUserProfile(user.id, user.email);
         setUser(profileData);
