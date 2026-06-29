@@ -117,7 +117,7 @@ export const VirtualAssistant = () => {
 
       const fullPrompt = `${SYSTEM_INSTRUCTION}\n\nHistórico da Conversa:\n${chatHistoryText}\n\nUsuário: ${textToSend}\nLuzia:`;
 
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
