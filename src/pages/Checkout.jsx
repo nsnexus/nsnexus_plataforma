@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { COURSES_DATA } from '../data/platformData';
 import { supabase } from '../supabaseClient';
 
 export const Checkout = () => {
   const { courseId } = useParams();
   const navigate = useNavigate();
-  const { user, reloadUser } = useAuth();
+  const { user, reloadUser, courses } = useAuth();
   
   const [course, setCourse] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState('pix');
   const [processing, setProcessing] = useState(false);
 
   useEffect(() => {
-    const found = COURSES_DATA.find(c => c.id === courseId);
+    const found = courses.find(c => c.id === courseId);
     if (!found) {
       alert("Curso não encontrado.");
       navigate('/cursos');
       return;
     }
     setCourse(found);
-  }, [courseId, navigate]);
+  }, [courseId, navigate, courses]);
 
   if (!course) {
     return (
@@ -36,6 +35,12 @@ export const Checkout = () => {
       alert("Por favor, faça login para continuar a compra.");
       localStorage.setItem("post_login_redirect", `/checkout/${course.id}`);
       navigate('/login');
+      return;
+    }
+
+    if (course.isClosed || course.price === 0) {
+      alert("Este curso é sob consulta e não pode ser adquirido por checkout direto.");
+      navigate(`/curso/${course.id}`);
       return;
     }
 

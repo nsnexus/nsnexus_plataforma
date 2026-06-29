@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { COURSES_DATA } from '../data/platformData';
+import { useAuth } from '../context/AuthContext';
 import { CourseCard } from '../components/CourseCard';
 
 export const Cursos = () => {
+  const { courses } = useAuth();
   const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState('all');
 
@@ -20,8 +21,8 @@ export const Cursos = () => {
 
   // Filter courses
   const filteredCourses = activeCategory === 'all' 
-    ? COURSES_DATA 
-    : COURSES_DATA.filter(c => c.category === activeCategory);
+    ? courses 
+    : courses.filter(c => c.category === activeCategory);
 
   return (
     <main style={{ paddingTop: '100px', minHeight: '80vh', background: 'var(--bg-primary)' }}>
@@ -42,19 +43,19 @@ export const Cursos = () => {
             onClick={() => setActiveCategory('all')} 
             className={`btn btn-sm ${activeCategory === 'all' ? 'btn-primary' : 'btn-outline'}`}
           >
-            Tudo ({COURSES_DATA.length})
+            Tudo ({courses.length})
           </button>
           <button 
             onClick={() => setActiveCategory('ia')} 
             className={`btn btn-sm ${activeCategory === 'ia' ? 'btn-primary' : 'btn-outline'}`}
           >
-            IA & Prompts ({COURSES_DATA.filter(c => c.category === 'ia').length})
+            IA & Prompts ({courses.filter(c => c.category === 'ia').length})
           </button>
           <button 
             onClick={() => setActiveCategory('sistemas')} 
             className={`btn btn-sm ${activeCategory === 'sistemas' ? 'btn-primary' : 'btn-outline'}`}
           >
-            Sistemas & SharePoint ({COURSES_DATA.filter(c => c.category === 'sistemas').length})
+            Sistemas & SharePoint ({courses.filter(c => c.category === 'sistemas').length})
           </button>
         </div>
 

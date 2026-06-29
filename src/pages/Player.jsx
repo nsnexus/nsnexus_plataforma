@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { COURSES_DATA } from '../data/platformData';
 import { useAuth } from '../context/AuthContext';
 
 export const Player = () => {
   const { courseId, lessonId } = useParams();
-  const { user, updateProgress } = useAuth();
+  const { user, updateProgress, courses } = useAuth();
   const navigate = useNavigate();
   
   const [course, setCourse] = useState(null);
   const [activeLesson, setActiveLesson] = useState(null);
 
   useEffect(() => {
-    const foundCourse = COURSES_DATA.find(c => c.id === courseId);
+    const foundCourse = courses.find(c => c.id === courseId);
     setCourse(foundCourse);
 
     if (foundCourse) {
@@ -31,7 +30,7 @@ export const Player = () => {
       }
       setActiveLesson(foundLesson);
     }
-  }, [courseId, lessonId]);
+  }, [courseId, lessonId, courses]);
 
   if (!course || !activeLesson) {
     return (

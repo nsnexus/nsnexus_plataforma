@@ -1,11 +1,64 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
+import { COURSES_DATA } from '../data/platformData';
 
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [courses, setCourses] = useState(COURSES_DATA);
+  const [loadingCourses, setLoadingCourses] = useState(true);
+
+  // Load courses from Supabase with fallback to static platform data
+  const loadCourses = async () => {
+    setLoadingCourses(true);
+    try {
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .order('created_at', { ascending: true });
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        // Map PG snake_case column names to camelCase frontend properties
+        const mapped = data.map(c => ({
+          id: c.id,
+          title: c.title,
+          description: c.description || '',
+          price: Number(c.price) || 0,
+          originalPrice: Number(c.original_price) || 0,
+          paymentLink: c.payment_link || '',
+          duration: c.duration || '',
+          lessonsCount: c.lessons_count || '',
+          instructor: c.instructor || '',
+          type: c.type || 'video',
+          category: c.category || 'sistemas',
+          badgeClass: c.badge_class || 'badge-systems',
+          badgeLabel: c.badge_label || 'Sistemas',
+          level: c.level || 'Todos os Níveis',
+          rating: Number(c.rating) || 5.0,
+          reviewsCount: Number(c.reviews_count) || 0,
+          banner: c.banner || '',
+          isClosed: !!c.is_closed,
+          syllabus: c.syllabus || []
+        }));
+        setCourses(mapped);
+      } else {
+        setCourses(COURSES_DATA);
+      }
+    } catch (err) {
+      console.error("Error loading courses from Supabase:", err);
+      setCourses(COURSES_DATA);
+    } finally {
+      setLoadingCourses(false);
+    }
+  };
+
+  useEffect(() => {
+    loadCourses();
+  }, []);
 
   // Load profile and purchases for a given user ID
   const fetchUserProfile = async (userId, userEmail) => {
@@ -201,12 +254,24 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, signInWithGoogle, signUp, signOut, updateProgress, reloadUser: async () => {
-      if (user) {
-        const profileData = await fetchUserProfile(user.id, user.email);
-        setUser(profileData);
+    <AuthContext.Provider value={{ 
+      user, 
+      loading, 
+      signIn, 
+      signInWithGoogle, 
+      signUp, 
+      signOut, 
+      updateProgress, 
+      courses,
+      loadingCourses,
+      reloadCourses: loadCourses,
+      reloadUser: async () => {
+        if (user) {
+          const profileData = await fetchUserProfile(user.id, user.email);
+          setUser(profileData);
+        }
       }
-    }}}>
+    }}>
       {children}
     </AuthContext.Provider>
   );

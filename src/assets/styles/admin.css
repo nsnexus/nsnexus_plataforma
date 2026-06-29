@@ -144,6 +144,7 @@ a { text-decoration: none; color: inherit; }
 .topbar-right { display: flex; align-items: center; gap: 14px; }
 
 .topbar-menu-btn {
+  display: none;
   background: transparent;
   border: none;
   color: var(--text-secondary);
@@ -657,6 +658,7 @@ a { text-decoration: none; color: inherit; }
   .kpi-grid { grid-template-columns: 1fr 1fr; }
   .admin-section { padding: 24px 16px; }
   .topbar-search { display: none; }
+  .topbar-menu-btn { display: block !important; }
 }
 @media (max-width: 500px) {
   .kpi-grid { grid-template-columns: 1fr; }

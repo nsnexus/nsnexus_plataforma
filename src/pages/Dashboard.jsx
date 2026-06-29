@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { COURSES_DATA } from '../data/platformData';
 
 export const Dashboard = () => {
-  const { user } = useAuth();
+  const { user, courses } = useAuth();
 
   if (!user) {
     return (
@@ -14,11 +13,11 @@ export const Dashboard = () => {
     );
   }
 
-  // Find enrolled courses from COURSES_DATA
-  const enrolledCoursesList = COURSES_DATA.filter(c => user.enrolledCourses?.includes(c.id));
+  // Find enrolled courses from courses list
+  const enrolledCoursesList = courses.filter(c => user.enrolledCourses?.includes(c.id));
   
   // Find recommended courses (not enrolled yet)
-  const recommendedCoursesList = COURSES_DATA.filter(c => !user.enrolledCourses?.includes(c.id) && !c.isClosed);
+  const recommendedCoursesList = courses.filter(c => !user.enrolledCourses?.includes(c.id) && !c.isClosed);
 
   // Helper to calculate progress
   const getCourseProgress = (course) => {

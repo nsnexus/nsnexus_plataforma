@@ -47,6 +47,17 @@ CREATE TABLE IF NOT EXISTS public.purchases (
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.purchases ENABLE ROW LEVEL SECURITY;
 
+-- Helper function to check if the current user is an admin without causing recursion
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN AS $$
+BEGIN
+  RETURN EXISTS (
+    SELECT 1 FROM public.profiles
+    WHERE id = auth.uid() AND role = 'admin'
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
 -- 4. Set RLS Policies for Profiles
 DROP POLICY IF EXISTS "Users can read own profile" ON public.profiles;
 CREATE POLICY "Users can read own profile" ON public.profiles
@@ -57,40 +68,38 @@ CREATE POLICY "Users can update own profile except role" ON public.profiles
   FOR UPDATE USING (auth.uid() = id)
   WITH CHECK (auth.uid() = id);
 
+DROP POLICY IF EXISTS "Users can insert own profile" ON public.profiles;
+CREATE POLICY "Users can insert own profile" ON public.profiles
+  FOR INSERT WITH CHECK (auth.uid() = id);
+
 DROP POLICY IF EXISTS "Admins can view all profiles" ON public.profiles;
 CREATE POLICY "Admins can view all profiles" ON public.profiles
-  FOR SELECT USING (
-    (SELECT role FROM public.profiles WHERE id = auth.uid()) = 'admin'
-  );
+  FOR SELECT USING (public.is_admin());
 
 DROP POLICY IF EXISTS "Admins can update any profile" ON public.profiles;
 CREATE POLICY "Admins can update any profile" ON public.profiles
-  FOR UPDATE USING (
-    (SELECT role FROM public.profiles WHERE id = auth.uid()) = 'admin'
-  );
+  FOR UPDATE USING (public.is_admin());
 
 -- 5. Set RLS Policies for Purchases
 DROP POLICY IF EXISTS "Users can view own purchases" ON public.purchases;
 CREATE POLICY "Users can view own purchases" ON public.purchases
   FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can insert own purchases" ON public.purchases;
+CREATE POLICY "Users can insert own purchases" ON public.purchases
+  FOR INSERT WITH CHECK (auth.uid() = user_id);
+
 DROP POLICY IF EXISTS "Admins can view all purchases" ON public.purchases;
 CREATE POLICY "Admins can view all purchases" ON public.purchases
-  FOR SELECT USING (
-    (SELECT role FROM public.profiles WHERE id = auth.uid()) = 'admin'
-  );
+  FOR SELECT USING (public.is_admin());
 
 DROP POLICY IF EXISTS "Admins or backend can insert purchases" ON public.purchases;
 CREATE POLICY "Admins or backend can insert purchases" ON public.purchases
-  FOR INSERT WITH CHECK (
-    (SELECT role FROM public.profiles WHERE id = auth.uid()) = 'admin'
-  );
+  FOR INSERT WITH CHECK (public.is_admin());
 
 DROP POLICY IF EXISTS "Admins or backend can update purchases" ON public.purchases;
 CREATE POLICY "Admins or backend can update purchases" ON public.purchases
-  FOR UPDATE USING (
-    (SELECT role FROM public.profiles WHERE id = auth.uid()) = 'admin'
-  );
+  FOR UPDATE USING (public.is_admin());
 
 -- 6. Trigger to automatically create a profile when a new user signs up
 CREATE OR REPLACE FUNCTION public.handle_new_user()

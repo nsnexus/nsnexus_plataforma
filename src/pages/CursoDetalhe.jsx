@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { COURSES_DATA } from '../data/platformData';
 import { useAuth } from '../context/AuthContext';
 import { CountdownTimer } from '../components/CountdownTimer';
 
 export const CursoDetalhe = () => {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, courses } = useAuth();
   const [course, setCourse] = useState(null);
 
   useEffect(() => {
-    const found = COURSES_DATA.find(c => c.id === id);
+    const found = courses.find(c => c.id === id);
     setCourse(found);
-  }, [id]);
+  }, [id, courses]);
 
   if (!course) {
     return (
