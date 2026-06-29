@@ -59,7 +59,7 @@ export const Cursos = () => {
         </div>
 
         {/* Grid List */}
-        <div className="courses-grid">
+        <div className="card-grid">
           {filteredCourses.length > 0 ? (
             filteredCourses.map(course => (
               <CourseCard key={course.id} course={course} />

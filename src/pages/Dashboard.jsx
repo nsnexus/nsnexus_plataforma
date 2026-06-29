@@ -90,7 +90,7 @@ export const Dashboard = () => {
           </h2>
 
           {enrolledCoursesList.length > 0 ? (
-            <div className="courses-grid">
+            <div className="card-grid">
               {enrolledCoursesList.map(course => {
                 const isBiblioteca = course.id === 'biblioteca-prompts-ia';
                 const { percentage, completedCount, totalCount } = getCourseProgress(course);
@@ -148,7 +148,7 @@ export const Dashboard = () => {
         {recommendedCoursesList.length > 0 && (
           <div>
             <h2 style={{ fontSize: 'var(--font-xl)', marginBottom: 'var(--space-6)' }}>Recomendado para Você</h2>
-            <div className="courses-grid">
+            <div className="card-grid">
               {recommendedCoursesList.slice(0, 3).map(course => (
                 <div key={course.id} className="course-card">
                   <div className="course-card__thumb">

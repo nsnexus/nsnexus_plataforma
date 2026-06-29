@@ -197,7 +197,7 @@ export const BibliotecaPrompts = () => {
           </div>
 
           {/* Prompts Grid */}
-          <div className="courses-grid" id="prompts-list-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
+          <div className="card-grid" id="prompts-list-grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))' }}>
             {visiblePrompts.length > 0 ? (
               visiblePrompts.map(p => {
                 const categoryInfo = PROMPT_CATEGORIES[p.category] || { label: p.category, icon: "lightbulb" };

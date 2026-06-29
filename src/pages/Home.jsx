@@ -409,12 +409,11 @@ export const Home = () => {
             </span>
             
             <h1 className="hero__title">
-              O futuro dos negócios é <br/>
-              <span className="text-gradient">guiado por inteligência.</span>
+              Desenvolva Tecnologias sob a <span className="accent-gradient">Ótica de Negócios</span>
             </h1>
             
             <p className="hero__description" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-              Conectamos Power BI, SharePoint e IA para criar portais de alto impacto e automatizar fluxos de trabalho. Cursos práticos e consultoria estratégica sem complicação.
+              Aprenda Power BI, Power Apps, SharePoint, Sistemas e IA sob a ótica de negócios. Domine as ferramentas que aceleram decisões e automatizam rotinas.
             </p>
             
             <div className="hero__actions" style={{ marginBottom: 'var(--space-8)', justifyContent: 'center' }}>
@@ -438,37 +437,116 @@ export const Home = () => {
       {/* Tech Cards Section */}
       <section className="container" style={{ paddingBottom: 'var(--space-12)' }}>
         <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-card__icon" style={{ background: 'rgba(0, 245, 212, 0.1)', color: 'var(--accent-cyan)' }}>
+          {/* 1. Power BI */}
+          <div className="feature-card feature-card--pbi">
+            <div className="feature-card__icon">
               <span className="material-symbols-outlined">bar_chart</span>
             </div>
             <h3>Power BI</h3>
-            <p>Dashboards profissionais e modelagem de dados Star Schema para tomada de decisão ágil e precisa.</p>
-            <div className="feature-card__bg-icon" style={{ opacity: 0.03, color: 'var(--accent-cyan)' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '140px' }}>bar_chart</span>
-            </div>
+            <p>Dashboards executivos, modelagem dimensional Star Schema, fórmulas DAX avançadas, e inteligência de tempo voltadas para decisões rápidas.</p>
+            
+            {/* Background SVG Watermark */}
+            <svg className="feature-card__bg-icon" viewBox="0 0 100 100" fill="currentColor">
+              <rect x="20" y="55" width="16" height="30" rx="2" />
+              <rect x="42" y="35" width="16" height="50" rx="2" />
+              <rect x="64" y="15" width="16" height="70" rx="2" />
+            </svg>
           </div>
 
-          <div className="feature-card">
-            <div className="feature-card__icon" style={{ background: 'rgba(112, 0, 255, 0.1)', color: 'var(--accent-purple)' }}>
+          {/* 2. Power Apps */}
+          <div className="feature-card feature-card--powerapps">
+            <div className="feature-card__icon">
               <span className="material-symbols-outlined">widgets</span>
             </div>
             <h3>Power Apps</h3>
-            <p>Substitua planilhas por aplicativos corporativos mobile/web sob medida integrados ao M365.</p>
-            <div className="feature-card__bg-icon" style={{ opacity: 0.03, color: 'var(--accent-purple)' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '140px' }}>widgets</span>
-            </div>
+            <p>Desenvolvimento de aplicativos canvas corporativos dinâmicos com Power Fx para simplificar cadastros e formulários internos.</p>
+            
+            {/* Background SVG Watermark */}
+            <svg className="feature-card__bg-icon" viewBox="0 0 100 100" fill="currentColor">
+              <path d="M50 15 L80 40 L50 65 L20 40 Z" />
+              <path d="M50 35 L80 60 L50 85 L20 60 Z" opacity="0.65" />
+            </svg>
           </div>
 
-          <div className="feature-card">
-            <div className="feature-card__icon" style={{ background: 'rgba(0, 180, 255, 0.1)', color: 'var(--accent-blue)' }}>
+          {/* 3. SharePoint */}
+          <div className="feature-card feature-card--sharepoint">
+            <div className="feature-card__icon">
               <span className="material-symbols-outlined">hub</span>
             </div>
-            <h3>SharePoint Moderno</h3>
-            <p>Portais e formulários HTML/JS integrados nativamente nas listas de SharePoint de forma otimizada.</p>
-            <div className="feature-card__bg-icon" style={{ opacity: 0.03, color: 'var(--accent-blue)' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: '140px' }}>hub</span>
+            <h3>SharePoint</h3>
+            <p>Modelagem de intranets e portais modernos com controle total de acessos e permissões para organizar dados e arquivos empresariais.</p>
+            
+            {/* Background SVG Watermark */}
+            <svg className="feature-card__bg-icon" viewBox="0 0 100 100" fill="currentColor">
+              <circle cx="50" cy="50" r="16" />
+              <circle cx="50" cy="20" r="9" />
+              <circle cx="76" cy="35" r="9" />
+              <circle cx="76" cy="65" r="9" />
+              <circle cx="50" cy="80" r="9" />
+              <circle cx="24" cy="65" r="9" />
+              <circle cx="24" cy="35" r="9" />
+              <path d="M50 50 L50 20 M50 50 L76 35 M50 50 L76 65 M50 50 L50 80 M50 50 L24 65 M50 50 L24 35" stroke="currentColor" strokeWidth="4.5" />
+            </svg>
+          </div>
+
+          {/* 4. Inteligência Artificial */}
+          <div className="feature-card feature-card--ai">
+            <div className="feature-card__icon">
+              <span className="material-symbols-outlined">psychology</span>
             </div>
+            <h3>Inteligência Artificial</h3>
+            <p>Automatizações completas com Copilot, análise preditiva, criação de prompts estruturados e leitura de PDFs com IA Builder.</p>
+            
+            {/* Background SVG Watermark */}
+            <svg className="feature-card__bg-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="6">
+              <path d="M30 40 C 35 25, 65 25, 70 40 C 85 45, 85 75, 70 80 C 65 95, 35 95, 30 80 C 15 75, 15 45, 30 40 Z" />
+              <circle cx="50" cy="45" r="5" fill="currentColor" />
+              <circle cx="38" cy="55" r="5" fill="currentColor" />
+              <circle cx="62" cy="55" r="5" fill="currentColor" />
+              <circle cx="50" cy="68" r="5" fill="currentColor" />
+              <line x1="50" y1="45" x2="38" y2="55" />
+              <line x1="50" y1="45" x2="62" y2="55" />
+              <line x1="50" y1="68" x2="38" y2="55" />
+              <line x1="50" y1="68" x2="62" y2="55" />
+            </svg>
+          </div>
+
+          {/* 5. Criação de Sistemas */}
+          <div className="feature-card feature-card--sistemas">
+            <div className="feature-card__icon">
+              <span className="material-symbols-outlined">code</span>
+            </div>
+            <h3>Criação de Sistemas</h3>
+            <p>Desenvolvimento de portais web leves com HTML, CSS e JavaScript puro para rodar dentro do SharePoint sem taxas extras de licenças.</p>
+            
+            {/* Background SVG Watermark */}
+            <svg className="feature-card__bg-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="35 30 15 50 35 70" />
+              <polyline points="65 30 85 50 65 70" />
+              <line x1="55" y1="25" x2="45" y2="75" />
+            </svg>
+          </div>
+
+          {/* 6. Criação de Sites */}
+          <div className="feature-card feature-card--sites">
+            <div className="feature-card__icon">
+              <span className="material-symbols-outlined">desktop_windows</span>
+            </div>
+            <h3>Criação de Sites</h3>
+            <p>Criação de landing pages e plataformas otimizadas de alta conversão para atrair e qualificar clientes e leads.</p>
+            
+            {/* Background SVG Watermark */}
+            <svg className="feature-card__bg-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round">
+              <rect x="10" y="20" width="80" height="60" rx="6" />
+              <line x1="10" y1="35" x2="90" y2="35" />
+              <circle cx="20" cy="27" r="3" fill="currentColor" />
+              <circle cx="30" cy="27" r="3" fill="currentColor" />
+              <circle cx="40" cy="27" r="3" fill="currentColor" />
+              <rect x="20" y="45" width="22" height="25" rx="2" />
+              <line x1="50" y1="48" x2="80" y2="48" />
+              <line x1="50" y1="58" x2="75" y2="58" />
+              <line x1="50" y1="68" x2="70" y2="68" />
+            </svg>
           </div>
         </div>
       </section>
@@ -487,7 +565,7 @@ export const Home = () => {
           </Link>
         </div>
 
-        <div className="courses-grid" id="featured-courses-grid">
+        <div className="card-grid" id="featured-courses-grid">
           {featuredCourses.map(course => (
             <CourseCard key={course.id} course={course} />
           ))}
@@ -509,7 +587,7 @@ export const Home = () => {
         </div>
 
         {/* Portfolio Grid Layout */}
-        <div className="courses-grid">
+        <div className="card-grid">
           {SHOWCASE_PROJECTS.map(proj => (
             <div 
               key={proj.id} 

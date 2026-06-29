@@ -18,7 +18,7 @@ export const Servicos = () => {
         </div>
 
         {/* Services Grid */}
-        <div className="courses-grid">
+        <div className="card-grid">
           {SERVICES_DATA.map(service => (
             <ServiceCard key={service.id} service={service} />
           ))}
