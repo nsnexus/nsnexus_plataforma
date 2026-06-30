@@ -6,6 +6,7 @@ import { AdminRoute } from './components/AdminRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { VirtualAssistant } from './components/VirtualAssistant';
+import { CookieConsent } from './components/CookieConsent';
 
 // Pages
 import Home from './pages/Home';
@@ -99,6 +100,7 @@ const AppLayout = () => {
       </Routes>
       {showHeaderFooter && <Footer />}
       <VirtualAssistant />
+      <CookieConsent />
     </>
   );
 };

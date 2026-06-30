@@ -13,5 +13,20 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <!-- Limpeza de Service Workers antigos (Corrige tela em branco no celular) -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (var registration of registrations) {
+            registration.unregister().then(function(success) {
+              if (success) {
+                console.log('Service Worker antigo removido com sucesso!');
+                window.location.reload();
+              }
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>
